@@ -1,6 +1,7 @@
 // Which of these are the equivalent of O(N)?
 
 // 1 = O(N) LINEAR because no matter how large N becomes, it will either increase by N or stay the same.
+// O(N)
 function foo(arr) {
   var sum = 0;
   var product = 1;
@@ -15,6 +16,7 @@ function foo(arr) {
 }
 ​
 // 2  = Quadratic (as N doubles, e.g. arr.length) The time for completion exponentially doubles.
+// O(n^2)
 function foo(arr) {
   for (var i = 0; i < arr.length; i++) {
     for (var j = 0; j < arr.length; j++) {
@@ -24,6 +26,7 @@ function foo(arr) {
 }
 ​
 // 3 = Quadratic (as N doubles, e.g. arr.length) The time for completion exponentially doubles.
+// O(n^2)
 function foo(arr) {
   for (var i = 0; i < arr.length; i++) {
     for (var j = i + 1; j < arr.length; j++) {
@@ -31,9 +34,10 @@ function foo(arr) {
     }
   }
 }
-
+//(1,2) (1,3) (1,4) (1,5) (2,3) (2,4) (2,5) (3,4) (3,5) (4,5)
 ​
 // 4 = Quadratic (as N doubles, e.g. arrA/arrB.length) completion time will increase by a factor of N.
+// O(A * B)
 function foo(arrA, arrB) {
   for (var i = 0; i < arrA.length; i++) {
     for (var j = 0; j < arrB.length; j++) {
@@ -41,8 +45,9 @@ function foo(arrA, arrB) {
     }
   }
 }
+//(1,1) (1,2) (1,3) (1,4) (1,5) (2,1) (2,2) (2,3) (2,4) (2,5) (3,1) (3,2) (3,3) (3,4) (3,5) (4,1) (4,2) (4,3) (4,4) (4,5) (5,1) (5,2) (5,3) (5,4) (5,5)
 ​
-// 5
+// 5 = Exponential / O(A * B)
 function foo(arrA, arrB) {
   for (var i = 0; i < arrA.length; i++) {
     for (var j = 0; j < arrB.length; j++) {
@@ -53,7 +58,7 @@ function foo(arrA, arrB) {
   }
 }
 ​
-// 6  = O(N) LINEAR because complexity is directly proportional to N.
+// 6  = O(n Log N) Logarithmic because complexity is directly proportional to N.
 function foo(arr) {
   for (var i = 0; i < arr.length/2; i++) {
     var mirror = arr.length - i - 1;
@@ -67,9 +72,9 @@ function foo(arr) {
 ​
 Which are equivalent to O(n)? Why?
 ​
-1) O(n + p) where p < n/2   // Logarithmic
+1) O(n + p) where p < n/2   // Linear
 -> 2) O(2n)                 // Linear
-3) O(n + logn)              // Logarithmic
+3) O(n + logn)              // Linear
 -> 4) O(n + m)              // Linear
 ​
 */
@@ -95,4 +100,23 @@ function insertionSort(arr) {
     }
   }
   return arr;
+}
+
+// Quick sort: Recursive
+function quickSort(arr) {
+  if (arr.length < 2) return arr;
+  let pivot_index = Math.floor(arr.length * Math.random));
+  let pivot = arr[pivot_index];
+  let less = [], more = [];
+  for (let i = 0; i < arr.length; i++) {
+    let item = arr[i];
+    if (i !== pivot_index) {
+      if (pivote >= item) {
+        less.push(item);
+      } else {
+        more.push(item);
+      }
+    }
+  }
+  return quickSort(less).concat([pivot]).concat(quickSort(more));
 }
