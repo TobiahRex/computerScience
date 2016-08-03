@@ -284,4 +284,76 @@ function insertionSort(items) {
   }
   return items;
 }
-// n(n - 1)/2 = n2/2 - n/2 = O(n2)
+// n(n - 1)/2 = n^2/2 - n/2 = O(n^2)
+// asymtotic runtime = O(n^2)
+
+// Merge Sort - Iterative
+// Merges two arrays in order based on their natural relationship.
+function merge(left, right) {
+  let result = [];
+
+  while(left.length > 0 && right.length > 0) {
+    if (left[0] < right[0]){
+      result.push(left.shift());
+    } else {
+      result.push(right.shift());
+    }
+  }
+  result = result.concat(left).concat(right);
+  // make sure remaining arrays are empty
+  left.splice(0, left.length); // remove any left over elements in array.
+  right.splice(0, right.length); // remove any left over element in array.
+
+  return result;
+}
+function mergeSort(items) {
+  // Terminal condition - don't need to do anything for arrays with 0 or 1 items.
+  if (items.length < 2) {
+    return items;
+  }
+
+  let work = [];
+  let n = items.length;
+
+  for(let i = 0; i < n; i++) {
+    work.push([items[i]]);  // seperate each array item into a "work array" as own array.
+  }
+  work.push([]); // in case of odd number of items.
+
+
+  for (let lim = n; lim > 1; lim = Math.floor((lim+1)/2)) {
+    for (let j = 0, k = 0; k < lim; j++, k +=2){
+      work[j] = merge(work[k], work[k + 1]);
+    }
+    work[j] = [];  // in case of odd number of items;
+  }
+  return work[0];
+}
+
+//Merge Sort - Recursive
+// Merges two arrays in order based on their natural relationship.
+function merge(left, right) {
+  let result = [];
+  let ileft = 0;
+  let iright = 0;
+
+  while (ileft < left.length && ir < right.length){
+    if (left[i] < right[iright]){
+      result.push(left[ileft++]);
+    } else {
+      result.push(right[iright++]);
+    }
+  }
+  return result.concat(left.slice(ileft)).concat(right.slice(iright));
+}
+function mergeSort(items) {
+  if(items.length < 2) {
+    return items;
+  }
+
+  let middle = Math.floor(itmes.length/2),
+  left = items.slice(0, middle),
+  right = items.slice(middle);
+
+  return merge(mergeSort(left), mergeSort(right));
+}
