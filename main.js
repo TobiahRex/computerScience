@@ -251,3 +251,37 @@ HashTable.prototype.forEach = function(fn) {
     }
   }
 };
+
+// Bubble Sort
+function swap(items, firstIndex, secondIndex) {
+  let temp = items[firstIndex];
+  items[firstIndex] = items[secondIndex];
+  items[secondIndex] = temp;
+}
+function bubbleSort(items) {
+  let n = items.length;
+
+  for (let i = n-1; i >= 0; i--) {
+    for (let j = n-i; j >= 0; j--) {
+      if (items[j] < items[j-1]){
+        swap(items, j, j-1);
+      }
+    }
+  }
+  return items;
+}
+
+// Insertion Sort
+function insertionSort(items) {
+  let n = items.length;
+
+  for(let i = 0; i < n; i++) {
+    let value = items[i];
+    for(let j = i-1; j > -1) {
+      items[j+1] = items[j];
+    }
+    items[j+1] = value;
+  }
+  return items;
+}
+// n(n - 1)/2 = n2/2 - n/2 = O(n2)
