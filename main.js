@@ -5,11 +5,11 @@
 function foo(arr) {
   var sum = 0;
   var product = 1;
-​
+  ​
   for (var i = 0; i < arr.length; i++) {
     sum += arr[i];
   }
-​
+  ​
   for (var j = 0; j < arr.length; j++) {
     product *= arr[j];
   }
@@ -79,6 +79,11 @@ Which are equivalent to O(n)? Why?
 4) O(n + m)              // Linear
 ​
 */
+
+
+
+
+
 // Binary Search = O(log(n));
 while(low <= high){
   mid = (low + high) / 2;
@@ -88,6 +93,7 @@ while(low <= high){
   low = mid + 1;  // if the number is greater than the half, then add 1 to get one more than the previous low.
   else break; // else you found the number.
 }
+// NOTE: Example = Phonebook.
 
 // Linear Search = O(1)
 function linearSearch(arr) {
@@ -95,6 +101,67 @@ function linearSearch(arr) {
     if (arr[i] === targetValue) i; //found it
   }
   return -1; // didn't find it.
+}
+// NOTE: Example =
+
+
+// Bubble Sort
+function swap(items, firstIndex, secondIndex) {
+  let temp = items[firstIndex];
+  items[firstIndex] = items[secondIndex];
+  items[secondIndex] = temp;
+}
+function bubbleSort(items) {
+  let n = items.length;
+
+  for (let i = n-1; i >= 0; i--) {
+    for (let j = n-i; j >= 0; j--) {
+      if (items[j] < items[j-1]){
+        swap(items, j, j-1);
+      }
+    }
+  }
+  return items;
+}
+
+// Insertion Sort
+function insertionSort(items) {
+  let n = items.length;
+
+  for(let i = 0; i < n; i++) {
+    let value = items[i];
+    for(let j = i-1; j > -1) {
+      items[j+1] = items[j];
+    }
+    items[j+1] = value;
+  }
+  return items;
+}
+// n(n - 1)/2 = n^2/2 - n/2 = O(n^2)
+// asymtotic runtime = O(n^2)
+
+// Selection Sort
+function swap(items, firstIndex, secondIndex){
+  var temp = items[firstIndex];
+  items[firstIndex] = items[secondIndex];
+  items[secondIndex] = temp;
+}
+function selectionSort(items) {
+  let n = items.length, i, j, min;
+
+  for (i = 0, i < n; i++){
+    min = i;
+    for (j = i+1; j < n; j++){
+      if (items[j] < items[min]){
+        min = j;
+      }
+    }
+
+    if (i != min){
+      swap(items, i, min);
+    }
+  }
+  return items;
 }
 
 // Insertion Sort;
@@ -129,14 +196,84 @@ function quickSort(arr) {
   }
   return quickSort(less).concat([pivot]).concat(quickSort(more));
 }
+// Merge Sort - Iterative
+// Merges two arrays in order based on their natural relationship.
+function merge(left, right) {
+  let result = [];
+
+  while(left.length > 0 && right.length > 0) {
+    if (left[0] < right[0]){
+      result.push(left.shift());
+    } else {
+      result.push(right.shift());
+    }
+  }
+  result = result.concat(left).concat(right);
+  // make sure remaining arrays are empty
+  left.splice(0, left.length); // remove any left over elements in array.
+  right.splice(0, right.length); // remove any left over element in array.
+
+  return result;
+}
+function mergeSort(items) {
+  // Terminal condition - don't need to do anything for arrays with 0 or 1 items.
+  if (items.length < 2) {
+    return items;
+  }
+
+  let work = [];
+  let n = items.length;
+
+  for(let i = 0; i < n; i++) {
+    work.push([items[i]]);  // seperate each array item into a "work array" as own array.
+  }
+  work.push([]); // in case of odd number of items.
+
+
+  for (let lim = n; lim > 1; lim = Math.floor((lim+1)/2)) {
+    for (let j = 0, k = 0; k < lim; j++, k +=2){
+      work[j] = merge(work[k], work[k + 1]);
+    }
+    work[j] = [];  // in case of odd number of items;
+  }
+  return work[0];
+}
+
+//Merge Sort - Recursive
+// Merges two arrays in order based on their natural relationship.
+function merge(left, right) {
+  let result = [];
+  let ileft = 0;
+  let iright = 0;
+
+  while (ileft < left.length && ir < right.length){
+    if (left[i] < right[iright]){
+      result.push(left[ileft++]);
+    } else {
+      result.push(right[iright++]);
+    }
+  }
+  return result.concat(left.slice(ileft)).concat(right.slice(iright));
+}
+function mergeSort(items) {
+  if(items.length < 2) {
+    return items;
+  }
+
+  let middle = Math.floor(itmes.length/2),
+  left = items.slice(0, middle),
+  right = items.slice(middle);
+
+  return merge(mergeSort(left), mergeSort(right));
+}
 
 //Hash Table
 var LinkedList = require('./linked_list');
 
 /**
- * HashTable constructor
- * @param Number? initially allocated size
- */
+* HashTable constructor
+* @param Number? initially allocated size
+*/
 function HashTable(initialCapacity) {
   this._table = new Array(initialCapacity || 64);
   this._items = 0;
@@ -155,13 +292,13 @@ function HashTable(initialCapacity) {
 }
 
 /**
- * (Same algorithm as Java's String.hashCode)
- * Returns a hash code for this string. The hash code for a String object is
- * computed as: s[0]*31^(n-1) + s[1]*31^(n-2) + ... + s[n-1]
- * using int arithmetic, where s[i] is the ith character of the string,
- * n is the length of the string, and ^ indicates exponentiation.
- * (The hash value of the empty string is zero.)
- */
+* (Same algorithm as Java's String.hashCode)
+* Returns a hash code for this string. The hash code for a String object is
+* computed as: s[0]*31^(n-1) + s[1]*31^(n-2) + ... + s[n-1]
+* using int arithmetic, where s[i] is the ith character of the string,
+* n is the length of the string, and ^ indicates exponentiation.
+* (The hash value of the empty string is zero.)
+*/
 HashTable.prototype.hash = function(s) {
   if (typeof s !== 'string') s = JSON.stringify(s);
   var hash = 0;
@@ -252,108 +389,96 @@ HashTable.prototype.forEach = function(fn) {
   }
 };
 
-// Bubble Sort
-function swap(items, firstIndex, secondIndex) {
-  let temp = items[firstIndex];
-  items[firstIndex] = items[secondIndex];
-  items[secondIndex] = temp;
-}
-function bubbleSort(items) {
-  let n = items.length;
+function fibonacciSequence() {
+  let fibArr = [1, 2];
 
-  for (let i = n-1; i >= 0; i--) {
-    for (let j = n-i; j >= 0; j--) {
-      if (items[j] < items[j-1]){
-        swap(items, j, j-1);
+  for (let i = 2; i < Infinity; i++){
+    fibArr[i] = [i-2] + [i -1];
+    console.log(fibArr[i]);
+  }
+}
+
+function fibRecursive(n) {
+  let p = n;
+  let c = n + (n-1);
+  --n;
+  if(n !== 0){
+    return fibRecursive(c);
+  }
+  return c;
+}
+
+function fibRecursive(n){
+
+  while(n > 0) {
+    n-=1;
+    fibRecursive(n)
+  }
+}
+
+function fib(n) {
+  console.log('n: ', n);
+  if(n < 2) {
+    return 1
+  } else {
+    return (fib(n-2) + fib(n-1));
+  }
+}
+function fibMemo() {
+  const memo = {};
+
+  function f(n) {
+    const value;
+
+    if (n in memo) {
+      value = memo[n];
+    } else {
+      if (n < 2)
+      value = n;
+      else
+      value = f(n - 1) + f(n - 2);
+
+      memo[n] = value;
+    }
+    return value;
+  }
+  return f;
+}
+
+function fib(n) {
+  let memo = [];
+
+  function recurse(n) {
+    if (n < 2) return 1;
+    if (memo[n]) return memo[n];
+
+    memo[n] == recurse(n-1) + recurse(n-2);
+    return memo[n];
+  }
+  return recurse(n);
+}
+
+function electionWinner(votes) {
+  let highestSoFar = {
+    name: '',
+    count: 0
+  };
+
+  let memo = {};
+  for (let i = 0; i < votes.length; i++){
+    let name = votes[i];
+    memo[name] = memo[name] ? memo[name] + 1 : 1;
+
+    if (memo[name] > highestSoFar.count) {
+      highestSoFar = {
+        name,
+        count: memo[name]
+      }
+    } else if (memo[name] === highestSoFar.count) {
+      if (name > highestSoFar.name) {
+        highestSoFar.name = name;
       }
     }
   }
-  return items;
-}
-
-// Insertion Sort
-function insertionSort(items) {
-  let n = items.length;
-
-  for(let i = 0; i < n; i++) {
-    let value = items[i];
-    for(let j = i-1; j > -1) {
-      items[j+1] = items[j];
-    }
-    items[j+1] = value;
-  }
-  return items;
-}
-// n(n - 1)/2 = n^2/2 - n/2 = O(n^2)
-// asymtotic runtime = O(n^2)
-
-// Merge Sort - Iterative
-// Merges two arrays in order based on their natural relationship.
-function merge(left, right) {
-  let result = [];
-
-  while(left.length > 0 && right.length > 0) {
-    if (left[0] < right[0]){
-      result.push(left.shift());
-    } else {
-      result.push(right.shift());
-    }
-  }
-  result = result.concat(left).concat(right);
-  // make sure remaining arrays are empty
-  left.splice(0, left.length); // remove any left over elements in array.
-  right.splice(0, right.length); // remove any left over element in array.
-
-  return result;
-}
-function mergeSort(items) {
-  // Terminal condition - don't need to do anything for arrays with 0 or 1 items.
-  if (items.length < 2) {
-    return items;
-  }
-
-  let work = [];
-  let n = items.length;
-
-  for(let i = 0; i < n; i++) {
-    work.push([items[i]]);  // seperate each array item into a "work array" as own array.
-  }
-  work.push([]); // in case of odd number of items.
-
-
-  for (let lim = n; lim > 1; lim = Math.floor((lim+1)/2)) {
-    for (let j = 0, k = 0; k < lim; j++, k +=2){
-      work[j] = merge(work[k], work[k + 1]);
-    }
-    work[j] = [];  // in case of odd number of items;
-  }
-  return work[0];
-}
-
-//Merge Sort - Recursive
-// Merges two arrays in order based on their natural relationship.
-function merge(left, right) {
-  let result = [];
-  let ileft = 0;
-  let iright = 0;
-
-  while (ileft < left.length && ir < right.length){
-    if (left[i] < right[iright]){
-      result.push(left[ileft++]);
-    } else {
-      result.push(right[iright++]);
-    }
-  }
-  return result.concat(left.slice(ileft)).concat(right.slice(iright));
-}
-function mergeSort(items) {
-  if(items.length < 2) {
-    return items;
-  }
-
-  let middle = Math.floor(itmes.length/2),
-  left = items.slice(0, middle),
-  right = items.slice(middle);
-
-  return merge(mergeSort(left), mergeSort(right));
+  return highestSoFar.name;
 }
