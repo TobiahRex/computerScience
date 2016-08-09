@@ -482,3 +482,80 @@ function electionWinner(votes) {
   }
   return highestSoFar.name;
 }
+
+function removeNodes(list, x) {
+  let newHead = {};
+  function _removeNodes(list, x) {
+    if (list.next !== null) {
+      if(list.val <= x) {
+        newHead[val] = list.val;
+        newHead[next] = list.next;
+      }
+      return _removeNodes(list.next, x);
+    } else {
+      if (list.val <= x) newList.push({val: list.val, next: null);
+      }
+    }
+    _removeNodes(list, x);
+    let newHead = newList[0];
+
+    newList.forEach((obj, i) => {
+      newlist[i].next = newList[i+1];
+    })
+    return newList;
+  }
+}
+
+// Patrick Solution
+function removeNodes(list, x) {
+  let head = list;
+  while(head && head.val > x) {
+    head = head.next;
+  }
+  // if no nodes satisfy the condition return (null);
+  if (!head) return
+  let currentNode = head;
+  let nextNode = head.next;
+
+  while(nextNode) {
+    // we want to skip over any node with a val > x;
+    // to do this, point the currentNode's next at the nextNode's next
+    /// We'll move the nextNode reference down and keep the currentNode reference in case;
+    // Otherwise, continue walking through the list by pointing to the currentNode's next.
+
+    if (nextNode.val > x) {
+      nextNode = nextNode.next;
+      currentNode.enxt = nextNode;
+    } else {
+      currentNode = currentNode.next;
+      nextNode = nextNode.next;
+    }
+  }
+  return head;
+};
+
+// Determine if val is inside a binary search tree.
+let isPresent = function(root, val) {
+  let result;
+  let node = root;
+
+  while (result === undefined) {
+    if (node.data < val) {
+      node = node.right;
+    } else {
+      result = 0;
+      break;
+    }
+  } else if (node.data > val) {
+    if (node.left !== null) {
+      node = node.left;
+    } else {
+      result = 0;
+      break;
+    }
+  } else {
+    result = 1;
+    break;
+  }
+  return result;
+}
