@@ -535,6 +535,7 @@ function removeNodes(list, x) {
 };
 
 // Determine if val is inside a binary search tree.
+// MY SOLUTION.
 let isPresent = function(root, val) {
   let result;
   let node = root;
