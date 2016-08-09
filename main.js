@@ -542,21 +542,23 @@ let isPresent = function(root, val) {
 
   while (result === undefined) {
     if (node.data < val) {
-      node = node.right;
+      if (node.right !== null){
+        node = node.right;
+      } else {
+        result = 0;
+        break;
+      }
+    } else if (node.data > val) {
+      if (node.left !== null) {
+        node = node.left;
+      } else {
+        result = 0;
+        break;
+      }
     } else {
-      result = 0;
+      result = 1;
       break;
     }
-  } else if (node.data > val) {
-    if (node.left !== null) {
-      node = node.left;
-    } else {
-      result = 0;
-      break;
-    }
-  } else {
-    result = 1;
-    break;
   }
   return result;
 }
