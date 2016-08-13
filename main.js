@@ -389,6 +389,7 @@ HashTable.prototype.forEach = function(fn) {
   }
 };
 
+
 function fibonacciSequence() {
   let fibArr = [1, 2];
 
@@ -398,32 +399,15 @@ function fibonacciSequence() {
   }
 }
 
-function fibRecursive(n) {
-  let p = n;
-  let c = n + (n-1);
-  --n;
-  if(n !== 0){
-    return fibRecursive(c);
-  }
-  return c;
-}
-
-function fibRecursive(n){
-
-  while(n > 0) {
-    n-=1;
-    fibRecursive(n)
-  }
-}
-
+// Count up using fibonacciSequence;
 function fib(n) {
-  console.log('n: ', n);
   if(n < 2) {
     return 1
   } else {
     return (fib(n-2) + fib(n-1));
   }
 }
+// fibonacciSequence using a memo.
 function fibMemo() {
   const memo = {};
 
@@ -445,6 +429,8 @@ function fibMemo() {
   return f;
 }
 
+
+// Recursive fibonacciSequence
 function fib(n) {
   let memo = [];
 
@@ -458,6 +444,7 @@ function fib(n) {
   return recurse(n);
 }
 
+// Determines who won the election given the number of votes.
 function electionWinner(votes) {
   let highestSoFar = {
     name: '',
@@ -483,29 +470,9 @@ function electionWinner(votes) {
   return highestSoFar.name;
 }
 
-function removeNodes(list, x) {
-  let newHead = {};
-  function _removeNodes(list, x) {
-    if (list.next !== null) {
-      if(list.val <= x) {
-        newHead[val] = list.val;
-        newHead[next] = list.next;
-      }
-      return _removeNodes(list.next, x);
-    } else {
-      if (list.val <= x) newList.push({val: list.val, next: null);
-      }
-    }
-    _removeNodes(list, x);
-    let newHead = newList[0];
 
-    newList.forEach((obj, i) => {
-      newlist[i].next = newList[i+1];
-    })
-    return newList;
-  }
-}
 
+// Remove node at position X from list;
 // Patrick Solution
 function removeNodes(list, x) {
   let head = list;
@@ -562,3 +529,65 @@ let isPresent = function(root, val) {
   }
   return result;
 }
+
+// Gem Stones Challenge
+// Charles has found a rock collection in the basement of his deceased grandmother's house. Each rock is composed of various elements, and each element is represented by a lowercase English letter from 'a' to 'z'. An element can be present multiple times in a rock. An element is called a 'gem-element' if it occurs at least once in each of the rocks.
+// Complete the function "gemstones" containing the list of N rocks with their compositions in the form of an string array "rocks" as its argument , return the number of gem-elements that exist in those rocks.
+
+// function gemStones(rocks){
+//
+// let D = {};
+//
+//   for (let i = 0; i < rocks[0].length; i++){
+//
+//     if(!D[rocks[0][i]]){
+//       D[rocks[0][i]] = 1;
+//     } else {
+//       D[rocks[0][i]]++
+//     }
+//   }
+//   // D:  { a: 1, b: 1, c: 1, d: 2, e: 1 }
+//
+//   for (let x of rocks){
+//
+//   }
+// };
+
+function gemStones(rocks){
+
+  let result = 0;
+  let smallest = rocks[0];
+  let otherRocks = [];
+
+  for (let i = 0; i <rocks.length; i++){
+    if (rocks[i] < smallest.length){
+      otherRocks.push(smallest);
+      smallest = rocks[i]
+    } else {
+      otherRocks.push(rocks[i]);
+    }
+  }
+
+  // smallest = rock with the fewest stones;
+  // other rocks = every rock but the smallest;
+  // iterate through smallest rock, check if each stone is present in every other rock.
+
+  let stones = {};
+
+  for (let i = 0; i <smallest.length; i++){
+    let stone = smallest[i];
+
+    if (!stones[stone] && checkRocks(stone)){
+      result += 1;
+    }
+    stones[stone] = 1;
+  }
+
+  function checkRocks(stone){
+    return otherRocks.every(rock => rock.includes(stone))
+  }
+
+  return result;
+}
+
+gemStones([ 'abcdde', 'baccd', 'eeabg' ]);
