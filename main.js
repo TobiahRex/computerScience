@@ -591,3 +591,42 @@ function gemStones(rocks){
 }
 
 gemStones([ 'abcdde', 'baccd', 'eeabg' ]);
+
+
+// A subsequence of string, s, is obtained by deleting one or more characters from s.  For example, the set of subsequences for string s= 'abc'
+// would be {'a', 'ab', 'ac', 'abc', 'b', 'bc', 'c', ''}
+// recall that the empty string is a subsequence of all strings.
+//
+// Complete the buildSubsequences function in your editor.  It has 1 parameter: a string, s.  It must return an array
+// of strings containing all possible subsequences of s in alphabetical order.  Do not include the empty string in your
+// returned array of subsequences.
+//
+// Input format: The locked stub code in your editor reads a single string, s, from stdin and passes it to your function.
+//
+// Constrains:
+// 1 < \s\ < 16
+// s is a string of unique lowercase letters (a - z);
+//
+// Output format:
+// Output to stdout is handled by the locked stub code in your editor, which prints each element of the returned array on a new line.
+
+
+function subSequence(s){
+  let result = {};
+
+  function sub(s){
+     //base case = if we don't have an empty string. e.g. !s.length
+    result[s] = 1;
+
+    for (let i = 0; i < s.length; i++){
+      let newString = s.substr(0, i) + s.substr(i + 1); // making new string,
+        // The substr() method returns the characters in a string beginning at the specified location through the specified number of characters.
+
+      if (!result[newString] && newString.length) {
+        sub(newString);
+      }
+    }
+  }
+  // must return alphabetically sorted result.
+  return result;
+}
