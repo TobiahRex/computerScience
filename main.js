@@ -592,7 +592,7 @@ function gemStones(rocks){
 
 gemStones([ 'abcdde', 'baccd', 'eeabg' ]);
 
-
+// 16 August, 2016
 // A subsequence of string, s, is obtained by deleting one or more characters from s.  For example, the set of subsequences for string s= 'abc'
 // would be {'a', 'ab', 'ac', 'abc', 'b', 'bc', 'c', ''}
 // recall that the empty string is a subsequence of all strings.
@@ -630,3 +630,43 @@ function subSequence(s){
   // must return alphabetically sorted result.
   return result;
 }
+
+// 16 August, 2016
+// Michael is a shop owner who keeps n list, L, of the name and sale price for each item in inventory. The store employees record the name and sale price of every item sold. Michael suspects his manager, Alex, of embezzling money and modifying the sale prices of some of the items. Write a program that finds the number of times Alex recorded an incorrect sale price.
+//
+// Complete the verifyItems function provided in your editor so that it returns the number of incorrect sale prices recorded by Alex. It has 4 parameters:
+// origItems: An array of strings, where each element is an item name.
+// origPrices: An array of floating point numbers, where each element contains the original (correct) price of the item in the corresponding index of origItems.
+// items: An array of strings containing the name of the items with sales recorded by Alex.
+// prices: An array of floating point numbers, where each element contains the sale price recorded by Alex for the item in the corresponding index of items.
+//
+// Note: Where required by the language, there may also be 2 additional integer parameters for passing the array sizes (N and M).
+//
+// Input Format
+// The locked stub code in your editor processes the following inputs and passes the necessary arguments to the verifyItems function:
+// The first line contains an integer, N, the size of the origItems array. Each line i (where 0 ≤ i < N) of the N subsequent lines describes element i in origItems. The next line contains an integer, N, the size of the origPrices array. Each line i of the N subsequent lines describes element i in origPrices. The next line contains an integer, M, the size of the items array. Each line j (where 0 ≤ j < M) of the M subsequent lines describes element j in items. The next line contains an integer, M, the size of the prices array. Each line j of the M subsequent lines contains the price of element j in items.
+//
+// Constraints
+// 1 ≤ N ≤ 105
+// 1 ≤ M ≤ N
+// 1.00 ≤ origPricesi, pricesj ≤ 100000.00, where 0 ≤ i < N, and 0 ≤ j < M
+//
+// Output Format
+// Return the number of items whose sale prices were incorrectly recorded by Alex.
+function verifyItems(origItems, origPrices, items, prices) {
+  let orig = {}, result = [];
+
+  origItems.forEach((item, i) => {
+    if (!orig[item]) {
+      orig[item] = origPrices[i];
+    }
+  });
+  items.forEach((item, i) => {
+    if (orig.hasOwnProperty(item)){
+      if (orig[item] !== prices[i]){
+        result.push(orig[item]);
+      }
+    }
+  });
+  return result.length;
+};
