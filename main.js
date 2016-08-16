@@ -530,6 +530,26 @@ let isPresent = function(root, val) {
   return result;
 }
 
+// Asha and Kelly
+function calcDays(input){
+  let params = (input.split(' ')),
+  aStart = parseInt(params[0]),
+  aAhead = parseInt(params[2]),
+  aTotal = aStart + Ahead,
+  kStart = parseInt(params[1]),
+  kTotal = 0,
+  days = 1;
+
+  if (aStart >= kStart) return -1;
+
+  while(aTotal >= kTotal) {
+    aTotal += aStart;
+    kTotal += kStart;
+    days += 1;
+  }
+  return days;
+}
+
 // Gem Stones Challenge
 // Charles has found a rock collection in the basement of his deceased grandmother's house. Each rock is composed of various elements, and each element is represented by a lowercase English letter from 'a' to 'z'. An element can be present multiple times in a rock. An element is called a 'gem-element' if it occurs at least once in each of the rocks.
 // Complete the function "gemstones" containing the list of N rocks with their compositions in the form of an string array "rocks" as its argument , return the number of gem-elements that exist in those rocks.
@@ -615,12 +635,12 @@ function subSequence(s){
   let result = {};
 
   function sub(s){
-     //base case = if we don't have an empty string. e.g. !s.length
+    //base case = if we don't have an empty string. e.g. !s.length
     result[s] = 1;
 
     for (let i = 0; i < s.length; i++){
       let newString = s.substr(0, i) + s.substr(i + 1); // making new string,
-        // The substr() method returns the characters in a string beginning at the specified location through the specified number of characters.
+      // The substr() method returns the characters in a string beginning at the specified location through the specified number of characters.
 
       if (!result[newString] && newString.length) {
         sub(newString);
