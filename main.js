@@ -291,6 +291,8 @@ function HashTable(initialCapacity) {
   });
 }
 
+
+//////////////////////////////////////////// HASH TABLES //////////////////////
 /**
 * (Same algorithm as Java's String.hashCode)
 * Returns a hash code for this string. The hash code for a String object is
@@ -388,7 +390,7 @@ HashTable.prototype.forEach = function(fn) {
     }
   }
 };
-
+///////////////////////////////////////////////////////////////////////////////
 
 function fibonacciSequence() {
   let fibArr = [1, 2];
@@ -604,7 +606,7 @@ function gemStones(rocks){
   }
 
   function checkRocks(stone){
-    return otherRocks.every(rock => rock.includes(stone))
+    return otherRocks.every(rock => rock.includes(stone));
   }
 
   return result;
