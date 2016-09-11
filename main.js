@@ -102,7 +102,7 @@ function linearSearch(arr) {
   }
   return -1; // didn't find it.
 }
-// NOTE: Example =
+
 
 
 // Bubble Sort
