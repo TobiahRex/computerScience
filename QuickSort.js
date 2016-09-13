@@ -86,9 +86,11 @@ function partition (array, s, e) {
   swap(array, pivotIndex, array[e])
   return pivotIndex
 }
-function quickSort(array, s, e) {
+function quickSort (array, s, e) {
   if (s >= e) return
   let pivotIndex = partition(array, s, e)
-  quickSort(array, s, pivotIndex -1)
+  quickSort(array, s, pivotIndex - 1)
   quickSort(array, pivotIndex + 1, e)
 }
+
+quickSort()
