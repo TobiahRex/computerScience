@@ -94,3 +94,5 @@ function quickSort (array, s, e) {
 }
 
 quickSort()
+
+// https://www.youtube.com/watch?v=COk73cpQbFQ
