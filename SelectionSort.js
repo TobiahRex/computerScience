@@ -1,3 +1,4 @@
+// Just a normal swap func.
 function swap (array, f, s) {
   let item = array[f]
   array[f] = array[s]
@@ -21,7 +22,12 @@ function selectionSort (items) {
       }
     }
 
-    // if the minimum isn't in the position, swap it
+    /*
+    if the minimum isn't in the same position,
+    that means that we have a difference
+    and we need to swap the values at the previous position
+    to the value at the current i position.
+    */
     if (i !== min) {
       swap(items, i, min)
     }
