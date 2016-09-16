@@ -98,7 +98,7 @@ function min(stack) {
 
 
 ////////////////////////////////////// DAY FOUR //////////////////////////////////////
-// fibonacci numbers
+// Calculate Fibonacci Sequence
 
 
 // 1. Using an array, no recursion
@@ -121,18 +121,18 @@ function fib(number) {
 
 // 2. No array, no recursion
 function fib(number) {
-  let last;
-  let second;
-  let i=2;
-  let result;
-  while(i<=number) {
-    result = last + second;
-    second = last;
-    last = result;
-    i++;
-  }
+  let previous
+  let current
+  let i = 2
+  let result
 
-  return result;
+  while (i <= number) {
+    result = previous + current
+    current = previous
+    previous = result
+    i++
+  }
+  return result
 }
 
 
@@ -147,18 +147,15 @@ function fib(number) {
 
 
 // 4. Recursion with dictionary - Patrick's
-function fib(n) {
-  let memo = {};
-  function recurse(n) {
-    if(n<2) return 1;
-    if (memo[n]) return memo[n];
-
-    memo[n] = recurse(n-1) + recurse(n-2);
-
-    return memo[n];
+function fib(number) {
+  let memo = {}
+  function recurse(number) {
+    if (number < 2) 1
+    if (memo[number]) memo[number]
+    memo[number] = recurse(number - 1) + recurse(number - 2)
+    return memo[number]
   }
-
-  return recurse(n);
+  return recurse(number)
 }
 
 
@@ -315,7 +312,6 @@ function sortIntersect(f, m) {
 
   return couples.sort((a,b) => b-a)
 }
-
 
 // Patrick's
 function sortIntersect(f, m) {
