@@ -162,85 +162,88 @@ function fib(n) {
 }
 
 
-
-
-
-
-
-
-
-//////////////////////////////// DAY FIVE - First Hackerrank challenge ////////////////////////////////
-// There are n citizens. Each voter writes the name of their chosen candidate on a ballot and places it in a ballot box. The candidate with the highest number of votes wins the election; if two or more candidates have the same number of votes, then the tied candidates' names are ordered alphabetically and the last name wins.
+/////////// DAY FIVE - First Hackerrank challenge ///////////////////
+/*
+  There are n citizens.
+  Each voter writes the name of their chosen candidate on a ballot
+  and places it in a ballot box.
+  The candidate with the highest number of votes wins the election;
+  if two or more candidates have the same number of votes,
+  then the tied candidates' names are ordered alphabetically
+  and the last name wins.
+*/
 
 function electionWinner(votes) {
-  let dictionary = {};
+  let memo = {},
+      n = votes.length
 
-  for(let i = 0; i<votes.length; i++) {
-    let current = votes[i];
-
-    // with ternary: dictionary[current] ? ++dictionary[current] : dictionary[current] = 1;
-
-    if(dictionary[current]) {
-      ++dictionary[current];
+  for (let i = 0; i < n; i++) {
+    let current = votes[i]
+    // with ternary: memo[current] ? ++memo[current] : memo[current] = 1
+    if (memo[current]) {
+      ++memo[current]
     } else {
-      dictionary[current] = 1;
+      memo[current] = 1
     }
   }
 
-  let highest = 0;
-  let name;
-  let names = [];
+  let highestVotes = 0
+  let candidate
+  for (let name in memo) {
+    let memoVotes = memo[name];
 
-
-  for(let name in dictionary) {
-    if(dictionary[name] > highest) {
-      highest = dictionary[name];
-      name = name;
-    } else if (dictionary[name] === highest){
-      highest = dictionary[name];
+    if(memoVotes > highestVotes) {
+      highestVotes = memoVotes
+      candidate = name
+    } else if (memoVotes === highestVotes){
+      highestVotes = memoVotes
     }
   }
 
-  for(let name in dictionary) {
-    if(dictionary[name] === highest) {
-      names.push(name);
+  let winners = []
+  for (let name in memo) {
+    let memoVotes = memo[name]
+
+    if(memoVotes === highestVotes) {
+      winners.push(name)
     }
   }
 
-  let finalNames = names.sort();
-  let winner = finalNames[finalNames.length - 1];
-  return winner;
+  winners = winners.sort()
+  let winner = winners[winners.length - 1]
+  return winner
 
 
 }
 
 // Patrick's
 function electionWinner(votes) {
-  var highestSoFar = {
+  let highestSoFar = {
     name: '',
     count:0
-  };
+  }
 
-  var memo = {};
+  let memo = {},
+      n = votes.length
 
   for(let = 0; i < votes.length; i++) {
-    var name = votes[i];
-    memo[name] = memo[name] ? memo[name] + 1 : 1;
+    let name = votes[i]
+    let memoVotes = memo[name]
+    memoVotes = memoVotes ? memoVotes + 1 : 1
 
-
-    if(memo[name] > highestSoFar.count) {
+    if(memoVotes > highestSoFar.count) {
       highestSoFar = {
-        name: name,
-        count: memo[name]
+        name,
+        count: memoVotes
       }
-    } else if (memo[name] === highestSoFar.count) {
-      if (name > highestSoFar.name) {
-        highestSoFar.name = name;
+    } else if (memoVotes === highestSoFar.count) {
+      if (name !== highestSoFar.name) {
+        highestSoFar.name = name
       }
     }
   }
 
-  return highestSoFar.name;
+  return highestSoFar.name
 }
 
 
@@ -248,66 +251,110 @@ function electionWinner(votes) {
 
 
 //////////////////////////////// DAY SIX ////////////////////////////////
-// The first one-way trip to Mars must have its crew composed of matched opposite-sex couples who are exactly the same age. Many applicants have come forth and passed all the tests to qualify for one of the trips, but the first trip is super-exclusive, and now is the time to winnow the list. You are given two arrays, f and m, that give the age in days of female applicants and male applicants respectively. You are required to return a single array that lists the age in days of matched couples in descending order. If there are two males and one female with the same age, then only one couple can be formed, but if there are two females and two males with the same age, then two couples can be formed, represented by two identical entries in the output array.
-//
-// Your task is to complete the function sortIntersect to accomplish this. The code to handle input and output is already written into the system and calibrated to be compatible with the test cases used to evaluate the correctness of your code. There is no need to modify anything outside the definition of sortIntersect. The arguments to sortIntersect are two integer arrays, and the output is a single integer array.
+/*
+  The first one-way trip to Mars must have
+  its crew composed of matched opposite-sex couples who are exactly the same age.
+  Many applicants have come forth and passed all the tests to qualify,
+  but the first trip is super-exclusive,
+  and now is the time to shorten the list.
 
+  You are given two arrays, f and m,
+  that give the AGE in DAYS
+  of female applicants and male applicants respectively.
+  You are required to RETURN a SINGLE ARRAY
+  that lists the AGE in days of MATCHED COUPLES
+  in DESCENDING ORDER.
+  If there are two males and one female with the same age,
+  then only one couple can be formed,
+  but if there are two females and two males with the same age,
+  then two couples can be formed,
+  represented by two identical entries in the output array.
 
+  Your task is to complete the function sortIntersect to accomplish this.
+  The code to handle input and output is already written into the system
+  and calibrated to be compatible with the test cases
+  used to evaluate the correctness of your code.
+  There is no need to modify anything outside the definition of sortIntersect.
+  The arguments to sortIntersect are
+  two integer arrays,
+  and the output is a single integer array.
+*/
+
+// Eileen's
 function sortIntersect(f, m) {
 
-  let dict = {};
-  let mDict = {};
-  let couples = [];
+  let females = {}
+  let males = {}
+  let couples = []
 
-  f.forEach(num => dict[num] ? dict[num]+=1 : dict[num] = 1);
 
-  m.forEach(num => {
-    if(dict[num]) {
-      mDict[num] ? mDict[num]+=1 : mDict[num] = 1;
+  f.forEach(age => {
+    let female = females[age]
+    female ? female += 1 : female = 1
+  })
+
+  m.forEach(age => {
+    if(females[age]) {
+      let male = males[age]
+      male ? male+=1 : male = 1
     }
   })
 
-  for(let number in mDict) {
-    if(mDict[number] % 2 === 0) {
-      let x = mDict[number] / 2;
-      for(let i =0; i<x; i++) {
-        couples.push(number);
+  for(let age in males) {
+    let male = males[age]
+
+    if(male % 2 === 0) {        // check to see if this count is even
+      let couplesNumber = male / 2          // divide by two find how many couples/pairs
+      for (let i = 0; i < couplesNumber; i++) {
+        couples.push(age)
       }
     } else {
-      couples.push(number);
+      couples.push(age)
     }
   }
 
-  return couples.sort((a,b) => b-a);
+  return couples.sort((a,b) => b-a)
 }
 
 
 // Patrick's
 function sortIntersect(f, m) {
-  var females = f.reduce(function(memo, female) {
-    memo[female] = memo[female] ? memo[female] + 1 : 1;
-    return memo;
-  }, {});
-
-  var males = m.reduce(function(memo, female) {
-    memo[male] = memo[male] ? memo[male] + 1 : 1;
-    return memo;
-  }, {});
-
-  var result = [];
-
-  for (var key in females) {
-    while(males[key] && females[key]) {
-      result.push(key);
-      males[key]--;
-      females[key]--;
-    }
+  /*
+    the memo will look like this...
+  let females = {
+    '456': 20
+    '345': 13
   }
 
-  return result.sort(function(a,b) {
-    return b-a;
-  });
+  the key is the number of days.
+  the value is the count
+  of how many females are 456 days old...
+  */
+  let females = f.reduce((memo, age) => {
+    let mFemale = memo[age]
+    mFemale = mFemale ? mFemale + 1 : 1
 
+    return memo
+  }, {})
+
+  let males = m.reduce((memo, age) => {
+    let mMale = memo[age]
+    mMale = mMale ? mMale + 1 : 1
+
+    return memo
+  }, {})
+
+  let result = []
+  for (let age in females) {
+    while(males[age] && females[age]) {
+      result.push(age)
+      // ['456', '345']
+      males[age]--
+      females[age]--
+    }
+  }
+  // ['345', '456']
+  return result.sort((a,b) => b - a )
 }
 
 
