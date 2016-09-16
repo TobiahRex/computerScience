@@ -178,24 +178,7 @@ function insertionSort(arr) {
   return arr;
 }
 
-// Quick sort: Recursive
-function quickSort(arr) {
-  if (arr.length < 2) return arr;
-  let pivot_index = Math.floor(arr.length * Math.random));
-  let pivot = arr[pivot_index];
-  let less = [], more = [];
-  for (let i = 0; i < arr.length; i++) {
-    let item = arr[i];
-    if (i !== pivot_index) {
-      if (pivote >= item) {
-        less.push(item);
-      } else {
-        more.push(item);
-      }
-    }
-  }
-  return quickSort(less).concat([pivot]).concat(quickSort(more));
-}
+
 // Merge Sort - Iterative
 // Merges two arrays in order based on their natural relationship.
 function merge(left, right) {
