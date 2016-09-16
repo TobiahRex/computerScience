@@ -2,35 +2,34 @@
 // write a fcn to count # of occurrences of each letter in a given string
 function countOccurences (str) {
 
-  let alphabet = {};
+  let memo = {},
+  n = str.length;
 
-  for(let i=0; i<str.length; i++) {
-    alphabet[str[i]] = ++alphabet[str[i]] || 1;
-  // alphabet[str[i]] ? alphabet[str[i]]++ : alphabet[str[i]] = 1;
+  for (let i = 0; i < n; i++) {
+    memo[str[i]] = ++memo[str[i]] || 1;
+    // memo[str[i]] ? memo[str[i]]++ : memo[str[i]] = 1;
   }
-
-  return alphabet;
-
+  return memo;
 }
 
 
 // another solution --> this is better in terms of readability:
-for(let i =0; i<str.length; i++) {
-  if(alphabet.hasOwnProp[str[i]]) {
-    alphabet[str[i]]++;
+for(let i = 0; i < n; i++) {
+  if(memo.hasOwnProp[str[i]]) {
+    memo[str[i]]++;
   } else {
-    alphabet[str[i]] = 1;
+    memo[str[i]] = 1;
   }
 }
 
 
 
- // another solution... but not as efficient:
- str.split(‘’).forEach((letter, i) => {
+// another solution... but not as efficient:
+str.split(‘’).forEach((letter, i) => {
 
-  alphabet[letter] ? alphabet[letter]++ : alphabet[letter] = 1;
+  memo[letter] ? memo[letter]++ : memo[letter] = 1;
 
- });
+});
 
 
 
@@ -39,46 +38,30 @@ for(let i =0; i<str.length; i++) {
 
 ////////////////////////////////////// DAY TWO //////////////////////////////////////
 // write a fcn that will return data of last node (aka node in which 'next' key returns null)
- function last(head) {
-  let thisNode = head;
-
-  while(thisNode.next) {
-    thisNode = thisNode.next;
-  }
-
-  return thisNode.data;
- }
+function last(head) {
+  let node = head;
+  while(node.next) node = node.next;
+  return node.data;
+}
 
 
-
- // less readable code:
- function last(head) {
-  while(head.next) {
-    head = head.next;
-  }
-
+// less readable code:
+function last(head) {
+  while(head.next) head = head.next;
   return head.data;
- }
+}
 
 // write a fcn that will return index of middle node
 function middle(head) {
-
-  let thisNode = head;
+  let node = head;
 
   // let length = 0;
-
   let runner = 0;
-
-
-  while(thisNode.next.next) {
-    runner+=1;        // runner = middle if we increment by 2
-  }
-
-
+  while(node.next.next) runner+=1;        // runner = middle if we increment by 2
 }
 
- // if the obj.next !== null, keep going through the 'next' object until find one that is null
- var head: {
+// if the obj.next !== null, keep going through the 'next' object until find one that is null
+var head: {
   data: 'data',
   next: {
     data: 'data',
@@ -86,10 +69,11 @@ function middle(head) {
       data: 'data',
       next: {
         data
+        next: null
       }
     }
   }
- }
+}
 
 
 
@@ -98,27 +82,19 @@ function middle(head) {
 
 ////////////////////////////////////// DAY THREE //////////////////////////////////////
 function min(stack) {
-
-  // everytime we push in something, we store what is the CURRENT min at that time (by comparing it with the previous min) --> so we are storing 2 things in one node at a time: the ACTUAL number and the MIN when that number was pushed in
-
+  /*
+    everytime we push in something,
+    we store what is the CURRENT min at that time
+    (by comparing it with the previous min)
+    so we are storing 2 things in one node at a time:
+    the ACTUAL number
+    and the MIN when that number was pushed in
+  */
   let values = [];
-
-  this.push = function(d) {
-    values.push(d);
-  }
-
-  this.pop = function() {
-    return values.pop();
-  }
-
-  this.min = function() {
-
-  }
-
+  this.push = (d) => values.push(d);
+  this.pop = () => values.pop();
+  this.min = () => { }
 }
-
-
-
 
 
 ////////////////////////////////////// DAY FOUR //////////////////////////////////////
@@ -127,22 +103,19 @@ function min(stack) {
 
 // 1. Using an array, no recursion
 function fib(number) {
+  let fibArray = []
 
-  let fibArray = [];
-
-  for(let i=0; i<=number; i++) {
-    if(number <= 1) {
-      fibArray.push(1);
-    } else {
-      let second = fibArray.length - 2;
-      let last = fibArray.length - 1;
-      let sum = second + last;
-      fibArray.push(sum);
+  for (let i = 0; i <= number; i++) {
+    if (number <= 1) {
+      fibArray.push(1)
     }
+    let second = fibArray.length - 2
+    let last = fibArray.length - 1
+    let sum = second + last
+    fibArray.push(sum)
   }
 
-  return fibArray[number];
-
+  return fibArray[number]
 }
 
 
@@ -480,7 +453,7 @@ function calcDays(input) {
   if(ashaPerDay >= kellyPerDay) return -1;
 
   while( ((ashaPerDay * days) + problemsAhead) >= (kellyPerDay * days) ) {
-      days++;
+    days++;
   }
 
   return days;
@@ -541,34 +514,34 @@ function gemstones(rocks) {
   let counter = 0;
 
   rocks.forEach((string, index) => {
-      string = string.split('').map((letter) => {
-          letters.push(index+letter);
-      })
+    string = string.split('').map((letter) => {
+      letters.push(index+letter);
+    })
   })
 
   letters.forEach(letter => {
 
     if(!memo[letter.split('')[letter.split('').length - 1]]){
-        if(!memo[letter]) {
-            memo[letter.split('')[letter.split('').length - 1]] = 1;
-            memo[letter] = 1;
-        } else {
-            memo[letter] = 1;
-        }
+      if(!memo[letter]) {
+        memo[letter.split('')[letter.split('').length - 1]] = 1;
+        memo[letter] = 1;
+      } else {
+        memo[letter] = 1;
+      }
     } else if(memo[letter.split('')[letter.split('').length - 1]]) {
-        if(!memo[letter]) {
-            memo[letter.split('')[letter.split('').length - 1]] += 1;
-            memo[letter] = 1;
-        } else {
-            memo[letter] = 1;
-        }
+      if(!memo[letter]) {
+        memo[letter.split('')[letter.split('').length - 1]] += 1;
+        memo[letter] = 1;
+      } else {
+        memo[letter] = 1;
+      }
     }
 
   })
 
   for(let letter in memo) {
     if(memo[letter] >= length) {
-        counter += 1;
+      counter += 1;
     }
   }
 
@@ -905,23 +878,23 @@ if(number<3) {
 // */
 
 function processArray(array) {
-    console.log('array:', array);
-    // iterate over array, apply rules individually
-    for (let i =0; i<array.length; i++) {
-        if(i%2 === 0 && i > 0) {
-            array[i] = array[i] + array[i - 1]
-        } else if (i%3 ===0 && i >0 && i + 1 < array.length) {
-            let temp = array[i];
-            array[i] = array[i+1];
-            array[i+1] = temp;
-        } else if (i%5 ===0 && i>0) {
-            array[i] = array[i] * 2;
-        } else {
-            array[i] = array[i]- 1;
-        }
+  console.log('array:', array);
+  // iterate over array, apply rules individually
+  for (let i =0; i<array.length; i++) {
+    if(i%2 === 0 && i > 0) {
+      array[i] = array[i] + array[i - 1]
+    } else if (i%3 ===0 && i >0 && i + 1 < array.length) {
+      let temp = array[i];
+      array[i] = array[i+1];
+      array[i+1] = temp;
+    } else if (i%5 ===0 && i>0) {
+      array[i] = array[i] * 2;
+    } else {
+      array[i] = array[i]- 1;
     }
+  }
 
-    return array;
+  return array;
 
 }
 
@@ -950,33 +923,33 @@ function processArray(array) {
 // output[1] is 2 because two characters ('a' and 'c') appear in strings[1] a multiple of 2 (multiples[1]) times (4 and 2 times, respectively)
 
 /*
- * Complete the function below.
- */
+* Complete the function below.
+*/
 function countCharacters(strings, multiples) {
 
-    let countArr = [];
+  let countArr = [];
 
-    // make a dictionary for each item in the array
-    // after making dictionary, compare number (eg a: 3) with the number given in the corresponding index in multiples array
-    // increment a counter to count number of instances
+  // make a dictionary for each item in the array
+  // after making dictionary, compare number (eg a: 3) with the number given in the corresponding index in multiples array
+  // increment a counter to count number of instances
 
-    strings.forEach((string, index) => {
-        let memo = {};
-        let count = 0;
-        string = string.split('');
-        string.forEach((letter, letIndex) => {
-            memo[letter] ? memo[letter]+=1 : memo[letter] = 1;
-        })
+  strings.forEach((string, index) => {
+    let memo = {};
+    let count = 0;
+    string = string.split('');
+    string.forEach((letter, letIndex) => {
+      memo[letter] ? memo[letter]+=1 : memo[letter] = 1;
+    })
 
-        for(let letter in memo) {
-            if(memo[letter] % multiples[index] === 0) {
-                ++count;
-            }
-        }
-        countArr.push(count);
-    });
+    for(let letter in memo) {
+      if(memo[letter] % multiples[index] === 0) {
+        ++count;
+      }
+    }
+    countArr.push(count);
+  });
 
-    return countArr;
+  return countArr;
 
 }
 
@@ -1009,47 +982,47 @@ function countCharacters(strings, multiples) {
 
 
 function getMaxLakeVolume(heights, distances) {
-    console.log('heights:', heights);
-    console.log('distances:', distances);
+  console.log('heights:', heights);
+  console.log('distances:', distances);
 
 
-    // iterate through heights array
-    // compare value: if value is bigger, stop, get distance between the two heights
-    // if the value is smaller, keep going, and increment a counter
-        // how to use the counter: in a for loop (from that current index + COUNTER to get to the specific index in distances array)
-    // how to check to see the start of heights?
+  // iterate through heights array
+  // compare value: if value is bigger, stop, get distance between the two heights
+  // if the value is smaller, keep going, and increment a counter
+  // how to use the counter: in a for loop (from that current index + COUNTER to get to the specific index in distances array)
+  // how to check to see the start of heights?
 
-    let count = 0;
-    let heightArr = [];
-    let distArr = [];
+  let count = 0;
+  let heightArr = [];
+  let distArr = [];
 
-    heights.forEach((number, index) => {
-        if(heights[index] > heights[index+1]) {
-            count++;
-            heightArr.push(heights[index]);
-        }
-    })
-
-    console.log('count:', count);
-    console.log('heightArr:', heightArr);
-    let start = heightArr[0]; // index of start of the height
-    let end = heights[count+2] || heights[count];
-    console.log('start:', start);
-    console.log('end:', end)
-
-    let startIndex = heights.indexOf(heightArr[0])
-
-    console.log('startIndex:', startIndex);
-    for(let i = startIndex; i<startIndex+count; i++) {
-        distArr.push(distances[i]);
+  heights.forEach((number, index) => {
+    if(heights[index] > heights[index+1]) {
+      count++;
+      heightArr.push(heights[index]);
     }
+  })
 
-    console.log('distArr:', distArr);
+  console.log('count:', count);
+  console.log('heightArr:', heightArr);
+  let start = heightArr[0]; // index of start of the height
+  let end = heights[count+2] || heights[count];
+  console.log('start:', start);
+  console.log('end:', end)
 
-    let sum = distArr.length > 1 ? distArr.length + 1 + distArr.reduce((prev, curr) => prev+ curr, 0) : distArr.reduce((prev, curr) => prev+curr, 0);
-    console.log('sum:', sum);
+  let startIndex = heights.indexOf(heightArr[0])
 
-    return sum * end;
+  console.log('startIndex:', startIndex);
+  for(let i = startIndex; i<startIndex+count; i++) {
+    distArr.push(distances[i]);
+  }
+
+  console.log('distArr:', distArr);
+
+  let sum = distArr.length > 1 ? distArr.length + 1 + distArr.reduce((prev, curr) => prev+ curr, 0) : distArr.reduce((prev, curr) => prev+curr, 0);
+  console.log('sum:', sum);
+
+  return sum * end;
 
 }
 
@@ -1062,24 +1035,24 @@ function getMaxLakeVolume(heights, distances) {
 //
 // Specifically, your job is to complete the blank function zigzagArray to accomplish this task within a reasonable time. zigzagArray takes one argument, an array intArray of n integers, and returns an identically-sized array with the elements arranged in zigzag order. Code to process input and output is already present in the system and guaranteed to work with the format of the test case files. There is no need to modify that part of the program.
 /*
- * Complete the function below.
- */
+* Complete the function below.
+*/
 function wiggleArrangeArray(intArr) {
-    let resArray = [];
-    let flag = true;
-    intArr.sort((a,b) => a-b);
-    while(intArr.length) {
-        if(flag) {
-            var num = intArr.pop();
-        } else {
-            var num = intArr.shift();
-        }
-
-        resArray.push(num);
-        flag = !flag;
+  let resArray = [];
+  let flag = true;
+  intArr.sort((a,b) => a-b);
+  while(intArr.length) {
+    if(flag) {
+      var num = intArr.pop();
+    } else {
+      var num = intArr.shift();
     }
 
-    return resArray;
+    resArray.push(num);
+    flag = !flag;
+  }
+
+  return resArray;
 }
 
 // Complete the function lonelyInteger that has one parameter- an array numbers, of n integers. In the array, all the elements except one, occur more than one times. The function should return the integer, which occurs only one time.
@@ -1096,23 +1069,23 @@ function wiggleArrangeArray(intArr) {
 // Your function should return the integer, which occurs only once in the array.
 
 /*
- * Complete the function below.
- */
+* Complete the function below.
+*/
 function lonelyInteger(arr) {
-    let memo = {};
-    let result;
+  let memo = {};
+  let result;
 
-    arr.forEach(number => {
-        memo[number] ? memo[number]+=1 : memo[number] = 1;
-    })
+  arr.forEach(number => {
+    memo[number] ? memo[number]+=1 : memo[number] = 1;
+  })
 
-    for(let number in memo) {
-        if(memo[number] === 1) {
-            result = number;
-        }
+  for(let number in memo) {
+    if(memo[number] === 1) {
+      result = number;
     }
+  }
 
-    return result;
+  return result;
 
 }
 
@@ -1133,25 +1106,25 @@ function lonelyInteger(arr) {
 // Your function should print the pairs with a minimum absolute difference on a new line and in ascending order.
 function closestNumbers(numbers) {
 
-    let length = numbers.length;
-    let resStr = '';
-    numbers.sort((a,b) => a-b);
-    let minDiff = numbers[length - 1] - numbers[0];
+  let length = numbers.length;
+  let resStr = '';
+  numbers.sort((a,b) => a-b);
+  let minDiff = numbers[length - 1] - numbers[0];
 
-    for(let i = 0; i<numbers.length-1; i++) {
-        let diff = numbers[i+1] - numbers[i];
-        if(diff<minDiff) {
-            minDiff = diff
-        }
+  for(let i = 0; i<numbers.length-1; i++) {
+    let diff = numbers[i+1] - numbers[i];
+    if(diff<minDiff) {
+      minDiff = diff
     }
+  }
 
-    for(let i = 0; i<numbers.length-1; i++) {
-        if(numbers[i+1] - numbers[i] === minDiff) {
-            resStr = resStr.concat(numbers[i] + ' ' + numbers[i+1] + '\n');
-        }
+  for(let i = 0; i<numbers.length-1; i++) {
+    if(numbers[i+1] - numbers[i] === minDiff) {
+      resStr = resStr.concat(numbers[i] + ' ' + numbers[i+1] + '\n');
     }
+  }
 
-    return resStr;
+  return resStr;
 
 
 
@@ -1168,29 +1141,29 @@ function closestNumbers(numbers) {
 'use strict'
 
 function solution(N) {
-    // let newArr = [];
-    let newArr = '';
-    for(let i = 1; i<=N;i++) {
-        if(i%3===0 && i%5===0 && i%7===0) {
-            newArr = newArr.concat("FizzBuzzWoof" + "\n");
-        }  else if (i%3===0 && i%5===0) {
-            newArr = newArr.concat("FizzBuzz" + "\n")
-        } else if (i%3===0 && i%7===0){
-            newArr = newArr.concat("FizzWoof" + "\n")
-        } else if (i%5===0 && i%7===0){
-            newArr = newArr.concat("BuzzWoof" + "\n");
-        } else if (i%3===0) {
-            newArr = newArr.concat("Fizz" + "\n");
-        } else if(i%5===0) {
-            newArr = newArr.concat("Buzz" + "\n")
-        } else if(i%7===0) {
-            newArr = newArr.concat("Woof" + "\n")
-        } else {
-            newArr = newArr.concat(i + "\n")
-        }
+  // let newArr = [];
+  let newArr = '';
+  for(let i = 1; i<=N;i++) {
+    if(i%3===0 && i%5===0 && i%7===0) {
+      newArr = newArr.concat("FizzBuzzWoof" + "\n");
+    }  else if (i%3===0 && i%5===0) {
+      newArr = newArr.concat("FizzBuzz" + "\n")
+    } else if (i%3===0 && i%7===0){
+      newArr = newArr.concat("FizzWoof" + "\n")
+    } else if (i%5===0 && i%7===0){
+      newArr = newArr.concat("BuzzWoof" + "\n");
+    } else if (i%3===0) {
+      newArr = newArr.concat("Fizz" + "\n");
+    } else if(i%5===0) {
+      newArr = newArr.concat("Buzz" + "\n")
+    } else if(i%7===0) {
+      newArr = newArr.concat("Woof" + "\n")
+    } else {
+      newArr = newArr.concat(i + "\n")
     }
+  }
 
-    console.log(newArr);
+  console.log(newArr);
 }
 
 
@@ -1206,23 +1179,23 @@ function solution(N) {
 // // console.log('this is a debug message');
 'use strict'
 function solution(A, B) {
-    // write your code in JavaScript (Node.js 4.0.0)
-    let arr = [];
-    let count = 0;
+  // write your code in JavaScript (Node.js 4.0.0)
+  let arr = [];
+  let count = 0;
 
-    for(let i = A; i<=B; i++){
-        arr.push(i);
+  for(let i = A; i<=B; i++){
+    arr.push(i);
+  }
+
+  arr.forEach(num => {
+    num = Math.abs(num);
+    let squareRoot = Math.sqrt(num);
+    if(squareRoot % 1 === 0){
+      count++;
     }
+  })
 
-    arr.forEach(num => {
-        num = Math.abs(num);
-        let squareRoot = Math.sqrt(num);
-        if(squareRoot % 1 === 0){
-            count++;
-        }
-    })
-
-    return count;
+  return count;
 }
 
 
