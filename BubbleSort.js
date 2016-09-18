@@ -39,4 +39,6 @@ function bubbleSort(items) {
       }
     }
   }
+  return items
 }
+console.log(bubbleSort([6,2,4,5,3,1]))

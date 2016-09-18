@@ -4,7 +4,6 @@ function swap (array, f, s) {
   array[f] = array[s]
   array[s] = item
 }
-
 function selectionSort (items) {
   let len = items.length
   let min
@@ -34,4 +33,4 @@ function selectionSort (items) {
   }
   return items
 }
-selectionSort()
+console.log(selectionSort([6,3,4,1,2,5]))
