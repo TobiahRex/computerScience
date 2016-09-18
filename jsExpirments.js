@@ -53,9 +53,6 @@
 // let x = () => console.log('function this: ', this)
 // x()
 
-let obj = {
-  a: 1,
-  b: 2
-}
-
-let myObj = obj
+let string = 'Hello Tobiah Rex'
+string.replace(/\w+/g, '$1yo$2')
+console.log(string)
