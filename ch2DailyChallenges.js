@@ -45,18 +45,18 @@
 
 // ////////////////////////////////////// DAY TWO //////////////////////////////////////
 // // write a fcn that will return data of last node (aka node in which 'next' key returns null)
-let node = {
-  data: 1,
+// let node = {
+data: 1,
+next: {
+  data: 2,
   next: {
-    data: 2,
+    data: 3,
     next: {
-      data: 3,
-      next: {
-        data: 4,
-        next: null
-      }
+      data: 4,
+      next: null
     }
   }
+}
 }
 // function last(head) {
 //   let node = head;
@@ -72,18 +72,18 @@ let node = {
 // last(node)
 // console.timeEnd('last'); // last: 0.594ms
 
-// // write a fcn that will return index of middle node = BROKEN
-function middle(head) {
-  let runner = 0;
-  while(head.next.next) {
-    runner += 1;
-    console.log(runner);
-  }       // runner = middle if we increment by 2
-  return runner
-}
-console.time('middle')
-middle(node)
-console.timeEnd('middle'); //
+// // // write a fcn that will return index of middle node = BROKEN
+// function middle(head) {
+//   let runner = 0;
+//   while(head.next.next) {
+//     runner += 1;
+//     console.log(runner);
+//   }       // runner = middle if we increment by 2
+//   return runner
+// }
+// console.time('middle')
+// middle(node)
+// console.timeEnd('middle'); //
 
 // // if the obj.next !== null, keep going through the 'next' object until find one that is null
 // var head: {
@@ -105,7 +105,7 @@ console.timeEnd('middle'); //
 //
 //
 //
-// ////////////////////////////////////// DAY THREE //////////////////////////////////////
+////////////////////////////////////// DAY THREE //////////////////////////////////////
 // function min(stack) {
 //   /*
 //     everytime we push in something,
@@ -120,8 +120,8 @@ console.timeEnd('middle'); //
 //   this.pop = () => values.pop();
 //   this.min = () => { }
 // }
-//
-//
+
+
 // ////////////////////////////////////// DAY FOUR //////////////////////////////////////
 // // Calculate Fibonacci Sequence
 //
@@ -197,16 +197,12 @@ console.timeEnd('middle'); //
 //
 // function electionWinner(votes) {
 //   let memo = {},
-//       n = votes.length
+//   n = votes.length
 //
 //   for (let i = 0; i < n; i++) {
 //     let current = votes[i]
 //     // with ternary: memo[current] ? ++memo[current] : memo[current] = 1
-//     if (memo[current]) {
-//       ++memo[current]
-//     } else {
-//       memo[current] = 1
-//     }
+//     memo.hasOwnProperty(current) ? ++memo[current] : memo[current] = 1
 //   }
 //
 //   let highestVotes = 0
@@ -234,8 +230,6 @@ console.timeEnd('middle'); //
 //   winners = winners.sort()
 //   let winner = winners[winners.length - 1]
 //   return winner
-//
-//
 // }
 //
 // // Patrick's

@@ -1,3 +1,59 @@
+// // Promise Expirement
+// /*
+//   A Promise is a PROXY for a value not necessarily known,
+//   at the time of creating a Promise.
+//
+//   It allows you to associate HANDLERS to an asynch actions,
+//   eventual success or failure.
+//
+//   This lets asynch methods return values like synchronous methods.
+//   Instead of the final value,
+//   the asynch method returns a promise for a vlaue at some point in the future.
+//
+//   A promise has 3 possible states:
+//   1) PENDING - Initial state. Neither fullfilled or rejected.
+//   2) FULLFILLED - Operation completed successfully.
+//   3) REJECTED - Operation failed.
+// */
+//
+// let promiseCount = 0;
+//
+// testPromise = () => {
+//   let thisPromiseCount = ++promiseCount;
+//   console.log('Started', thisPromiseCount, ' Sync code started');
+//
+//
+//   let p1 = new Promise((res, rej) => {
+//     console.log('Promise Started: ', thisPromiseCount, ' Asynch code started');
+//     setTimeout(()=> {
+//       res(thisPromiseCount)
+//     }, Math.random()*2000 + 1000)
+//
+//   });
+//
+//   p1.then((val) => console.log('Promise fullfilled: ', val, ' Async code terminated.'))
+//   .then((val) => console.log('then#2 ', val * 2))
+//   .catch((err) => console.log('ERROR: ', err))
+// }
+// testPromise()
+
+// // CallBack Expirement
+//
+// function sayHi (err, data) {
+//   if (err) return console.log('error: ', err);
+//   return console.log('data: ', data);
+// }
+//
+// function testCB (num, cb) {
+//   if (typeof num !== 'number') return cb({ Error: 'this is not a number' });
+//   return cb(null, { Success: `This is the number ${num}` });
+// }
+// testCB(5, sayHi);
+//
+// setTimeout(() => {
+//   testCB('5', sayHi)
+// }, 1000)
+
 // // Const exp 1
 // function x(){
 //   const hi = 'hi from x'
