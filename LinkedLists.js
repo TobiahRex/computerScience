@@ -82,26 +82,38 @@ LinkedList.prototype.get = (index) => {
 }
 
 LinkedList.prototype.remove = (index) => {
-  if (index > -1 && index < this._length) {
-    let current = this._head;
-    let previous;
-    let i = 0;
+  let current = this._head;
+  let i = 0;
+  let previous;
 
-    // special case when removing the first item.
-    if (index === 0) {
-      this._head = this._head.next;
+  if (index > -1 && index < this._length){
+    if (index === 1) {
+      this._head = current.next;
     } else {
-      // find the right location.
       while (i++ < index) {
         previous = current;
         current = current.next;
       }
       previous.next = current.next;
     }
-
-    //decrement the length;
     this._length -= 1;
     return current.data;
+  } else {
+    return null
+  }
+}
+
+LinkedList.prototype.update = (index, data) => {
+  let current = this._head;
+  let i = 0;
+  let previous;
+
+  if (index > -1 && index < this._length) {
+
+    while (i++ < index) current = current.next;
+    let old = current.data;
+    current.data = data;
+    return {  old, new: current.data }
   } else {
     return null
   }
