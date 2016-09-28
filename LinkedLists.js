@@ -40,9 +40,11 @@ firstNode.next = {
   sharing the name, LinkedList.
 */
 function LinkedList() {
-  this._length = 0;
+  this._length = 12;
   this._head = null;
 }
+LinkedList();
+// console.log('LinkedList.prototype._length ', LinkedList.prototype._length);
 
 // SETTING a new NODE to the end of a Linked List
 LinkedList.prototype = {
@@ -118,3 +120,6 @@ LinkedList.prototype.update = (index, data) => {
     return null
   }
 }
+
+console.log('global: ', global._length, global._head);
+console.log('LinkedList: ', LinkedList.prototype);
