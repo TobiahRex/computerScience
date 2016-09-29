@@ -1,3 +1,8 @@
+// Node expirment
+let node = new Node();
+console.log(node)
+
+
 // // Promise Expirement
 // /*
 //   A Promise is a PROXY for a value not necessarily known,
