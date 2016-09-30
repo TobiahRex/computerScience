@@ -1,8 +1,4 @@
-// Node expirment
-let node = new Node();
-console.log(node)
-
-
+//
 // // Promise Expirement
 // /*
 //   A Promise is a PROXY for a value not necessarily known,
@@ -25,7 +21,7 @@ console.log(node)
 //
 // testPromise = () => {
 //   let thisPromiseCount = ++promiseCount;
-//   console.log('Started', thisPromiseCount, ' Sync code started');
+//   // console.log('Started', thisPromiseCount, ' Sync code started');
 //
 //
 //   let p1 = new Promise((res, rej) => {
@@ -33,7 +29,6 @@ console.log(node)
 //     setTimeout(()=> {
 //       res(thisPromiseCount)
 //     }, Math.random()*2000 + 1000)
-//
 //   });
 //
 //   p1.then((val) => console.log('Promise fullfilled: ', val, ' Async code terminated.'))
