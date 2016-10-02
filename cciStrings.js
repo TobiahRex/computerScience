@@ -56,9 +56,7 @@ function anagramCheck(a, b){
   for (let i = 0; i < b.length; i++) {
     if (memo.hasOwnProperty(b[i])){
       memo[b[i]] -= 1
-      if (memo[b[i]] === 0) {
-        delete memo[b[i]]
-      }
+      if (memo[b[i]] === 0) delete memo[b[i]]
     } else {
       deleteCount += 1
     }

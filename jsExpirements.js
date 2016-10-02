@@ -1,65 +1,84 @@
 
-// // Promise Expirement
-// /*
-//   A Promise is a PROXY for a value not necessarily known,
-//   at the time of creating a Promise.
-//
-//   It allows you to associate HANDLERS to an asynch actions,
-//   eventual success or failure.
-//
-//   This lets asynch methods return values like synchronous methods.
-//   Instead of the final value,
-//   the asynch method returns a promise for a vlaue at some point in the future.
-//
-//   A promise has 3 possible states:
-//   1) PENDING - Initial state. Neither fullfilled or rejected.
-//   2) FULLFILLED - Operation completed successfully.
-//   3) REJECTED - Operation failed.
-// */
-//
+// Promise Expirement
+/*
+  A Promise is a PROXY for a value not necessarily known,
+  at the time of creating a Promise.
+
+  It allows you to associate HANDLERS to an asynch actions,
+  eventual success or failure.
+
+  This lets asynch methods return values like synchronous methods.
+  Instead of the final value,
+  the asynch method returns a promise for a vlaue at some point in the future.
+
+  A promise has 3 possible states:
+  1) PENDING - Initial state. Neither fullfilled or rejected.
+  2) FULLFILLED - Operation completed successfully.
+  3) REJECTED - Operation failed.
+*/
+
 // let promiseCount = 0;
+// let p1 = (stuff) => new Promise((res, rej) => {
+//   console.log('stuff: ', stuff, ' Asynch code started');
+//   setTimeout(()=> {
+//     res(stuff)
+//   }, Math.random()*2000 + 1000)
+// });
 //
-// testPromise = () => {
-//   let thisPromiseCount = ++promiseCount;
-//   // console.log('Started', thisPromiseCount, ' Sync code started');
-//
-//
-//   let p1 = new Promise((res, rej) => {
-//     console.log('Promise Started: ', thisPromiseCount, ' Asynch code started');
-//     setTimeout(()=> {
-//       res(thisPromiseCount)
-//     }, Math.random()*2000 + 1000)
-//   });
-//
-//   p1.then((val) => console.log('Promise fullfilled: ', val, ' Async code terminated.'))
-//   .then((val) => console.log('then#2 ', val * 2))
+// testPromise = (str) => {
+//   p1(str)
+//   .then((val) => console.log('Promise fullfilled: ', val + ' hi', ' Async code terminated.'))
+//   .then((val) => console.log('then#2 ', val))
 //   .catch((err) => console.log('ERROR: ', err))
 // }
-// testPromise()
+// testPromise('hi toby');
 
-// // CallBack Expirement
+// var p1 = new Promise((resolve, reject) => {
+//   setTimeout(resolve, 1000, "one");
+// });
+// var p2 = new Promise((resolve, reject) => {
+//   setTimeout(resolve, 2000, "two");
+// });
+// var p3 = new Promise((resolve, reject) => {
+//   setTimeout(resolve, 3000, "three");
+// });
+// var p4 = new Promise((resolve, reject) => {
+//   setTimeout(resolve, 4000, "four");
+// });
+// // var p5 = new Promise((resolve, reject) => {
+// //   reject("reject");
+// // });
 //
-// function sayHi (err, data) {
-//   if (err) return console.log('error: ', err);
-//   return console.log('data: ', data);
-// }
-//
-// function testCB (num, cb) {
-//   if (typeof num !== 'number') return cb({ Error: 'this is not a number' });
-//   return cb(null, { Success: `This is the number ${num}` });
-// }
-// testCB(5, sayHi);
-//
-// setTimeout(() => {
-//   testCB('5', sayHi)
-// }, 1000)
+// Promise.all([p1, p2, p3, p4])
+// .then(value => {
+//   console.log('value: ', value);
+// }, reason => {
+//   console.log('reason: ', reason)
+// });
+
+// CallBack Expirement
+
+function sayHi (err, data) {
+  if (err) return console.log('error: ', err);
+  return console.log('data: ', data);
+}
+
+function testCB (num, cb) {
+  if (typeof num !== 'number') return cb({ Error: 'this is not a number' });
+  return cb(null, { Success: `This is the number ${num}` });
+}
+testCB(5, sayHi);
+
+setTimeout(() => {
+  testCB('5', sayHi)
+}, 1000)
 
 // // Const exp 1
 // function x(){
 //   const hi = 'hi from x'
 //   console.log(hi)
 // }
-
+//
 // // Const exp 2
 // function y(){
 //   const hi = 'hi from y'
