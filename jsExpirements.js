@@ -1,4 +1,5 @@
 
+
 // Promise Expirement
 /*
   A Promise is a PROXY for a value not necessarily known,
@@ -56,22 +57,22 @@
 //   console.log('reason: ', reason)
 // });
 
-// CallBack Expirement
-
-function sayHi (err, data) {
-  if (err) return console.log('error: ', err);
-  return console.log('data: ', data);
-}
-
-function testCB (num, cb) {
-  if (typeof num !== 'number') return cb({ Error: 'this is not a number' });
-  return cb(null, { Success: `This is the number ${num}` });
-}
-testCB(5, sayHi);
-
-setTimeout(() => {
-  testCB('5', sayHi)
-}, 1000)
+// // CallBack Expirement
+//
+// function sayHi (err, data) {
+//   if (err) return console.log('error: ', err);
+//   return console.log('data: ', data);
+// }
+//
+// function testCB (num, cb) {
+//   if (typeof num !== 'number') return cb({ Error: 'this is not a number' });
+//   return cb(null, { Success: `This is the number ${num}` });
+// }
+// testCB(5, sayHi);
+//
+// setTimeout(() => {
+//   testCB('5', sayHi)
+// }, 1000)
 
 // // Const exp 1
 // function x(){
