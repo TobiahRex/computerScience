@@ -1,3 +1,11 @@
+// Global Var Expirement
+// function test() {
+//   this.x = 'this should not be here';
+//   console.log('this', this);
+// }
+// test();
+// console.log('global.x: ', global.x);
+//
 
 
 // Promise Expirement

@@ -69,4 +69,3 @@ function hasCycle(node) {
 console.time('cycleCheck');
 hasCycle(head);
 console.timeEnd('cycleCheck');
-console.log('hasCycle(head)', hasCycle(head));

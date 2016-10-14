@@ -25,12 +25,10 @@ which points at another node inside of itself, and so forth.
 
 let firstNode = {
   data: 12,
-  next: null
-}
-
-firstNode.next = {
-  data: 24,
-  next: null
+  next:  {
+    data: 24,
+    next: null
+  }
 }
 
 /*
@@ -125,11 +123,11 @@ console.log('global: ', global._length, global._head);
 console.log('LinkedList: ', LinkedList.prototype);
 
 ////////// Github user mrkrstrndd ///////////
-let list = function (e) {
+let list = (e) => {
   let self = this;
   let first, last, head;
 
-  self.insert = function (value) {
+  self.insert = (value) => {
     let node = new Node(value);
     if (first === null) {
       first = last = node;
@@ -143,7 +141,7 @@ let list = function (e) {
     }
   }
 
-  self.show = function () {
+  self.show = () => {
     let head = first;
     while (head != null) {
       console.log(head.value);
@@ -151,7 +149,7 @@ let list = function (e) {
     }
   }
 
-  self.remove = function (value) {
+  self.remove = (value) => {
     let found = false;
     let head = first;
     while (head != null) {
@@ -173,7 +171,7 @@ let list = function (e) {
     }
   }
 
-  self.update = function (value, newValue) {
+  self.update = (value, newValue) => {
     let head = first;
     while (head != null) {
       if (head.value == value) {
@@ -184,7 +182,7 @@ let list = function (e) {
 
   }
 
-  let Node = function (value) {
+  let Node = (value) => {
     this.value = value;
     let next = {};
   }
