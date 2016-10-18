@@ -51,7 +51,7 @@ Object.keys(heroStrength).sort().forEach((hero) => {
 console.log('sortedHeros: ', sortedHeros);
 
 // sorting object by value
-console.log('\n-------------Sorting Object by Property-----------------\n');
+console.log('\n-------------Sorting Object by Value-----------------\n');
 
 let sortedStrength = {};
 let sortedKeys = Object.keys(heroStrength).sort((a, b) => heroStrength[a] - heroStrength[b]);

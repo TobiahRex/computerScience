@@ -1,4 +1,5 @@
-/*
+/* Cyclic Detection
+
 A linked list is said to contain a cycle
 if any node is visited more than once
 while traversing the list.
@@ -69,3 +70,22 @@ function hasCycle(node) {
 console.time('cycleCheck');
 hasCycle(head);
 console.timeEnd('cycleCheck');
+
+function hasCycle(node) {
+  if (!node || !node.next) return null || false;
+
+  let current = node;
+  let current2 = node;
+  let result = false;
+
+  while (current.next) {
+    current = current.next;
+    curent2 = current.next.next;
+
+    if (current2 === current) {
+      result = true;
+      break;
+    }
+  }
+  return result;
+}
