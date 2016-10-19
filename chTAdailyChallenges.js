@@ -14,7 +14,7 @@
 // console.time('hasOccurences')
 // countOccurences('oakland athletics') // 2.038
 // console.timeEnd('hasOccurences')
-
+//
 // // another solution --> this is better in terms of readability:
 // function countOccurences(str) {
 //   let memo = {}
@@ -27,7 +27,7 @@
 // console.time('hasOccurences')
 // countOccurences('oakland athletics') // 1.091 ms
 // console.timeEnd('hasOccurences')
-
+//
 // // another solution... but not as efficient:
 // function countOccurences(str) {
 //   let memo = {}
@@ -43,21 +43,20 @@
 // console.timeEnd('countOccurences');
 
 
-// ////////////////////////////////////// DAY TWO //////////////////////////////////////
+/////////////////////////////////////// DAY TWO //////////////////////////////////////
 // // write a fcn that will return data of last node (aka node in which 'next' key returns null)
 // let node = {
-data: 1,
-next: {
-  data: 2,
-  next: {
-    data: 3,
-    next: {
-      data: 4,
-      next: null
-    }
-  }
-}
-}
+// data: 1,
+// next: {
+//   data: 2,
+//   next: {
+//     data: 3,
+//     next: {
+//       data: 4,
+//       next: null
+//     }
+//   }
+// }
 // function last(head) {
 //   let node = head;
 //   while(node.next) node = node.next;
@@ -71,7 +70,7 @@ next: {
 // console.time('last')
 // last(node)
 // console.timeEnd('last'); // last: 0.594ms
-
+//
 // // // write a fcn that will return index of middle node = BROKEN
 // function middle(head) {
 //   let runner = 0;
@@ -84,7 +83,7 @@ next: {
 // console.time('middle')
 // middle(node)
 // console.timeEnd('middle'); //
-
+//
 // // if the obj.next !== null, keep going through the 'next' object until find one that is null
 // var head: {
 //   data: 'data',
@@ -99,12 +98,8 @@ next: {
 //     }
 //   }
 // }
-//
-//
-//
-//
-//
-//
+
+
 ////////////////////////////////////// DAY THREE //////////////////////////////////////
 // function min(stack) {
 //   /*
@@ -122,7 +117,7 @@ next: {
 // }
 
 
-// ////////////////////////////////////// DAY FOUR //////////////////////////////////////
+////////////////////////////////////// DAY FOUR //////////////////////////////////////
 // // Calculate Fibonacci Sequence
 //
 //

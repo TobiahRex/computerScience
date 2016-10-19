@@ -38,4 +38,37 @@ function binToHexTest() {
 
 console.log(binToHexTest());
 
-console.log(binToHex('10001010111010001'))
+console.log(binToHex('10001010111010001'));
+
+/* Other questions.
+
+1) Write functions to convert Decimal to Hex and Hex to Decimal.
+  Store hex as a string.
+  Do not call any built in functions to do this conversion for you.
+
+2) Use the 2 bit adder we built in the video to write an N bit adder.
+  Your function should take 2 binary strings.
+  If one is longer than the other,
+  pad the left side of the shorter string with 0s.
+  Your output should be the length of the strings + 1 bit.
+
+3) Implement the ternary operator
+  without using any conditional statements.
+  Your function, ternary(a, b, c),
+  should return b if
+  a is true
+  and c if a is false.
+  You can assume a, b and c are all integers.
+
+4) Write a function negTwosComplement(bin)
+  that takes as input a 32 bit binary string.
+  Return a 32 bit binary string representing the negative of that number in two’s complement.
+  Remember flip the bits and add 1.
+
+5) Write a function that takes as input
+  two 32 binary strings a and b.
+  Return a 32 bit binary string
+  representing the result of a - b.
+  Do not convert to decimal.
+  Hint: Use your answers to Questions 2 and 4.
+*/
