@@ -75,34 +75,34 @@ let obj = { a: 1, b: 2, c: 3, d: 4, e: 5, f: 6, g: 7, h: 8, i: 9, j: 10, k: 11,
   xxxx: 24, yyyy: 25, zzzz: 26,
 }
 console.time('objHasProp')
-obj['z'] ? console.log('true') : console.log(false); // obj[] ? : 2.573ms
+// obj['z'] ? console.log('true') : console.log(false); // obj[] ? : 2.573ms
 obj.hasOwnProperty('z'); // objHasProp: 0.510ms
 console.timeEnd('objHasProp')
-
-console.time('objHasProp')
-obj.hasOwnProperty('zz'); // objHasProp: 0.567ms
-obj['zz'] ? console.log(true) : console.log(false); // obj[] ? : 3.097ms
-console.timeEnd('objHasProp')
-
-console.time('objHasProp')
-obj.hasOwnProperty('zzz'); // objHasProp: 0.503ms
-obj['zzz'] ? console.log(true) : console.log(false); // obj[] ? : 3.904ms
-console.timeEnd('objHasProp')
-
-console.time('objHasProp')
-obj.hasOwnProperty('zzzz'); // objHasProp: 0.547ms (varies)
-obj['zzzz'] ? console.log(true) : console.log(false); // obj[] ? : 4.204ms
-console.timeEnd('objHasProp')
-
-console.time('Object.keys')
-Object.keys(obj)
-console.timeEnd('Object.keys')
-
-let item = 'zzz'
-console.time('forIn');
-for (let key in obj) {
-  obj[key] === item
-}
-// obj['zzz'] ? true : false;
-// obj.hasOwnProperty('zzz')
-console.timeEnd('forIn'); // 2.73 ms
+//
+// console.time('objHasProp')
+// obj.hasOwnProperty('zz'); // objHasProp: 0.567ms
+// obj['zz'] ? console.log(true) : console.log(false); // obj[] ? : 3.097ms
+// console.timeEnd('objHasProp')
+//
+// console.time('objHasProp')
+// obj.hasOwnProperty('zzz'); // objHasProp: 0.503ms
+// obj['zzz'] ? console.log(true) : console.log(false); // obj[] ? : 3.904ms
+// console.timeEnd('objHasProp')
+//
+// console.time('objHasProp')
+// obj.hasOwnProperty('zzzz'); // objHasProp: 0.547ms (varies)
+// obj['zzzz'] ? console.log(true) : console.log(false); // obj[] ? : 4.204ms
+// console.timeEnd('objHasProp')
+//
+// console.time('Object.keys')
+// Object.keys(obj)
+// console.timeEnd('Object.keys')
+//
+// let item = 'zzz'
+// console.time('forIn');
+// for (let key in obj) {
+//   obj[key] === item
+// }
+// // obj['zzz'] ? true : false;
+// // obj.hasOwnProperty('zzz')
+// console.timeEnd('forIn'); // 2.73 ms

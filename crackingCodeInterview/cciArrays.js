@@ -18,6 +18,11 @@ Then print the updated array as a single line of space-separated integers.
 let array = [1,2,3,4,5]
 
 // Step 3 - Create a brute Force psuedo code solution.
+
+// iterate through all digits
+// 
+
+
 /*
 IDEA 1
   splice from the array,
