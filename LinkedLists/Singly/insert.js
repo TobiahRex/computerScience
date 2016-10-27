@@ -1,22 +1,19 @@
-LinkedList.prototype.insert = (data) => {
-  if (this._head === null)  {
-    this._head = {
+LinkedList.prototype = {
+  insert: (data) => {
+    let node = {
       data,
-      next: null;
+      next: null,
     };
-    this._length = 1;
-    return console.log('Linked List was empty.\n New node inserted at the HEAD.');
-  }
 
-  let current = this._head;
-  let newNode = {
-    data,
-    next: null,
-  };
+    if (this._head === null)  {
+      this._head = node
+      console.log('Linked List was empty.\n New node inserted at the HEAD.');
+    } else {
+      let current = this._head;
+      while(current.next) current = current.next;
+      current.next = node;
+    }
 
-  while(current.next !== null) {
-    current = current.next;
+    this._length += 1;
   }
-  current.next = newNode;
-  this._length += 1;
 }
