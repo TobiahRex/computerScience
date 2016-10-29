@@ -22,11 +22,8 @@ Step 2:
 --------------------------------
 */
 const anagramCheck = (sOne, sTwo) => {
-  sOne = String(sOne).toLowerCase();
-  sTwo = String(sTwo).toLowerCase();
-
-  sOne = sOne.match(/[a-z]+/gi);
-  sTwo = sTwo.match(/[a-z]+/gi);
+  sOne = String(sOne).toLowerCase().match(/[a-z]+/gi);
+  sTwo = String(sTwo).toLowerCase().match(/[a-z]+/gi);
 
   if (sOne.length !== sTwo.length) return false;
 
