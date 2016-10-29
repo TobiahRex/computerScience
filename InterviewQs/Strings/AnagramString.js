@@ -6,7 +6,8 @@ Check to see if two Strings are Anagrams.
 Two strings are anagrams if
 they are written using the same exact letters,
 ignoring spaces,
-punctuation and capitalization.
+punctuation
+and capitalization.
 
 Each letter should have the same count in both strings.
 For example,
@@ -21,14 +22,17 @@ Step 2:
 --------------------------------
 */
 const anagramCheck = (sOne, sTwo) => {
-  if (String(sOne).length !== String(sTwo).length) return false;
+  sOne = String(sOne).toLowerCase();
+  sTwo = String(sTwo).toLowerCase();
 
-  return String(sOne)
-  .split('')
-  .map((x) => {
-    if (String(sTwo).includes(x) === false) return 0;
-  })
+  sOne = sOne.match(/[a-z]+/gi);
+  sTwo = sTwo.match(/[a-z]+/gi);
+
+  if (sOne.length !== sTwo.length) return false;
+
+  return sOne
+  .map((x) => (sTwo.includes(x) === false ? 0 : 1))
   .includes(0) === true ?  false : true;
 }
 
-console.log('ANSWER >>> ', anagramCheck(12345, 4251));
+console.log('ANSWER >>> ', anagramCheck('asdAWecD!#$@#$^', 'asdawecd'));
