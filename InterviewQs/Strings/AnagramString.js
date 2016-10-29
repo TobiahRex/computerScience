@@ -21,7 +21,7 @@ Step 2:
 
 --------------------------------
 */
-const anagramCheck = (sOne, sTwo) => {
+function anagramCheck(sOne, sTwo) {
   sOne = String(sOne).toLowerCase().match(/[a-z]+/gi);
   sTwo = String(sTwo).toLowerCase().match(/[a-z]+/gi);
 
