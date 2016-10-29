@@ -5,7 +5,7 @@
 function printDupes(string) {
   if (typeof string !== 'string') return new Error('Type Error. wrong input.');
 
-  let dictionary = {};
+  const dictionary = {};
 
   string
   .split('')

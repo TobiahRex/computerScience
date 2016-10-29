@@ -153,7 +153,12 @@ function diagStr(string, n) {
     }
   }
 
-  return Object.keys(Dictionary).map(key => Dictionary[key]).join().split(',').join('');
+  return Object
+  .keys(Dictionary)
+  .map(key => Dictionary[key])
+  .join()
+  .split(',')
+  .join('');
 }
 
 console.log('ANSWER >>> ', diagStr("PAYPALISHIRING", 4))  // PINALSIGYAHRPI
