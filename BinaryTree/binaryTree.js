@@ -32,16 +32,33 @@ class BinarySearchTree {
   }
 
   getMaxKeyDescendant() {
+    // MAX infers the right side of the tree since tree's are designed to be sorted.
     if (this.right) {
       // as long as there is another branch on the right, call it again.
       return this.right.getMaxKeyDescendant();
       // for each function call, when it's time to return, return nothing.
     } else {
       return this;
-      // this will return the last leaf info.
+      // this will return the last leaf node.
     }
   }
 
+  getMaxKey() {
+    return this.getMaxKeyDescendant().key;
+    // return the last leaf key info.
+  }
+
+  getMinKeyDescendant() {
+    if(this.left) {
+      return getMinKeyDescendant();
+    } else {
+      return this;
+    }
+  }
+
+  getMinKey() {
+    return this.getMinKeyDescendant().key;
+  }
 
 
 }
