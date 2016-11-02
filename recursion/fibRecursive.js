@@ -37,22 +37,32 @@
 //   if (n > 0) return fibRecursive(--n, 0, 1);  // if n is a number, find answer.
 //   return 0;
 // }
-
+//
 // // RECURSIVE (mine)
 // function fib(n) {
 //   function fibRecursive(target, previous, current) {
-//     if (target !== 0) return fibRecursive(--target, current, (previous + current));
+//     if (target !== 0) {
+//       return fibRecursive(--target, current, (previous + current));
+//     }
 //     return current;
 //   }
 //   if (n > 0) return fibRecursive(--n, 0, 1);
 //   return 0;
 // }
+//
+// // RECURSIVE (Michael)
+// function fib(n) {
+//   if (n < 1) return 0;
+//   if (n === 1) return 1;
+//   return fib(n - 1) + fib(n - 2);
+// }
+let memo = {};
 
-// RECURSIVE (Michael)
 function fib(n) {
-  if (n < 1) return 0;
-  if (n === 1) return 1;
-  return fib(n - 1) + fib(n - 2);
+  if (!(n <= 1)) {
+    return fib(n - 1) + fib(n - 2);
+  }
+  return n
 }
 
 console.log('>>> ANSWER: ', fib(21)); // 21st = 10946

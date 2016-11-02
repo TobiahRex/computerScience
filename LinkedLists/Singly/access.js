@@ -1,4 +1,4 @@
-LinkedList.prototype = {
+bknpm LinkedList.prototype = {
   access: (index) => {
     if (index === 0) return this._head;
 

@@ -3,7 +3,7 @@ Linked lists consits of a sequence of Nodes.
 
 Each containing an arbitrary field of DATA.
 
-{
+let node = {
 data: stuff,
 next: {
 data: stuff,
@@ -11,9 +11,15 @@ next: null
 }
 }
 
-Linked lists permit insertion and removal of nodes
-at any point in the list
-in CONSTANT TIME O(1).
+Linked lists (Singly or Doubly) permit INSERTION and DELETION of nodes
+at any point in the list in CONSTANT TIME O(1). ACCESS & SEARCH of nodes in O(n) time.
+
+Arrays are fastest with ACCESS = O(1);
+
+B-TREE,
+Red-Black-Tree,
+Splay Tree,
+AVL Tree, are all O(log(n)) for, ACCESS, SEARCH, INSERTION, DELETION.
 
 But do not allow random access.
 
@@ -37,39 +43,33 @@ Typically you want to outsource the creating of a linked list to a function.
 Using the 'this' keyword, we can instantiate proprerties on an object,
 sharing the name, LinkedList.
 */
-function LinkedList() {
-  this._length = 12;
-  this._head = null;
+function LinkedList(length, headNode) {
+  this._length = length;
+  this._head = headNode;
 }
-LinkedList();
-// console.log('LinkedList.prototype._length ', LinkedList.prototype._length);
+LinkedList(1, firstNode);
 
 // SETTING a new NODE to the end of a Linked List
-LinkedList.prototype = {
-  add(data) {
-    let node = { // create a new node and place data in the node.
-      data,
-      next: null
-    }
-
-    // special case: there is no node asigned to the head.
-    let current;
-    if (this._head === null){
-      this._head = body;
-    } else {
-      current = this._head
-
-      while (current.next) current = current.next;
-      current.next = node;
-    }
-
-    this._length += 1;
+LinkedList.prototype.insert = (data) => {
+  let node = { // create a new node and place data in the node.
+    data,
+    next: null
   }
-  // more methods could be added here
-}
+  // special case: there is no node asigned to the head.
+  if (this._head === null){
+    this._head = node;
+  } else {
+    let current = this._head
+    while (current.next) current = current.next;
+    current.next = node;
+  }
 
-//GETTING a node from a Linked List
-LinkedList.prototype.get = (index) => {
+  this._length += 1;
+}
+// more methods could be added here
+
+//Searching for a node from a Linked List
+LinkedList.prototype.search = (index) => {
   // check for out of bounds values.
   if (index > -1 && index < this.length){
     let current = this._head;
@@ -81,7 +81,7 @@ LinkedList.prototype.get = (index) => {
   }
 }
 
-LinkedList.prototype.remove = (index) => {
+LinkedList.prototype.delete = (index) => {
   let current = this._head;
   let i = 0;
   let previous;
@@ -119,10 +119,22 @@ LinkedList.prototype.update = (index, data) => {
   }
 }
 
+LinkedList.prototype.size = () => this._length;
+
+LinkedList.prototype.show = () => {
+  let head = this._head;
+  let count = 0;
+  while(head !== null) {
+    count += 1;
+    console.log('node: ', count, '\n data: ', head.data);
+    head = head.next;
+  }
+}
+
 console.log('global: ', global._length, global._head);
 console.log('LinkedList: ', LinkedList.prototype);
 
-////////// Github user mrkrstrndd ///////////
+/* Another approach  ////////// Github user mrkrstrndd ///////////
 let list = (e) => {
   let self = this;
   let first, last, head;
@@ -205,3 +217,4 @@ console.log("____________________________");
 
 list.remove(3);
 list.show();
+*/

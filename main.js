@@ -103,8 +103,6 @@ function linearSearch(arr) {
   return -1; // didn't find it.
 }
 
-
-
 // Bubble Sort
 function swap(items, firstIndex, secondIndex) {
   let temp = items[firstIndex];
@@ -177,7 +175,6 @@ function insertionSort(arr) {
   }
   return arr;
 }
-
 
 // Merge Sort - Iterative
 // Merges two arrays in order based on their natural relationship.
@@ -275,7 +272,7 @@ function HashTable(initialCapacity) {
 }
 
 
-//////////////////////////////////////////// HASH TABLES //////////////////////
+/////////////// HASH TABLES //////////////////
 /**
 * (Same algorithm as Java's String.hashCode)
 * Returns a hash code for this string. The hash code for a String object is
@@ -411,7 +408,7 @@ function fibMemo() {
     }
     return value;
   }
-  return f;
+  return f();
 }
 
 

@@ -88,7 +88,6 @@ Step 5: Psuedo Code
 Step 6: Code
 */
 
-
 function diagStr(string, n) {
   let x = 0
   let y = 1
@@ -96,61 +95,28 @@ function diagStr(string, n) {
 
   for (let i = 0; i < n; i++) Dictionary[i] = []
 
-  // for (let i = 0; i < string.length; i++) {
-  //   if ((x / (n - 1)) % 1 === 0) {          //
-  //     Dictionary[(y - 1)].push(string[i])
-  //     if ((y + 1 ) > n) {
-  //       y = 1
-  //       x++
-  //     } else {
-  //       y++
-  //     }
-  //   } else {
-  //     let y = n
-  //     y -= x
-  //     Dictionary[(y - 1)].push(string[i])
-  //     y = 1
-  //     if ((x + 1) ===  (n - 1)) {
-  //        x = 0;
-  //      } else {
-  //         x++
-  //      }
-  //   }
-  //
-  //   if (x === (n - 1)) x = 0
-  // }
   for (let i = 0; i < string.length; i++) {
-    /* this first block checks for a specific x condition.  If that condition is present, we do things that can only be done while that x condition is true.  Findind extreme patterns.  Finding situations where things can only happen in specific circumstances.  */
-
-    // is X pattern true?
     if ((x / (n - 1)) % 1 === 0) {
-      // whatever y's value at the time, use that to find the right dictionary key.  Push in the current letter.
       Dictionary[(y - 1)].push(string[i])
-
-      // when complete, check to see if y's is about to break a rule.  If so, adjust the conditions to account for that by adjusting x to a different course, and y to a different course of actions.
       if ((y + 1 ) > n) {
         y = 1
         x++
-      // otherwise if no rules are going to be broken by y, then continue on...
       } else {
         y++
       }
-
-    // if X pattern is NOT true, then Y pattern is in play.
     } else {
       let y = n
       y -= x
       Dictionary[(y - 1)].push(string[i])
       y = 1
-
-      // when complete with Y pattern, check to see if x' is goign to break a rule.  If so adjust the conditions to account for that by adjusting x to a different course.
       if ((x + 1) ===  (n - 1)) {
-        x = 0;
-      // otherwise if no rules are going to be broken by x, then continue on...
-      } else {
-        x++
-      }
+         x = 0;
+       } else {
+          x++
+       }
     }
+
+    if (x === (n - 1)) x = 0
   }
 
   return Object
@@ -161,10 +127,44 @@ function diagStr(string, n) {
   .join('');
 }
 
-console.log('ANSWER >>> ', diagStr("PAYPALISHIRING", 4))  // PINALSIGYAHRPI
-//  RUNTIME = 2ms > time > 1ms
+// RUNTIME = 2ms > time > 1ms
+console.log('ANSWER >>> ', diagStr("PAYPALISHIRING", 4))
+// ANSWER >>> PINALSIGYAHRPI
 
 
+// for (let i = 0; i < string.length; i++) {
+  //   /* this first block checks for a specific x condition.  If that condition is present, we do things that can only be done while that x condition is true.  Findind extreme patterns.  Finding situations where things can only happen in specific circumstances.  */
+  //
+  //   // is X pattern true?
+  //   if ((x / (n - 1)) % 1 === 0) {
+  //     // whatever y's value at the time, use that to find the right dictionary key.  Push in the current letter.
+  //     Dictionary[(y - 1)].push(string[i])
+  //
+  //     // when complete, check to see if y's is about to break a rule.  If so, adjust the conditions to account for that by adjusting x to a different course, and y to a different course of actions.
+  //     if ((y + 1 ) > n) {
+  //       y = 1
+  //       x++
+  //     // otherwise if no rules are going to be broken by y, then continue on...
+  //     } else {
+  //       y++
+  //     }
+  //
+  //   // if X pattern is NOT true, then Y pattern is in play.
+  //   } else {
+  //     let y = n
+  //     y -= x
+  //     Dictionary[(y - 1)].push(string[i])
+  //     y = 1
+  //
+  //     // when complete with Y pattern, check to see if x' is goign to break a rule.  If so adjust the conditions to account for that by adjusting x to a different course.
+  //     if ((x + 1) ===  (n - 1)) {
+  //       x = 0;
+  //     // otherwise if no rules are going to be broken by x, then continue on...
+  //     } else {
+  //       x++
+  //     }
+  //   }
+  // }
 
 /* NOTES:
   This is a summary of thoughts in an attempt to understand grid matrixes better...

@@ -10,8 +10,10 @@ function binToHex(binString) {
     if (b === '1') {
       accumulator += Math.pow(2, hexCount);
     }
-    if (hexCount === 3 || i === 0) {    // if we've seen 4 characters or when we're iterating over the first group.
-      ret = hexList[accumulator] + ret; // use the accumulator, to extract the needed index, from the hex list && accumulate the total accordingly.
+    // if we've seen 4 characters or when we're iterating over the first group.
+    if (hexCount === 3 || i === 0) {    
+      // use the accumulator, to extract the needed index, from the hex list && accumulate the total accordingly.
+      ret = hexList[accumulator] + ret;
       accumulator = 0;
       hexCount = 0;
     } else {

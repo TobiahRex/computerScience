@@ -113,5 +113,4 @@ function solution(array, jumpLength) {
   console.log('last line');
   return time
 }
-// console.log('answer: ', solution([1,-1,0,2,3,5], 3))
 console.log('answer: ', solution([1,-1,5,0,4,3], 3))
