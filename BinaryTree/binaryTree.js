@@ -60,5 +60,22 @@ class BinarySearchTree {
     return this.getMinKeyDescendant().key;
   }
 
+  checkAllNodesForCondition(test) {
+    // check to see if all nodes (including leaves) fullfill the function "test" passed in as an input.
+
+    if(! this.hasOwnProperty('key')) {
+      // if the parent node doesn't have a key, then there's no point calling this function.
+      return;
+    }
+
+
+
+    test(this.key, this.data) {
+      if (this.left) {
+        this.left.checkAllNodesForCondition();
+      }
+    }
+
+  }
 
 }
