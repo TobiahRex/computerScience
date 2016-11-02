@@ -60,22 +60,24 @@ class BinarySearchTree {
     return this.getMinKeyDescendant().key;
   }
 
-  checkAllNodesForCondition(test) {
-    // check to see if all nodes (including leaves) fullfill the function "test" passed in as an input.
+  checkAllNodesFullfillCondition(test) {
+    // check to see if all nodes (including leaves) fullfill the function "test" passed in as an input.  If the test does not pass, the test function will throw an Error by design.
 
     if(! this.hasOwnProperty('key')) {
       // if the parent node doesn't have a key, then there's no point calling this function.
       return;
     }
 
+    test(this.key, this.data);
+    // if the parent has a key, and it has some data, then start calling the condition recursively for each of it's children recursively.
 
 
-    test(this.key, this.data) {
-      if (this.left) {
-        this.left.checkAllNodesForCondition();
-      }
-    }
+    if (this.left) this.left.checkAllNodesFullfillCondition(test);
+    if (this.right) this.right.checkAllNodesFullfillCondition(test);
+    // these simply recursively call the test function on each node in the tree.
 
   }
+
+
 
 }
