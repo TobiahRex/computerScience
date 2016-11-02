@@ -63,10 +63,8 @@ class BinarySearchTree {
   checkAllNodesFullfillCondition(test) {
     // check to see if all nodes (including leaves) fullfill the function "test" passed in as an input.  If the test does not pass, the test function will throw an Error by design.
 
-    if(! this.hasOwnProperty('key')) {
-      // if the parent node doesn't have a key, then there's no point calling this function.
-      return;
-    }
+    if(! this.hasOwnProperty('key')) return;
+    // if the parent node doesn't have a key, then there's no point calling this function.
 
     test(this.key, this.data);
     // if the parent has a key, and it has some data, then start calling the condition recursively for each of it's children recursively.
@@ -75,8 +73,34 @@ class BinarySearchTree {
     if (this.left) this.left.checkAllNodesFullfillCondition(test);
     if (this.right) this.right.checkAllNodesFullfillCondition(test);
     // these simply recursively call the test function on each node in the tree.
+  }
+
+  checkNodeOrdering() {
+    const self = this;
+
+    if (!this.hasOwnProperty('key')) return;
+
+    if (this.left) {
+      this.left.checkAllNodesFullfillCondition((k) => {
+        if (self.compareKeys(k, self.key) >= 0) {
+          throw new Error(`Tree with root ${self.key} is not a binary tree.`);
+        }
+      });
+      this.left.checkNodeOrdering();
+    }
+    
+    if (this.right) {
+      this.right.checkAllNodesFullfillCondition((k) => {
+        if (self.compareKeys(k, self.key) <= 0) {
+          throw new Error(`Tree with root ${self.key} is not a binary tree.`);
+        }
+      });
+      this.right.checkNodeOrdering();
+    }
 
   }
+
+
 
 
 
