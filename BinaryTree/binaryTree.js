@@ -31,8 +31,17 @@ class BinarySearchTree {
 
   }
 
-  getMaxKeyDescendatn() {
-    
+  getMaxKeyDescendant() {
+    if (this.right) {
+      // as long as there is another branch on the right, call it again.
+      return this.right.getMaxKeyDescendant();
+      // for each function call, when it's time to return, return nothing.
+    } else {
+      return this;
+      // this will return the last leaf info.
+    }
   }
+
+
 
 }
