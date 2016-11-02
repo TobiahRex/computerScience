@@ -59,7 +59,7 @@ function foo(arrA, arrB) {
   }
 }
 ​
-// 6  = O(n) Logarithmic because complexity is directly proportional to N.
+// 6  = O(log n) Logarithmic because complexity is directly proportional to half of N.
 function foo(arr) {
   for (var i = 0; i < arr.length/2; i++) {
     var mirror = arr.length - i - 1;
