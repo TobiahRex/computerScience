@@ -157,12 +157,34 @@ class BinarySearchTree {
     return res;
   }
 // ----------------------------------------------------------------------
-// ============================================
-// Methods used to actually work on the tree
-// ============================================
+//              ============================================
+//                Methods used to actually work on the tree
+//              ============================================
+// ----------------------------------------------------------------------
+  /*
+    Essentially just creates a copy (new instance) of a node from a option object input.
+  */
 
   createSimilar(options) {
     options = options || {};
+    options.unique = this.unique;
+    options.compareKeys = this.compareKeys;
+    options.checkValueEquality = this.checkValueEquality;
+
+    return new this.constructor(options);
   }
+// ----------------------------------------------------------------------
+  /*
+    
+  */
+  createLeftLeftChild(options) {
+    let leftChild = this.createSimilar(options);
+    leftChild.parent = this;
+    this.left = leftChild;
+
+    return leftChild;
+  }
+
+
 
 }
