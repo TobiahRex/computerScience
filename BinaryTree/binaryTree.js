@@ -274,9 +274,20 @@ class BinarySearchTree {
 // ----------------------------------------------------------------------
   search(key) {
     if (!this.hasOwnProperty('key')) return [];
-    if (this.compareKeys(this.key, key) === 0) return this.data;
+    if (this.compareKeys(key, this.key) === 0) return this.data;
     // if the key is the root nodes key, return the BST's data array.
 
-
+    if (this.compareKeys(key, this.key) < 0) {
+      if (this.left) {
+        return this.left.search(key);
+      } else {
+        return [];
+        // return empty data array since it's the last node in the tree.
+      }
+    } else {
+      
+    }
   }
+
+
 }
