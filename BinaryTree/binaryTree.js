@@ -30,7 +30,7 @@ class BinarySearchTree {
     this.checkValueEquality = options.checkValueEquality || customUtil.defaultCompareKeysFunction;
 
   }
-
+// ----------------------------------------------------------------------
   getMaxKeyDescendant() {
     // MAX infers the right side of the tree since tree's are designed to be sorted.
     if (this.right) {
@@ -42,12 +42,12 @@ class BinarySearchTree {
       // this will return the last leaf node.
     }
   }
-
+// ----------------------------------------------------------------------
   getMaxKey() {
     return this.getMaxKeyDescendant().key;
     // return the last leaf key info.
   }
-
+// ----------------------------------------------------------------------
   getMinKeyDescendant() {
     if(this.left) {
       return getMinKeyDescendant();
@@ -55,11 +55,11 @@ class BinarySearchTree {
       return this;
     }
   }
-
+// ----------------------------------------------------------------------
   getMinKey() {
     return this.getMinKeyDescendant().key;
   }
-
+// ----------------------------------------------------------------------
   checkAllNodesFullfillCondition(test) {
     // check to see if all nodes (including leaves) fullfill the function "test" passed in as an input.  If the test does not pass, the test function will throw an Error by design.
 
@@ -67,23 +67,30 @@ class BinarySearchTree {
     // if the parent node doesn't have a key, then there's no point calling this function.
 
     test(this.key, this.data);
-    // if the parent has a key, and it has some data, then start calling the condition recursively for each of it's children recursively.
+    // test acts as a callback.  You would look at where this call back was written to know exactly what will happen with this callback "test" is invoked.  this.key is the "key" value of the parent node. and it has some data, then start calling the condition recursively for each of it's children recursively.
 
 
     if (this.left) this.left.checkAllNodesFullfillCondition(test);
     if (this.right) this.right.checkAllNodesFullfillCondition(test);
     // these simply recursively call the test function on each node in the tree.
   }
-
+// ----------------------------------------------------------------------
   checkNodeOrdering() {
     // Check to make sure the tree is in order by node properties in the Binary Search Tree.  Throw an error if they are not.
+
+
     const self = this;
+    // makes the syntax a little less confusing.
 
     if (!this.hasOwnProperty('key')) return;
+    // if there are no keys to iterate over, don't bother checking.
+
 
     if (this.left) {
-      this.left.checkAllNodesFullfillCondition((k) => {
-        if (self.compareKeys(k, self.key) >= 0) {
+      // as long as there are nodes left to check on the left...
+      this.left.checkAllNodesFullfillCondition((key) => {
+        // check the
+        if (self.compareKeys(key, self.key) >= 0) {
           throw new Error(`Tree with root ${self.key} is not a binary tree.`);
         }
       });
@@ -91,8 +98,9 @@ class BinarySearchTree {
     }
 
     if (this.right) {
-      this.right.checkAllNodesFullfillCondition((k) => {
-        if (self.compareKeys(k, self.key) <= 0) {
+      this.right.checkAllNodesFullfillCondition((key) => {
+        if (self.compareKeys(key, self.key) <= 0) {
+          // compareKeys returns 1 when the first arg, is greater than the second arg.  Since we're checking the right half, then we want this condition to return a number greater than 0.  If not, throw an error.
           throw new Error(`Tree with root ${self.key} is not a binary tree.`);
         }
       });
@@ -101,6 +109,6 @@ class BinarySearchTree {
 
     this.right.checkNOdeOrdering();
   }
-
+// ----------------------------------------------------------------------
 
 }
