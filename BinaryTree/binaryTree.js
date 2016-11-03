@@ -175,7 +175,7 @@ class BinarySearchTree {
   }
 // ----------------------------------------------------------------------
   /*
-    
+    Create a copy of the BST node and attach it as a left child to the function caller, and return the left child to that function caller.
   */
   createLeftLeftChild(options) {
     let leftChild = this.createSimilar(options);
