@@ -11,6 +11,8 @@ const customUtil = require('./utils');
   left-node-data = 2i + 1
   right-node-data = 2i + 2
 
+  NOTE:  Each node, has it's OWN data array.  Which has all the data from it's child nodes including all the recursive children.  When doing a search by key, the data returned will be an array of values, that represent all the data in the tree from that specific key (node).
+
   therefore the left node data to key 0 === 8
   & the right node data to key 0 === 4
 
@@ -268,5 +270,13 @@ class BinarySearchTree {
         this.createRightChild({ key: key, value: value });
       }
     }
+  }
+// ----------------------------------------------------------------------
+  search(key) {
+    if (!this.hasOwnProperty('key')) return [];
+    if (this.compareKeys(this.key, key) === 0) return this.data;
+    // if the key is the root nodes key, return the BST's data array.
+
+
   }
 }
