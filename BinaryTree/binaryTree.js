@@ -134,10 +134,13 @@ class BinarySearchTree {
 // ----------------------------------------------------------------------
   checkIsBst() {
     this.checkNodeOrdering();
+    // first make sure the values are correct.
     this.checkInternalPointers();
-    if (this.parent) {
-      throw new Error(`The root shouldn't have a prent`);
-    }
+    // then make sure the height pointers are correct.
+
+    if (this.parent) throw new Error(`The root shouldn't have a parent`);
+
   }
+// ----------------------------------------------------------------------
 
 }
