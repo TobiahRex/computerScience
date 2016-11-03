@@ -185,6 +185,52 @@ class BinarySearchTree {
     return leftChild;
   }
 
+  createRightChild(options) {
+    let rightChild = this.createSimilar(options);
+    rightChild.parent = this;
+    this.right = rightChild;
+
+    return rightChild;
+  }
+// ----------------------------------------------------------------------
+
+  insert(key, value) {
+    // If there is an empty tree, insert at the root.
+
+    if (!this.hasOwnProperty('key')) {
+      this.key = key;
+      this.data.push(value);
+      return;
+    }
+
+    // if the new node has the same key as the root,
+    if (this.compareKeys(key, this.key) === 0) {
+      if (this.unique) {
+        let err = new Error(`Can't insert key ${key}, it violates the unique constraint.`);
+        err.key = key;
+        err.errorType = 'uniqueViolated';
+        throw err;
+      } else {
+        this.data.push(value);
+      }
+    }
+
+    // Otherwise insert at left subtree if condition matches
+    if (this.compareKeys(key, this.key) < 0) {
+      if (this.left) {
+        this.left.insert(key, value);
+        // call it recursively because we need to iterate to the bottom of the tree.
+      } else {
+        this.createLeftChild({ key: key, value: value });
+      }
+    } else {
+      if (this.right) {
+        this.right.insert(key, value);
+      } else {
+        this.createRightChild({ key: key, value: value });
+      }
+    }
+  }
 
 
 }
