@@ -1,5 +1,7 @@
 const customUtil = require('./utils');
 
+// skip to line 160 to see work methods
+
 class BinarySearchTree {
   constructor(options) {
     // re-assign options as empty object if passed nothing.
@@ -142,5 +144,25 @@ class BinarySearchTree {
 
   }
 // ----------------------------------------------------------------------
+  getNumberOfKeys () {
+    let res;
+
+    if (!this.hasOwnProperty('key')) return 0;
+
+    res = 1;
+
+    if (this.left) res += this.left.getNumberOfKeys();
+    if (this.right) res += this.right.getNumberOfKeys();
+
+    return res;
+  }
+// ----------------------------------------------------------------------
+// ============================================
+// Methods used to actually work on the tree
+// ============================================
+
+  createSimilar(options) {
+    options = options || {};
+  }
 
 }
