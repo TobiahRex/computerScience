@@ -61,7 +61,7 @@ class BinarySearchTree {
   }
 // ----------------------------------------------------------------------
   checkAllNodesFullfillCondition(test) {
-    // check to see if all nodes (including leaves) fullfill the function "test" passed in as an input.  If the test does not pass, the test function will throw an Error by design.
+    // check to see if all nodes (including leaves) fullfill the function "test" passed in as an input.  If the test does not pass, the test function will throw an Error by design.  Typically this function will be called on the "left" or "right" property of this class as a method.  Therefore the "this.key" will typically be that nodes value.
 
     if(! this.hasOwnProperty('key')) return;
     // if the parent node doesn't have a key, then there's no point calling this function.
@@ -80,16 +80,15 @@ class BinarySearchTree {
 
 
     const self = this;
-    // makes the syntax a little less confusing.
+    // we capture the original "this" as "self" because it refers to the class' "this".  As we iterate throughout the tree, the "this" will be re-assigned to "this.right", or "this.left" so we lose the ability to call class specific methods with the "this" keyword.
 
     if (!this.hasOwnProperty('key')) return;
-    // if there are no keys to iterate over, don't bother checking.
-
+    // if there is no key value to check for this root node (which is actually a leaf node of a higher root node), don't bother checking.
 
     if (this.left) {
-      // as long as there are nodes left to check on the left...
+      // as long as there are nodes on the left remaining to check...
       this.left.checkAllNodesFullfillCondition((key) => {
-        // check the
+        // the key passed in will be respective to "this.left".
         if (self.compareKeys(key, self.key) >= 0) {
           throw new Error(`Tree with root ${self.key} is not a binary tree.`);
         }
