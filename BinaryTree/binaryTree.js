@@ -285,7 +285,11 @@ class BinarySearchTree {
         // return empty data array since it's the last node in the tree.
       }
     } else {
-      
+      if (this.right) {
+        return this.right.search(key);
+      } else {
+        return [];
+      }
     }
   }
 
