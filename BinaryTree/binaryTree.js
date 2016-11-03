@@ -94,12 +94,12 @@ class BinarySearchTree {
         }
       });
       this.left.checkNodeOrdering();
+      // call the function recursively to ensure all child nodes are also checked.
     }
 
     if (this.right) {
       this.right.checkAllNodesFullfillCondition((key) => {
         if (self.compareKeys(key, self.key) <= 0) {
-          // compareKeys returns 1 when the first arg, is greater than the second arg.  Since we're checking the right half, then we want this condition to return a number greater than 0.  If not, throw an error.
           throw new Error(`Tree with root ${self.key} is not a binary tree.`);
         }
       });
@@ -109,5 +109,8 @@ class BinarySearchTree {
     this.right.checkNOdeOrdering();
   }
 // ----------------------------------------------------------------------
+  checkInternalPointers() {
+    if (this.left) {}
+  }
 
 }
