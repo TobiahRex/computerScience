@@ -1,7 +1,6 @@
 const customUtil = require('./utils');
 
 // skip to line 160 to see work methods
-
 class BinarySearchTree {
   constructor(options) {
     // re-assign options as empty object if passed nothing.
@@ -156,11 +155,11 @@ class BinarySearchTree {
 
     return res;
   }
-// ----------------------------------------------------------------------
-//              ============================================
-//                Methods used to actually work on the tree
-//              ============================================
-// ----------------------------------------------------------------------
+/* ----------------------------------------------------------------------
+
+               Methods used to actually work on the tree
+
+ ---------------------------------------------------------------------- */
   /*
     Essentially just creates a copy (new instance) of a node from a option object input.
   */
@@ -211,7 +210,7 @@ class BinarySearchTree {
         err.errorType = 'uniqueViolated';
         throw err;
       } else {
-        this.data.push(value);
+        this.data.push(value); // push values into the BST single data array.
       }
     }
 
@@ -231,6 +230,4 @@ class BinarySearchTree {
       }
     }
   }
-
-
 }
