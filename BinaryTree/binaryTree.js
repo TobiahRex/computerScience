@@ -1,7 +1,9 @@
 const customUtil = require('./utils');
 
-/*
-  Binary search trees (BST)'s use left, right, and parent pointers in memory to connect data together.  The class itself keeps track of a SINGLE array containg the actual data values of each array.  The order that the data appears in the array is not arbitrary however.  The order of the tree, must be in order.  For example, values right of the parent are greater than the parent, and vice versa.
+/* DESCRIPTION
+  Skip to line 230ish for "do-work" methods.
+
+  Binary search trees (BST)'s use left, right, and parent pointers in memory to connect data together.  They use "keys" to track their "index".  The class itself keeps track of a SINGLE array containg the actual data values of each array.  The order that the data appears in the array is not arbitrary however.  The order of the tree, must be in order.  For example, values right of the parent are greater than the parent, and vice versa.
 
   BST data array...
   [1,8,4,5,2,3,6]
@@ -31,6 +33,8 @@ const customUtil = require('./utils');
   The reason BST's are so valuable is because they have O(logn) lookup time when they're balanced, and O(n) when they are unbalanced.  They typically have O(logn) time complexity on all other related common methods: search, insert, delete, access.  When factoring in time complexity, the height of the tree is extremely relevant, and whether the tree is "Perfectly" balanced, or "Complete" is also important information.
 
   BST's cannot have a height difference between levels of more than 1.  The height is calculated by | left node - (right node)|.  If it's greater than 1, then there is an imbalance and it must be corrected.
+
+  BST's have a height of -1 if it's empty.  The root node (if there is one) is considered height = 0. Height is calculated by counting the number of nodes from the node to the root.
 */
 
 // skip to line 160 to see work methods
@@ -176,6 +180,9 @@ class BinarySearchTree {
 
   }
 // ----------------------------------------------------------------------
+  /*
+    Otherwise known as getting the overal size of the tree.
+  */
   getNumberOfKeys () {
     let res;
 
@@ -196,7 +203,6 @@ class BinarySearchTree {
   /*
     Essentially just creates a copy (new instance) of a node from a option object input.
   */
-
   createSimilar(options) {
     options = options || {};
     options.unique = this.unique;
@@ -227,23 +233,23 @@ class BinarySearchTree {
 // ----------------------------------------------------------------------
 
   insert(key, value) {
-    // If there is an empty tree, insert at the root.
-
     if (!this.hasOwnProperty('key')) {
+      // if there is no root node...insert at the root.
       this.key = key;
       this.data.push(value);
       return;
     }
 
-    // if the new node has the same key as the root,
     if (this.compareKeys(key, this.key) === 0) {
+      // if the new node has the same key as the root, (all keys must be unique [optionally])
       if (this.unique) {
         let err = new Error(`Can't insert key ${key}, it violates the unique constraint.`);
         err.key = key;
         err.errorType = 'uniqueViolated';
         throw err;
       } else {
-        this.data.push(value); // push values into the BST single data array.
+        // otherwise if we don't care if there are duplicate key's, then...
+        this.data.push(value); // push data values into the BST single data array.
       }
     }
 
@@ -251,7 +257,7 @@ class BinarySearchTree {
     if (this.compareKeys(key, this.key) < 0) {
       if (this.left) {
         this.left.insert(key, value);
-        // call it recursively because we need to iterate to the bottom of the tree.
+        // call it recursively because we need to iterate to the bottom of the tree and insert the new node whenever the left or right child is "null".
       } else {
         this.createLeftChild({ key: key, value: value });
       }
