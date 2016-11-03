@@ -75,6 +75,9 @@ class BinarySearchTree {
     // these simply recursively call the test function on each node in the tree.
   }
 // ----------------------------------------------------------------------
+  /*
+    Fundamentally this function simply makes sure that the left most values are less than the middle value, and the right most are great than the middle value...recursively down the tree.
+  */
   checkNodeOrdering() {
     // Check to make sure the tree is in order by node properties in the Binary Search Tree.  Throw an error if they are not.
 
@@ -109,8 +112,32 @@ class BinarySearchTree {
     this.right.checkNOdeOrdering();
   }
 // ----------------------------------------------------------------------
+/*
+  Fundamentally determines if the nodes at different heights, are pointing in the right direction, or pointing at all.
+*/
   checkInternalPointers() {
-    if (this.left) {}
+    if (this.left) {
+      if (this.left.parent !== this) {
+        throw new Error(`Parent pointer broken for key ${this.key}`);
+        this.left.checkInternalPointers();
+      }
+    }
+
+    if (this.right) {
+      if (this.right.parent !== this) {
+        throw new Error(`Parent broken for key ${this.key}`);
+        this.right.checkInternalPointers();
+      }
+    }
+  }
+
+// ----------------------------------------------------------------------
+  checkIsBst() {
+    this.checkNodeOrdering();
+    this.checkInternalPointers();
+    if (this.parent) {
+      throw new Error(`The root shouldn't have a prent`);
+    }
   }
 
 }
