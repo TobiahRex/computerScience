@@ -76,6 +76,7 @@ class BinarySearchTree {
   }
 
   checkNodeOrdering() {
+    // Check to make sure the tree is in order by node properties in the Binary Search Tree.  Throw an error if they are not.
     const self = this;
 
     if (!this.hasOwnProperty('key')) return;
@@ -88,7 +89,7 @@ class BinarySearchTree {
       });
       this.left.checkNodeOrdering();
     }
-    
+
     if (this.right) {
       this.right.checkAllNodesFullfillCondition((k) => {
         if (self.compareKeys(k, self.key) <= 0) {
@@ -98,10 +99,8 @@ class BinarySearchTree {
       this.right.checkNodeOrdering();
     }
 
+    this.right.checkNOdeOrdering();
   }
-
-
-
 
 
 }
