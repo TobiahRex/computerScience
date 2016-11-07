@@ -70,11 +70,32 @@ class DoublyLinkedList{
       curNode = curNode.prev;
     }
   }
-  hasLoopMarkNodes(){
-    //TODO
+  hasLoopMarkNodes() {  // expensive and generic loop detection.
+    let curNode = this.head;
+
+    while(curNode) {
+      if (curNode.seen) {
+        return true;
+      }
+      curNode.seen = true;
+      curNode = curNode.next;
+    }
+    return false;
   }
-  hasLoopFloyds(){
-    //TODO
+  hasLoopFloyds() {  // Floyds loop detector using runners.
+    if (!this.head || !this.head.next || !this.head.next.next) return false;
+    // we check for 3 valid nodes, because we need to create two runners.
+    let slowRunner = this.head;
+    let fastRunner = this.head.next.next;
+    
+    while (slowRunner !== fastRunner) {
+      if (!hare.next || !hare.next.next) return false; // end of list
+
+      slowRunner = slowerRunner.next;
+      fastRunner = fastRunner.next.next;
+    }
+    return true;
+    // if the code breaks out of the while loop WITHOUT a false condition then that means we do have a loop so return true.
   }
 }
 
