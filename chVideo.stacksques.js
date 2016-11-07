@@ -42,16 +42,16 @@ class DoublyLinkedList{
     return curNode;
   }
   removeNode(node){
-    if(this.head === node){
+    if (this.head === node){
       this.head = node.next;
     }
-    if(this.tail === node){
+    if (this.tail === node){
       this.tail = node.prev;
     }
-    if(node.prev){
+    if (node.prev){
       node.prev.next = node.next;
     }
-    if(node.next){
+    if (node.next){
       node.next.prev = node.prev;
     }
     --this.length;
@@ -81,21 +81,27 @@ class DoublyLinkedList{
 
 class Stack extends DoublyLinkedList{
   push(data) {
-    //TODO
-    let node = new Node(data);
-    
+    this.add(data);
   }
   pop() {
-    //TODO
+    if (this.length === 0) return null;
+
+    let oldTail = this.tail;
+    this.removeNode(oldTail);
+    return oldTail.data;
   }
 }
 
 class Queue extends DoublyLinkedList{
   enqueue(data){
-     //TODO
+     this.add(data);
   }
   dequeue(){
-    //TODO
+    if (this.length === 0) return null;
+
+    let oldHead = this.head;
+    this.removeNode(oldHead);
+    return oldHead.data;
   }
 }
 

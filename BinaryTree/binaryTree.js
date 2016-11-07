@@ -92,7 +92,7 @@ class BinarySearchTree {
     if(this.left) {
       return getMinKeyDescendant();
     } else {
-      return this;
+      return this;Blue
     }
   }
 // ----------------------------------------------------------------------

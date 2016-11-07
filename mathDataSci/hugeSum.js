@@ -18,10 +18,31 @@ function hugeSum(a, b) {
       total += sum
     }
   }
-  // reverse the string to normal direction.
-  // join it.
-  // return sum as string.
   return total.split('').reverse().join('');
 }
+
+/*
+  Cades Answer
+*/
+function hugeSum(a, b) {
+  let result = [];
+  let carry = 0;
+  let aDigits = a.split('').reverse();
+  let bDigitis = b.split('').reverse();
+  let maxLength = Math.max(a.length, b.length);
+
+  for (let i = 0; i < maxLength; i++) {
+    let aVal = parseInt(aDigits[i]);
+    let bVal = parseInt(bDigits[i]);
+    let sum = aVal + bVal + carry;
+
+    carry = sum >= 10 ? 1 : 0;
+    result.unshift(sum % 10);
+  }
+
+  if (carry) result.unshift(1);
+  return result.join('');
+}
+
 
 console.log(hugeSum('9999999999', '1'));

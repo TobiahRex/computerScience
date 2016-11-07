@@ -36,7 +36,6 @@ function processData(input) {
       }
     });
 // ----------------------------------------------------------------------
-
     result += Object.keys(modeObj)[0];
     console.log(result)
 }
