@@ -38,22 +38,29 @@ YES
 
 // Step 1 - Gather all the information.
 // Step 2 - Choose a simple Test Case.
+// Step 3 - delcare your variables
+// Step 4 - Mentally solve the problem
+// Step 5 - Psuedo Code
+// Step 6 - Code
+// Step 7 - Edge Cases
+// Step 8 - Optimize: Effeciency & Comlex Test Cases
+
 class Stack {
   constructor() {
     this.top = null;
   }
 
-  createNode(direction, type) {
+  createNode(type, direction) {
     let node = {
-      direction,
       type,
+      direction,
       next: null
     }
     return node;
   }
 
-  push(direction, type) {
-    let node = this.createNode(direction, type);
+  push(type, direction) {
+    let node = this.createNode(type, direction);
     if (this.top === null) {
       this.top = node;
     } else {
@@ -75,31 +82,38 @@ class Stack {
 const stack = new Stack;
 
 function popCheck(t) {
-  let { direction, type } = stack.pop();
+  const { type, direction } = stack.pop();
 
-  if ((direction !== 'right') && (type !== t)) return true
+  if ((type === t) && (direction === 'right')) return true
   return false;
 }
 
-function main(n) {
-  let str = n[1]
-  let results = '';
+function checkString(n) {
+  let str = n
+  let checks = [];
+
   if ((str[0] === '}') || (str[0] === ')') || (str[0] === ']')) {
-    results += 'NO\n';
+    return 'NO\n';
+  } else if (!n.length) {
+    return 'NO\n';
   }
+
   for (let i = 0; i < str.length; i++) {
-    console.log('str[i]', str[i]);
     switch(str[i]) {
-      case '{': { stack.push('right', 'curly') } break;
-      case '[': { stack.push('right', 'square') } break;
-      case '(': { stack.push('right', 'parens') } break;
-      case ')': { popCheck('parens') } break;
+      case '{': { stack.push('curly', 'right') } break;
+      case '[': { stack.push('square', 'right') } break;
+      case '(': { stack.push('parens', 'right') } break;
+      case ')': { checks.push(popCheck('parens')) } break;
+      case ']': { checks.push(popCheck('square')) } break;
+      case '}': { checks.push(popCheck('curly')) } break;
+      default: { checks.push('error: ', str[i]) } break;
     }
   }
-  console.log('stack.top \n',  stack.top);
-  return results;
+  if(checks.includes(false)) return 'NO\n'
+  return 'YES\n'
 }
 
-let testCases = [1,'{[()]}'];
+// let testCases = '{[()]}';
 // let testCases = [3,'{[()]}','{[(])}','{{[[(())]]}}'];
-console.log(main(testCases));
+let testCases = '{[(])}'; // NO
+console.log(checkString(testCases));
