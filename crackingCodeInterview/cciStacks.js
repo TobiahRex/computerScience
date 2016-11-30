@@ -36,12 +36,43 @@
   YES
 */
 
-// Step 1 - Gather all the information
-function main(testCases) {
+// Step 1 - Gather all the information.
+// Step 2 - Choose a simple Test Case.
+class Stack {
+  constructor() {
+    this.top = null;
+    this.createNode = this.createNode.bind(this);
+    this.push = this.push.bind(this);
+    this.pop = this.pop.bind(this);
+  }
 
-  let 
+  createNode(data) {
+    let node = {
+      data,
+      next: null
+    }
+    return node;
+  }
 
+  push(data) {
+    let node = this.createNode(data);
+    if (this.top === null) {
+      this.top = node;
+    } else {
+      node.next = top;
+      this.top = node;
+    }
+  }
 
+  pop() {
+    if (this.top === null) {
+      return this.top;
+    } else {
+      let oldTop = this.top;
+      this.top = this.top.next;
+      return oldTop;
+    }
+  }
 }
 
 let testCases = [1,'{[()]}'];

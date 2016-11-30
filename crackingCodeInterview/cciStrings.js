@@ -1,4 +1,4 @@
-/*
+/*  MAKING ANAGRAMS
 Two strings are anagrams of each other if,
 the first strings letters
 can be rearranged to form the second string.

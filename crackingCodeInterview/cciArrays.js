@@ -20,7 +20,7 @@ let array = [1,2,3,4,5]
 // Step 3 - Create a brute Force psuedo code solution.
 
 // iterate through all digits
-// 
+//
 
 
 /*
@@ -41,7 +41,9 @@ IDEA 1
 */
 
 function shiftArray(size, shifts, arr){
-  let f = arr.splice(0, shifts).join(' ')// 'f' = 'front'
-  arr.push(f).join(' ')
+  let f = arr.splice(0, shifts)// 'f' = 'front'
+  arr.push(...f)
+  arr = arr.join(' ')
   console.log(arr);
 }
+console.log(shiftArray(5, 4, array))
