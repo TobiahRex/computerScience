@@ -51,7 +51,7 @@ class Stack {
   }
 
   createNode(type, direction) {
-    let node = {
+    const node = {
       type,
       direction,
       next: null
@@ -60,7 +60,7 @@ class Stack {
   }
 
   push(type, direction) {
-    let node = this.createNode(type, direction);
+    const node = this.createNode(type, direction);
     if (this.top === null) {
       this.top = node;
     } else {
@@ -73,7 +73,7 @@ class Stack {
     if (this.top === null) {
       return this.top;
     } else {
-      let oldTop = this.top;
+      const oldTop = this.top;
       this.top = this.top.next;
       return oldTop;
     }
@@ -92,11 +92,8 @@ function checkString(n) {
   let str = n
   let checks = [];
 
-  if ((str[0] === '}') || (str[0] === ')') || (str[0] === ']')) {
-    return 'NO\n';
-  } else if (!n.length) {
-    return 'NO\n';
-  }
+  if ((str[0] === '}') || (str[0] === ')') || (str[0] === ']')) return 'NO';
+  else if (!n.length) return 'NO';
 
   for (let i = 0; i < str.length; i++) {
     switch(str[i]) {
@@ -109,11 +106,11 @@ function checkString(n) {
       default: { checks.push('error: ', str[i]) } break;
     }
   }
-  if(checks.includes(false)) return 'NO\n'
-  return 'YES\n'
+  if(checks.includes(false)) return 'NO'
+  return 'YES'
 }
 
-// let testCases = '{[()]}';
-// let testCases = [3,'{[()]}','{[(])}','{{[[(())]]}}'];
-let testCases = '{[(])}'; // NO
+// const testCases = '{[()]}'; // YES
+// const testCases = '{{[[(())]]}}']; // YES
+const testCases = '{[(])}'; // NO
 console.log(checkString(testCases));
