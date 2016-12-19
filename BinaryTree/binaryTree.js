@@ -10,11 +10,11 @@ class BinarySearchTree {
     this.parent = options.parent !== undefined ? options.parent : null;
 
     // re-assign this.key from the options object input
-    if (options.hasOwnProperty('key')) {
-      this.key = options.key;
-    }
+    if (options.hasOwnProperty('key')) (this.key = options.key);
+
     // re-assign this.data from the options object value or as an empty array
     this.data = options.hasOwnProperty('value') ? [options.value] : [];
+
     // re-assign this.unique from the options obj or as "false"
     this.unique = options.unique || false;
     /* create a method called "compareKeys" and assign it from the options obj or from the utility functions list.
@@ -50,18 +50,20 @@ class BinarySearchTree {
     return this.getMinKeyDescendant().key;
   }
 // ----------------------------------------------------------------------
-  checkAllNodesFullfillCondition(test) {
-    // check to see if all nodes (including leaves) fullfill the function "test" passed in as an input.  If the test does not pass, the test function will throw an Error by design.  This function will be called in a moment with the "left" or "right" property of this class, as an argument, to the test method.  Therefore the "this.key" will typically be that left or right nodes value.
+  checkAllNodesFullfillCondition(test_cb) {
+    // NOTE: check to see if all nodes (including leaves) fullfill the function "test" passed in as an input.  If the test does not pass, the test function will throw an Error by design.  This function will be called in a moment with the "left" or "right" property of this class, as an argument, to the test method.  Therefore the "this.key" will typically be that left or right nodes value.
+    // NOTE: The only reason we outsource this ability to its own function is because we need to call it recursively on the left and right children if there are any.
 
     if(!this.hasOwnProperty('key')) return;
-    // if the parent node doesn't have a key, then there's no point calling this function.
+    // NOTE: if the parent node doesn't have a key, then there's no point calling this function.
 
-    test(this.key, this.data);
-    // test acts as a callback.  You would look at where this call back was written to know exactly what will happen with this callback "test" is invoked.  "this.key" is the key value of the parent node. and its respective "this.data", data value.
+    test_cb(this.key, this.data);
+    // NOTE: "this.key" is the key value of the node that this method was called on. and its respective "this.data", data value.  For example you have to invoke this method by calling it on a "left" or "right" subtree.
+    // Example: this.left.checkAllNodeFullfillCondition(test_cb);
 
-    //Once the first call is complete, then start calling the condition recursively for each of it's children recursively.
-    if (this.left) this.left.checkAllNodesFullfillCondition(test);
-    if (this.right) this.right.checkAllNodesFullfillCondition(test);
+    // NOTE: Once the first call is complete, then start calling the condition recursively for each of it's children recursively.
+    if (this.left) this.left.checkAllNodesFullfillCondition(test_cb);
+    if (this.right) this.right.checkAllNodesFullfillCondition(test_cb);
   }
 // ----------------------------------------------------------------------
   /*
@@ -74,12 +76,12 @@ class BinarySearchTree {
     // we capture the original "this" as "self" because it refers to the class' "this".  As we iterate throughout the tree, the "this" will be re-assigned to "this.right", or "this.left" so we lose the ability to call class specific methods with the "this" keyword.
 
     if (!this.hasOwnProperty('key')) return;
-    // if there is no key value to check for this root node (which is actually a leaf node of a higher root node), don't bother checking.
+    // NOTE: This is the BASE CASE - if there is no key value to check for this root node (which is actually a leaf node of a higher root node), don't bother checking.
 
     if (this.left) {
       // as long as there are nodes on the left remaining to check...
-      this.left.checkAllNodesFullfillCondition((key) => {
-        // the key passed in will be respective to "this.left".
+      this.left.checkAllNodesFullfillCondition((key, data) => {
+        // NOTE the key passed in will be respective to "this.left".  A correct comparison result should be -1.
         if (self.compareKeys(key, self.key) >= 0) {
           throw new Error(`Tree with root ${self.key} is not a binary tree.`);
         }
@@ -89,15 +91,13 @@ class BinarySearchTree {
     }
 
     if (this.right) {
-      this.right.checkAllNodesFullfillCondition((key) => {
+      this.right.checkAllNodesFullfillCondition((key, data) => {
         if (self.compareKeys(key, self.key) <= 0) {
           throw new Error(`Tree with root ${self.key} is not a binary tree.`);
         }
       });
       this.right.checkNodeOrdering();
     }
-
-    this.right.checkNOdeOrdering();
   }
 // ----------------------------------------------------------------------
 /*
