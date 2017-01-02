@@ -27,7 +27,7 @@ module.exports = {
     return res;
     // return this new array to the next function call.
   },
-  defaultCompareKeysFunction: (a, b) => {
+  defaultCompareKeys: (a, b) => {
     if (a < b) { return -1; }
     if (a > b) { return 1; }
     if (a === b) { return 0; }

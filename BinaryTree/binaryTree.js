@@ -2,7 +2,7 @@ const customUtil = require('./utils');
 // skip to line 160 to see work methods
 class BinarySearchTree {
   constructor(inputOptions = {}) {
-    options = inputOptions;
+    let options = inputOptions;
     // declare first childs as null;
     this.left = null;
     this.right = null;
@@ -10,9 +10,11 @@ class BinarySearchTree {
     this.parent = options.parent !== undefined ? options.parent : null;
 
     // re-assign this.key from the options object input
-    if (options.hasOwnProperty('key')) (this.key = options.key);
+    if (options.hasOwnProperty('key')) {
+      this.key = options.key;
+    }
 
-    // re-assign this.data from the options object value or as an empty array
+    // re-assign this.data to an array of data from the options object value or as an empty array.
     this.data = options.hasOwnProperty('value') ? [options.value] : [];
 
     // re-assign this.unique from the options obj or as "false"
@@ -21,9 +23,9 @@ class BinarySearchTree {
 
     Its purpose is to compare keys and return -1 if a < b, 0 if equal, and 1 if a is greater than b.
     */
-    this.compareKeys = options.compareKeys || customUtil.defaultCompareKeysFunction;
+    this.compareKeys = options.compareKeys || customUtil.defaultCompareKeys;
 
-    this.checkValueEquality = options.checkValueEquality || customUtil.defaultCompareKeysFunction;
+    this.checkValueEquality = options.checkValueEquality || customUtil.defaultCheckValueEquality;
   }
 // ----------------------------------------------------------------------
   // MAX infers the right most child node since tree's are designed to be sorted from min to max, ala left to right.
@@ -165,7 +167,7 @@ class BinarySearchTree {
   /*
     Create a copy of the BST node and attach it as a left child to the function caller, and return the left child to that function caller.
   */
-  createLeftLeftChild(options) {
+  createLeftChild(options) {
     let leftChild = this.createSimilar(options);
     leftChild.parent = this;
     this.left = leftChild;
