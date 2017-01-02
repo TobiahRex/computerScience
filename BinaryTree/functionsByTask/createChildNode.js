@@ -1,7 +1,7 @@
 /* NOTE
   Create Similair Node per an options object using the BST.prototype.constructor function.
 
-  
+
 
   Assign the parent to the node calling the function.
   Assign the paren'ts left child as the newly created node.
