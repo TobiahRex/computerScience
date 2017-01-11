@@ -1,23 +1,48 @@
 const utils = require('../utils');
 
 class BinarySearchTree {
-  constructor(inputOptions = {}) {
-    let opts = inputOptions;
-    console.log('opts: ', opts);
-    this.left = opts.left || null;
-    this.right = opts.right || null;
-    this.parent = opts.parent ? opts.parent : null;
-    this.key = opts.value || null;
-    this.data = opts.data ? [...opts.data] : [];
-    this.unique = opts.unique ? opts.unique : false;
-    this.compareKeys = opts.compareKeys || utils.defaultCompareKeys;
-    this.checkValueEquality = opts.defaultCheckValueEquality || utils.defaultCheckValueEquality;
+  constructor(givenProps = {}){
+    const props = givenProps;
+
+    this.left = null;
+    this.right = null;
+    this.parent = props.parent || null;
+    this.data = [...props.data] || [];
+    this.key = props.key || undefined;
+    this.unique = props.unique || false;
+
+    this.compareKeys = props.defaultCompareKeys || utils.compareKeys;
+    this.checkValueEquality = props.defaultCheckValueEquality || utils.checkValueEquality;
+  }
+
+  checkNodeOrdering() {
+    if (!this.hasOwnProperty('key')) return;
+
+    if (this.left) {
+      this.left.checkAllNodesFullfillCondition((childKey) => {
+        if (compareKeys(childKey, this.key) >= 0) {
+          throw new Error(`Root node broken @ ${this.key}`);
+        } else {
+          this.left.checkNodeOrdering();
+        }
+      });
+    }
+
+    if (this.right) {
+      this.right.checkAllNodesFullfillCondition((childKey) => {
+        if (compareKeys(childKey, this.key) <= 0) {
+          throw new Error(`Parent Node broken @ ${this.key}`);
+        } else {
+          this.right.checkNodeOrdering();
+        }
+      });
+    }
   }
 
   compareKeys(childKey, parentKey) {
     if (childKey < parentKey) return -1;
+    if (childKey > parentKey) return 1;
     if (childKey === parentKey) return 0;
-    if (childKey > parentkey) return 1;
   }
 
   checkAllNodesFullfillCondition(cb) {
@@ -25,57 +50,30 @@ class BinarySearchTree {
 
     cb(this.key);
 
-    if (this.left) this.left.checkAllNodesFullfillCondition(cb);
-    if (this.right) this.right.checkAllNodesFullfillCondition(cb);
+    if (this.left) this.left.checkNodeOrdering(cb);
+    if (this.right) this.right.checkNodeOrdering(cb);
   }
 
-  checkNodeOrdering() {
-    if (!this.hasOwnProperty('key')) return;
-
-    if (this.left) {
-      this.left.checkAllNodesFullfillCondition((key) => {
-        if (compareKeys(key, this.key) >= 0) {
-          throw new Error(`Wrong Order: Child = ${key}. Parent = ${this.key}`);
-        }
-        this.left.checkNodeOrdering();
-      });
-    }
-
-    if (this.right) {
-      this.right.checkAllNodesFullfillCondition((key) => {
-        if (compareKeys(key, this.key) <= 0) {
-          throw new Error(`Wrong order: Child = ${key}. Parent = ${this.key}`);
-        }
-        this.right.checkNodeOrdering();
-      });
-    }
-  }
-
-  checkInternalPointers() {
-    if (!this.hasOwnProperty('key')) return;
-
+  checkInternalPointer() {
     if (this.left) {
       if (this.left.parent !== this) {
         throw new Error(`Parent pointer broken @ ${this.key}`);
+      } else {
+        this.left.checkInternalPointer();
       }
-      this.left.checkInternalPointers();
     }
 
     if (this.right) {
       if (this.right.parent !== this) {
         throw new Error(`Parent pointer broken @ ${this.key}`);
+      } else {
+        this.right.checkInternalPointer();
       }
-      this.right.checkInternalPointers();
     }
   }
-}
 
-const testBST = new BinarySearchTree({
-  parent: 'I am the parent',
-  left: 'I am the left node',
-  right: 'I am the right node',
-  value: 'A1',
-  unique: true,
-  data: [1,2,3],
-});
-console.log('testBST: ', testBST);
+  isBst() {
+    this.checkNodeOrdering();
+    this.checkInternalPointer();
+  }
+}

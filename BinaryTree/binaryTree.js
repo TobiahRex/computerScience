@@ -15,7 +15,7 @@ class BinarySearchTree {
     }
 
     // re-assign this.data to an array of data from the options object value or as an empty array.
-    this.data = options.hasOwnProperty('value') ? [options.value] : [];
+    this.data = options.hasOwnProperty('value') ? [...options.value] : [];
 
     // re-assign this.unique from the options obj or as "false"
     this.unique = options.unique || false;
@@ -136,16 +136,16 @@ class BinarySearchTree {
     Otherwise known as getting the overal size of the tree.
   */
   getNumberOfKeys () {
-    let res;
+    let result;
 
-    if (!this.hasOwnProperty('key')) return 0;
+    if (!this.hasOwnProperty('key')) return;
 
-    res = 1;
+    result = 1;
 
-    if (this.left) res += this.left.getNumberOfKeys();
-    if (this.right) res += this.right.getNumberOfKeys();
+    if (this.left) result += this.left.getNumberOfKeys();
+    if (this.right) result += this.right.getNumberOfKeys();
 
-    return res;
+    return result;
   }
 /* ----------------------------------------------------------------------
 
