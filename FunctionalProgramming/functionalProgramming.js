@@ -188,8 +188,16 @@ function exc12() {
 						"id": 70111470,
 						"title": "Die Hard",
 						"boxarts": [
-							{ width: 150, height: 200, url: "http://cdn-0.nflximg.com/images/2891/DieHard150.jpg" },
-							{ width: 200, height: 200, url: "http://cdn-0.nflximg.com/images/2891/DieHard200.jpg" }
+							{
+								width: 150,
+								height: 200,
+								url: "http://cdn-0.nflximg.com/images/2891/DieHard150.jpg"
+							},
+							{
+								width: 200,
+								height: 200,
+								url: "http://cdn-0.nflximg.com/images/2891/DieHard200.jpg"
+							}
 						],
 						"url": "http://api.netflix.com/catalog/titles/movies/70111470",
 						"rating": 4.0,
@@ -239,7 +247,8 @@ function exc12() {
 			}
 		];
 
-		movieLists.map((list) =>
+		movieLists = movieLists
+		.map((list) =>
 			list.videos.map((video) =>
 				({
 					id: video.id,
@@ -251,8 +260,8 @@ function exc12() {
 		.concatAll()
 		.map((video) =>
 			video.boxart.filter((art) =>
-				((art.width === 150) && (art.height === 200))
-			)
+			((art.height === 200) && (art.width === 150)) ?
+			art.url : false)
 		);
 
 	// Use one or more map, concatAll, and filter calls to create an array with the following items
