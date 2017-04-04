@@ -419,9 +419,9 @@ function exc14() {
 			video.boxarts
 			.filter(({ width }) => width === 150)
 			.map((boxart) =>
-			({ id: video.id, title: video.title, boxart: boxart.url })
-			);
-		);
+				({ id: video.id, title: video.title, boxart: boxart.url })
+			)
+		)
 	);
 	// movieLists = movieLists.concatMap(function(movieList) {
 	//
@@ -454,4 +454,178 @@ function exc14() {
 
 }
 // console.log(exc14());
-exc14();
+// exc14();
+// -----------------------------------------------------------------------------
+/*
+It's a very common pattern to see several nested concatMap operations, with the last operation being a map. You can think of this pattern as the functional version of a nested forEach.
+
+Reducing Arrays
+Sometimes we need to perform an operation on more than one item in the array at the same time. For example, let's say we need to find the largest integer in an array. We can't use a filter() operation, because it only examines one item at a time. To find the largest integer we need to compare items in the array to each other.
+
+One approach could be to select an item in the array as the assumed largest number (perhaps the first item), and then compare that value to every other item in the array. Each time we come across a number that was larger than our assumed largest number, we'd replace it with the larger value, and continue the process until the entire array was traversed.
+
+If we replaced the specific size comparison with a closure, we could write a function that handled the array traversal process for us. At each step our function would apply the closure to the last value and the current value and use the result as the last value the next time. Finally we'd be left with only one value. This process is known as reducing because we reduce many values to a single value.
+
+Exercise 15: Use forEach to find the largest box art
+
+In this example we use forEach to find the largest box art. Each time we examine a new boxart we update a variable with the currently known maximumSize. If the boxart is smaller than the maximum size, we discard it. If it's larger, we keep track of it. Finally we're left with a single boxart which must necessarily be the largest.
+*/
+function exc15() {
+	var boxarts = [
+			{ width: 200, height: 200, url: "http://cdn-0.nflximg.com/images/2891/Fracture200.jpg" },
+			{ width: 150, height: 200, url: "http://cdn-0.nflximg.com/images/2891/Fracture150.jpg" },
+			{ width: 300, height: 200, url: "http://cdn-0.nflximg.com/images/2891/Fracture300.jpg" },
+			{ width: 425, height: 150, url: "http://cdn-0.nflximg.com/images/2891/Fracture425.jpg" }
+		],
+		currentSize,
+		maxSize = -1,
+		largestBoxart;
+
+	boxarts.forEach(({ width, height, url }) => {
+		currentSize = width * height;
+		if (currentSize > maxSize) {
+			maxSize = currentSize;
+			largestBoxart = { width, height, url };
+		}
+	})
+
+	return largestBoxart;
+}
+// console.log(exc15());
+// -----------------------------------------------------------------------------
+/*
+This process is a reduction because we're using the information we derived from the last computation to calculate the current value. However in the example above, we still have to specify the method of traversal. Wouldn't it be nice if we could just specify what operation we wanted to perform on the last and current value? Let's create a helper function to perform reductions on arrays.
+
+Exercise 16: Implement reduce()
+
+Let's add a reduce() function to the Array type. Like map. Take note this is different from the reduce in ES5, which returns a value instead of an Array!
+*/
+// [1,2,3].reduce(function(accumulatedValue, currentValue) { return accumulatedValue + currentValue; }); === [6];
+// [1,2,3].reduce(function(accumulatedValue, currentValue) { return accumulatedValue + currentValue; }, 10); === [16];
+
+Array.prototype.reduce = function(combiner, initialValue) {
+	var counter,
+		accumulatedValue;
+
+	// If the array is empty, do nothing
+	if (this.length === 0) {
+		return this;
+	}
+	else {
+		// If the user didn't pass an initial value, use the first item.
+		if (arguments.length === 1) {
+			counter = 1;
+			accumulatedValue = this[0];
+		}
+		else if (arguments.length >= 2) {
+			counter = 0;
+			accumulatedValue = initialValue;
+		}
+		else {
+			throw "Invalid arguments.";
+		}
+
+		// Loop through the array, feeding the current value and the result of
+		// the previous computation back into the combiner function until
+		// we've exhausted the entire array and are left with only one value.
+		while(counter < this.length) {
+			accumulatedValue = combiner(accumulatedValue, this[counter])
+			counter++;
+		}
+
+		return [accumulatedValue];
+	}
+};
+
+// -----------------------------------------------------------------------------
+/*
+This process is a reduction because we're using the information we derived from the last computation to calculate the current value. However in the example above, we still have to specify the method of traversal. Wouldn't it be nice if we could just specify what operation we wanted to perform on the last and current value? Let's create a helper function to perform reductions on arrays.
+
+Exercise 16: Implement reduce()
+
+Let's add a reduce() function to the Array type. Like map. Take note this is different from the reduce in ES5, which returns a value instead of an Array!
+*/
+function exc17() {
+	var ratings = [2,3,1,4,5];
+
+	// You should return an array containing only the largest rating. Remember that reduce always
+	// returns an array with one item.
+  return ratings
+    .reduce((acc, value) => acc > value ? acc : value);
+}
+// console.log(exc17());
+// -----------------------------------------------------------------------------
+/*
+Nice work. Now let's try combining reduce() with our other functions to build more complex queries.
+
+Exercise 18: Retrieve url of the largest boxart
+
+Let's try combining reduce() with map() to reduce multiple boxart objects to a single value: the url of the largest box art.
+*/
+function exc18() {
+	var boxarts = [
+			{ width: 200, height: 200, url: "http://cdn-0.nflximg.com/images/2891/Fracture200.jpg" },
+			{ width: 150, height: 200, url: "http://cdn-0.nflximg.com/images/2891/Fracture150.jpg" },
+			{ width: 300, height: 200, url: "http://cdn-0.nflximg.com/images/2891/Fracture300.jpg" },
+			{ width: 425, height: 150, url: "http://cdn-0.nflximg.com/images/2891/Fracture425.jpg" }
+		];
+
+	// You should return an array containing only the URL of the largest box art. Remember that reduce always returns an array with one item.
+	return boxarts
+	.reduce((acc, value) =>
+		(acc.width * acc.height) > (value.width * value.height) ? acc : value)
+	.map(({ url }) => url);
+}
+// console.log(exc18());
+// -----------------------------------------------------------------------------
+/*
+Exercise 19: Reducing with an initial value
+
+Sometimes when we reduce an array, we want the reduced value to be a different type than the items stored in the array. Let's say we have an array of videos and we want to reduce them to a single map where the key is the video id and the value is the video's title.
+*/
+function exc19() {
+	var videos = [
+		{
+			"id": 65432445,
+			"title": "The Chamber"
+		},
+		{
+			"id": 675465,
+			"title": "Fracture"
+		},
+		{
+			"id": 70111470,
+			"title": "Die Hard"
+		},
+		{
+			"id": 654356453,
+			"title": "Bad Boys"
+		}
+	];
+
+	// Expecting this output...
+	// [
+	//	 {
+	//		 "65432445": "The Chamber",
+	//		 "675465": "Fracture",
+	//		 "70111470": "Die Hard",
+	//		 "654356453": "Bad Boys"
+	//	 }
+	// ]
+	return videos.reduce((accumulatedMap, video) => {
+		var obj = {};
+
+		// ----- INSERT CODE TO ADD THE VIDEO TITLE TO THE ----
+		obj[video.id] = video.title;
+		// ----- NEW MAP USING THE VIDEO ID AS THE KEY	 ----
+
+		// Object.assign() takes all of the enumerable properties from
+		// the object listed in its second argument (obj) and assigns them
+		// to the object listed in its first argument (accumulatedMap).
+		return Object.assign(accumulatedMap, obj);
+		},
+		// Use an empty map as the initial value instead of the first item in
+		// the list.
+		{});
+}
+console.log(exc19());
