@@ -258,11 +258,16 @@ function exc12() {
 			)
 		)
 		.concatAll()
-		.map((video) =>
-			video.boxart.filter((art) =>
-			((art.height === 200) && (art.width === 150)) ?
-			art.url : false)
-		);
+		.map((video) => {
+			let newBoxArt = '';
+			video.boxart
+			.filter((art) => (art.height === 200 && art.width === 150))
+			.map((attr) => {
+				newBoxArt = attr.url;
+			})
+			video.boxart = newBoxArt;
+			return video;
+		});
 
 	// Use one or more map, concatAll, and filter calls to create an array with the following items
 	/*
