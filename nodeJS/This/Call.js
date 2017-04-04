@@ -7,24 +7,23 @@
 let avgScore = "global avgScore";
 ​
 
-function avg (arrayOfScores) {
+function avg (scores) {
   // Add all the scores and return the total​
-  let sumOfScores = arrayOfScores.reduce ((prev, cur, index, array) => prev + cur);
+  let sumOfScores = scores.reduce ((prev, cur, index, array) => prev + cur);
   ​
   // The "this" keyword here will be bound to the global object, unless we set the "this" with Call or Apply​
-  this.avgScore = sumOfScores / arrayOfScores.length;
+  this.avgScore = sumOfScores / scores.length;
 }
 ​
 let gameController = {
-  scores  :[20, 34, 55, 46, 77],
-  avgScore:null​
+  scores : [20, 34, 55, 46, 77],
+  avgScore : null​,
 }
 ​
 /*
-If we execute the avg function thus,
-"this" inside the function is bound to the global window object:​
+If we execute "avg()" the "this" inside the function is bound to the global window object:​
 */
-avg (gameController.scores);
+avg(gameController.scores);
 // Proof that the avgScore was set on the global window object​
 console.log (window.avgScore); // 46.4​
 console.log (gameController.avgScore); // null​
@@ -40,17 +39,13 @@ then we need to use call().  The second argument we pass to call,
 is the required argument for avg to actually calculate.
 So we pass in gameController.scores.
 
-When the function runs, it will eventually set the "avgScores" prop to a new value,
-on the gameController obj, using the "this" keyword.
+When the function runs, it will eventually set the "avgScores" prop to a new value, on the gameController obj, using the "this" keyword.
 
 Call is useful instead of bind, because it does not make a permanent change.
-It simply allows gameController obj, to use have a property set using a
+It simply allows gameController obj, to have a property set using a
 BORROWED function, while letting avg maintain it's own avgScore.
 */
 avg.call(gameController, gameController.scores);
 ​
 console.log (window.avgScore); //global avgScore​
 console.log (gameController.avgScore); // 46.4​
-
-
-// --------------- Callback use case

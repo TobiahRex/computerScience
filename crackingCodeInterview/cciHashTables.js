@@ -35,7 +35,9 @@ function main(s1, s2){
   let memo = {}
 
   // Build memo;
-  s1.split(' ').forEach((mWord) => memo.hasOwnProperty(mWord) ? memo[mWord] += 1 : memo[mWord] = 1);
+  s1.split(' ')
+  .forEach((mWord) =>
+    memo.hasOwnProperty(mWord) ? memo[mWord] += 1 : memo[mWord] = 1);
   /*
   1) Check second string against memo.
   2) If word is found, return null

@@ -27,7 +27,11 @@ function insertionSort (items) {
 
     Beneficial when  ADDING an item to an already sorted array.
     */
-    for (j = i - 1; j > -1 && items[j] > value; j-- ) {
+    for (
+      j = i - 1;
+      j > -1 && items[j] > value;
+      j--
+    ) {
       items[j + 1] = items[j]
     }
     items[j + 1] = value

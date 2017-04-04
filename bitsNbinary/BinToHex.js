@@ -5,14 +5,20 @@ function binToHex(binString) {
   let ret = '';
 
   for (let i = binString.length - 1; i >= 0; --i) {
+
     let b = binString[i];
+
+    // if we've added a bad binary character.
     if (b !== '0' && b !== '1') return null;
+
     if (b === '1') {
       accumulator += Math.pow(2, hexCount);
     }
-    // if we've seen 4 characters or when we're iterating over the first group.
-    if (hexCount === 3 || i === 0) {    
-      // use the accumulator, to extract the needed index, from the hex list && accumulate the total accordingly.
+
+    // if we've seen 4 characters or when we're iterating over the last char from the bin string.
+    if (hexCount === 3 || i === 0) {
+
+      // use the accumulator, to extract the needed index, from the hex list && concatenate to the total accordingly.
       ret = hexList[accumulator] + ret;
       accumulator = 0;
       hexCount = 0;

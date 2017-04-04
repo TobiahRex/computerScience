@@ -7,7 +7,6 @@ const HashTable = function() {
   this._storageLimit = 12
 };
 
-
 HashTable.prototype.getIndex = (s, max) => {
   // if (typeof s !== 'string') s = JSON.stringify(s);
   // var hash = 0;
@@ -40,22 +39,37 @@ HashTable.prototype.get = (key) => {
 
 // Insert prototype method.
 HashTable.prototype.insert = (string, value) => {
-  let index = HashTable.prototype.getIndex(key, storageLimit);      // convert input Key to index.
 
-  if (this._storage.hasOwnProperty(index) === undefined){           // check for pre-existing data object at index.
-    this._storage[index] = [[key, value]];                          // if none is found, then add to Bucket.
+  // convert input Key to index.
+  let index = HashTable.prototype.getIndex(string, storageLimit);
+
+  // check for pre-existing data object at index.
+  if (this._storage.hasOwnProperty(index) === undefined){
+
+    // if none is found, then add to Bucket.
+    this._storage[index] = [[key, value]];
     console.log('New Data at NEW index: ', this._storage[index]);
-  } else {                                                          // if a data match is found...
+
+    // if a data match is found...
+  } else {
     let inserted = false;
-    for (let i = 0; i < this._storage[index].length; i++) {         // iterate through list at index.
-      if (this._storage[index][i][0] === key){                      // if a match to the input key is found.
-        this._storage[index][i][1] = value;                         // re-assign key to new input Value.
-        console.log('Re-assigned Data at Bucket[i]: ', this._storage[index][i] );
+
+    // iterate through list at index.
+    for (let i = 0; i < this._storage[index].length; i++) {
+      // if a match to the input key is found.
+      if (this._storage[index][i][0] === key){
+
+        // re-assign key to new input Value.
+        this._storage[index][i][1] = value;
+        console.log('Re-assigned Data at Bucket[i]: ', this._storage[index][i]);
         inserted = true;
       }
     }
-    if (inserted === false) {                                       // if a match to the input key is NOT found at index...
-      this._storage[index].push([key, value]);                      // add it to the Bucket at the index.
+    // if a match to the input key is NOT found at index...
+    if (inserted === false) {
+
+      // add it to the Bucket at the index.
+      this._storage[index].push([key, value]);
       console.log('New Data at Bucket[i]: ', this._storage[index]);
     }
   }

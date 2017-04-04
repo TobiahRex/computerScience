@@ -41,9 +41,9 @@ IDEA 1
 */
 
 function shiftArray(size, shifts, arr){
-  let f = arr.splice(0, shifts)// 'f' = 'front'
-  arr.push(...f)
-  arr = arr.join(' ')
-  console.log(arr);
+  let f = arr.splice(0, shifts); // 'f' = 'front'
+  arr.push(...f);
+  arr.join(' ');
+  return arr;
 }
-console.log(shiftArray(5, 4, array))
+console.log(shiftArray(5, 1, array))

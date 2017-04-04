@@ -25,12 +25,12 @@ function processData(input) {
     let modeObj = {};
     let maxOccurence = 0;
 
-    dictionaryKeys.forEach(key => {
+    dictionaryKeys.forEach((key) => {
       if (dictionary[key] > maxOccurence){
         modeObj = {
-          [key] : dictionary[key]
+          [key] : dictionary[key],
         };
-        maxOccurence = dictionary[key]
+        maxOccurence = dictionary[key];
       } else if (dictionary[key] === maxOccurence){
         modeObj[key] = dictionary[key];
       }

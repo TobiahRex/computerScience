@@ -35,10 +35,10 @@ let linkedList = {
   }
 }
 let head = linkedList
-head.next.next.next.next.next = head.next.next;
+head.next.next.next.next.next = head.next.next;  // create a cycle.
 
 function hasCycle(node) {
-  if (!node || !node.next ) return null || false;
+  if (!node || !node.next ) return null || false;  // edge case
 
   let current = node;
   let current2 = node;
