@@ -79,7 +79,7 @@ Let's add a concatAll() function to the Array type. The concatAll() function ite
 
 Array.prototype.concatAll = function() {
 	var results = [];
-	this.forEach(function(subArray) {
+	this.forEach((subArray) => {
 		// ------------ INSERT CODE HERE! ----------------------------
 		// Add all the items in each subArray to the results array.
 		results = results.concat(subArray);
@@ -249,24 +249,21 @@ function exc12() {
 
 	movieLists = movieLists
 	.map((list) =>
-	list.videos.map((video) =>
-	({
-		id: video.id,
-		title: video.title,
-		boxart: video.boxarts,
-	})
-)
-)
-.concatAll()
-.map((video) => {
-	let newBoxArt = '';
-	video.boxart
-	.filter((art) => (art.height === 200 && art.width === 150))
-	.map((attr) => {
-		newBoxArt = attr.url;
-	})
-	video.boxart = newBoxArt;
-	return video;
+		list.videos
+		.map((video) =>
+			({ id: video.id, title: video.title, boxart: video.boxarts })
+		)
+	)
+	.concatAll()
+	.map((video) => {
+		let newBoxArt = '';
+
+		video.boxart
+		.filter((art) =>  (art.height === 200 && art.width === 150))
+		.map((attr) => { newBoxArt = attr.url; })
+
+		video.boxart = newBoxArt;
+		return video;
 });
 
 // Use one or more map, concatAll, and filter calls to create an array with the following items
@@ -297,26 +294,24 @@ Nearly every time we flatten a tree we chain map() and concatAll(). Sometimes, i
 */
 
 Array.prototype.concatMap = function(projectionFunctionThatReturnsArray) {
-	return this.
-	map(function(item) {
-		// ------------   INSERT CODE HERE!  ----------------------------
+	return this.map((item) =>
 		// Apply the projection function to each item. The projection
 		// function will return a new child array. This will create a
 		// two-dimensional array.
-		return projectionFunctionThatReturnsArray(item);
-		// ------------   INSERT CODE HERE!  ----------------------------
-	}).
-	// apply the concatAll function to flatten the two-dimensional array
-	concatAll();
+		projectionFunctionThatReturnsArray(item);
+		// apply the concatAll function to flatten the two-dimensional array
+	)
+	.concatAll();
 };
 
 /*
-var spanishFrenchEnglishWords = [ ["cero","rien","zero"], ["uno","un","one"], ["dos","deux","two"] ];
+var spanishFrenchEnglishWords = [
+	["cero","rien","zero"],
+	["uno","un","one"],
+	["dos","deux","two"]
+];
 // collect all the words for each number, in every language, in a single, flat list
-var allWords = [0,1,2].
-concatMap(function(index) {
-return spanishFrenchEnglishWords[index];
-});
+var allWords = [0,1,2].concatMap((index) => spanishFrenchEnglishWords[index]);
 
 return JSON.stringify(allWords) === '["cero","rien","zero","uno","un","one","dos","deux","two"]';
 */
@@ -414,7 +409,8 @@ function exc14() {
 	- Something that was not clear to me with before studying their answer was thinking of concatMap as a pattern that takes a nested data structure from an inner layer, and moves it to an outter layer.  The map is there to be the iterator, but the concat is there to actually do the moving between layers.  So in the future, when you need to move a nested data structure to an upper level, this would be the patter.  Everything else in their answer, is simply there to manipulate the data that we'll eventually move...nothing else.
 	*/
 
-	return movieLists.concatMap(({ videos }) =>
+	return movieLists
+	.concatMap(({ videos }) =>
 		videos.concatMap((video) =>
 			video.boxarts
 			.filter(({ width }) => width === 150)
@@ -508,33 +504,28 @@ Array.prototype.reduce = function(combiner, initialValue) {
 		accumulatedValue;
 
 	// If the array is empty, do nothing
-	if (this.length === 0) {
-		return this;
-	}
-	else {
-		// If the user didn't pass an initial value, use the first item.
-		if (arguments.length === 1) {
-			counter = 1;
-			accumulatedValue = this[0];
-		}
-		else if (arguments.length >= 2) {
-			counter = 0;
-			accumulatedValue = initialValue;
-		}
-		else {
-			throw "Invalid arguments.";
-		}
+	if (this.length === 0) return this;
 
-		// Loop through the array, feeding the current value and the result of
-		// the previous computation back into the combiner function until
-		// we've exhausted the entire array and are left with only one value.
-		while(counter < this.length) {
-			accumulatedValue = combiner(accumulatedValue, this[counter])
-			counter++;
-		}
-
-		return [accumulatedValue];
+	// If the user didn't pass an initial value, use the first item.
+	if (arguments.length === 1) {
+		counter = 1;
+		accumulatedValue = this[0];
+	} else if (arguments.length >= 2) {
+		counter = 0;
+		accumulatedValue = initialValue;
+	} else {
+		throw "Invalid arguments.";
 	}
+
+	// Loop through the array, feeding the current value and the result of
+	// the previous computation back into the combiner function until
+	// we've exhausted the entire array and are left with only one value.
+	while(counter < this.length) {
+		accumulatedValue = combiner(accumulatedValue, this[counter])
+		counter++;
+	}
+
+	return [accumulatedValue];
 };
 
 // -----------------------------------------------------------------------------
@@ -706,10 +697,15 @@ function exc20() {
 	//	 {"id": 70111470,"title": "Die Hard","boxart":"http://cdn-0.nflximg.com/images/2891/DieHard150.jpg" }
 	// ];
 
-	return movieLists.
-		concatMap(function(movieList) {
-
-		})
-
+	return movieLists //[{ videos: [{ boxarts: [{ url, width, height }] }] }, { videos: [] }]
+	.concatMap((movieList) => movieList
+		.concatMap((videos) => videos
+			.map((video) =>
+				video.boxarts.reduce((accum, boxart) => {
+					((boxart.width * boxart.height) < accum.boxart) && (accum.boxart = boxart.url);
+				}, { id: video.id, title: video.title, boxart: Infinity });
+			)
+		)
+	);
 }
 console.log(exc20());
