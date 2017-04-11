@@ -294,13 +294,14 @@ Nearly every time we flatten a tree we chain map() and concatAll(). Sometimes, i
 */
 
 Array.prototype.concatMap = function(projectionFunctionThatReturnsArray) {
-	return this.map((item) =>
+	return this.map((item) => {
+		// "this" is referencing the array the concat map was called on.
 		// Apply the projection function to each item. The projection
 		// function will return a new child array. This will create a
 		// two-dimensional array.
-		projectionFunctionThatReturnsArray(item);
+		return projectionFunctionThatReturnsArray(item);
 		// apply the concatAll function to flatten the two-dimensional array
-	)
+	})
 	.concatAll();
 };
 
@@ -409,11 +410,9 @@ function exc14() {
 	- Something that was not clear to me with before studying their answer was thinking of concatMap as a pattern that takes a nested data structure from an inner layer, and moves it to an outter layer.  The map is there to be the iterator, but the concat is there to actually do the moving between layers.  So in the future, when you need to move a nested data structure to an upper level, this would be the patter.  Everything else in their answer, is simply there to manipulate the data that we'll eventually move...nothing else.
 	*/
 
-	return movieLists
-	.concatMap(({ videos }) =>
+	return movieLists.concatMap(({ videos }) =>
 		videos.concatMap((video) =>
-			video.boxarts
-			.filter(({ width }) => width === 150)
+			video.boxarts.filter(({ width }) => width === 150)
 			.map((boxart) =>
 				({ id: video.id, title: video.title, boxart: boxart.url })
 			)
@@ -697,15 +696,17 @@ function exc20() {
 	//	 {"id": 70111470,"title": "Die Hard","boxart":"http://cdn-0.nflximg.com/images/2891/DieHard150.jpg" }
 	// ];
 
-	return movieLists //[{ videos: [{ boxarts: [{ url, width, height }] }] }, { videos: [] }]
-	.concatMap((movieList) => movieList
-		.concatMap((videos) => videos
-			.map((video) =>
-				video.boxarts.reduce((accum, boxart) => {
-					((boxart.width * boxart.height) < accum.boxart) && (accum.boxart = boxart.url);
-				}, { id: video.id, title: video.title, boxart: Infinity });
-			)
+	//[{ videos: [{ boxarts: [{ url, width, height }] }] }, { videos: [] }]
+	return movieLists.concatMap((movieList) =>
+		movieList.videos.concatMap((video) =>
+	 		video.boxarts.reduce((first, boxart) => {
+				if ((boxart.width * boxart.height) < (first.width * first.height)) {
+					return boxart;
+				}
+				return first;
+			}, video.boxarts[0])
+			.map(({ url }) => ({ id: video.id, title: video.title, boxart: url }))
 		)
-	);
+	)
 }
 console.log(exc20());
