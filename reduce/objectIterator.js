@@ -4,7 +4,7 @@ const luke = {
   parents: {
     father: {
       jedi: true,
-    }
+    },
     mother: {
       jedi: false,
     }
@@ -32,9 +32,15 @@ const han = {
     }
   }
 }
-
+const searchChar = (character) => {
+  const results = 'parents.father.jedi'.split('.').reduce((accum, next) => {
+    if (accum) return accum[next];
+    return false;
+  }, character);
+  return results;
+}
 
 
 [luke, anakin, han].forEach((char) => {
-  console.log(char, '\'s father was a jedi: ', )
+  console.log(char.name, '\'s father was a jedi: ', searchChar(char))
 })
