@@ -8,4 +8,4 @@ const fetchUser = async (handle) => {
     console.log('ERROR: ', err.response.data.message);
   }
 }
-fetchUser('asdfas;lkjasdf');
+fetchUser('TobiahRex');
