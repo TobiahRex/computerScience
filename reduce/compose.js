@@ -1,7 +1,7 @@
-const increment = value => (value + 1);
-const decrement = value => (value - 1);
-const double = value => (value * 2);
-const halve = value => (value / 2);
+const increment = val => (val + 1);
+const decrement = val => (val - 1);
+const double = val => (val * 2);
+const halve = val => (val / 2);
 
 const result = [
   increment,
@@ -12,6 +12,6 @@ const result = [
   double,
   double,
   halve,
-].reduce((acc, next) => next(acc), 1);
+].reduceRight((acc, next) => next(acc), 1);
 
 console.log(result);
