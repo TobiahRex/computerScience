@@ -33,7 +33,7 @@ function flatten() {
   console.log(result);
 }
 // flatten();
-function flatMap() {
+function flatTally() {
   const data = [
     {
       title: 'Batman-Begins',
@@ -74,7 +74,21 @@ function flatMap() {
       ],
     },
   ];
-  const results = data.reduce((accum, next) => {
-    
-  }, [])
+  const flatTally1 = data.reduce((accum, next) => {
+    next.cast.forEach((cast) => {
+      if (accum[cast]) accum[cast] += 1;
+      else accum[cast] = 1;
+    });
+    return accum;
+  }, {});
+  console.log(flatTally1);
+
+  const flatTally2 = data.reduce((accum, next) => {
+    next.cast.forEach((cast) => {
+      if (!accum.includes(cast)) accum.push(cast);
+    })
+    return accum;
+  }, []);
+  console.log(flatTally2);
 }
+// flatTally();
