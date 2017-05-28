@@ -16,4 +16,14 @@ async function main() {
     console.log('x', x);
   }
 }
-main();
+// main();
+
+async function main2() {
+  const generator = someGenerator();
+  while(true) {
+    const { value, done } = await generator.next();
+    if (done) break;
+    console.log(value);
+  }
+}
+main2();
