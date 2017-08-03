@@ -1,8 +1,6 @@
 import axios from 'axios';
 
-async function fetchFromGithub(endpoint) {
-  return await axios.get(`https://api.github.com${endpoint}`);
-}
+const fetchFromGithub = async (endpoint) => await axios.get(`https://api.github.com${endpoint}`);
 
 const showUserAndRepos = async (handle) => {
   const results = await Promise.all([
