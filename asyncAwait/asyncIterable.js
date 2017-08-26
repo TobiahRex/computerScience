@@ -1,29 +1,37 @@
-const delay = (time) => new Promise(resolve => {
-  setTimeout(resolve, time);
-});
+import axios from 'axios';
 
-async function* someGenerator() {
-  await delay(1000);
-  yield 1
-  await delay(1000);
-  yield 2
-  await delay(1000);
-  yield 3
+const fetchGithub = (handle) => axios.get(`https://api.github.com/users/${handle}`);
+
+async function* someGenerator(handles) {
+  yield handles.map(async (handle) => {
+    const result = await fetchGithub(handle);
+    return result.data.id;
+  });s
 }
 
 async function main() {
-  for await (const x of someGenerator()){
+  const handles = ['TobiahRex', 'aaa', 'bbb'];
+  for await (const x of someGenerator(handles)){
     console.log('x', x);
+    x.forEach((promise) => {
+      promise
+      .then((result) => {
+        console.log('result: ', result);
+      })
+      .catch(console.log);
+    })
   }
 }
-// main();
+main();
 
-async function main2() {
-  const generator = someGenerator();
-  while(true) {
-    const { value, done } = await generator.next();
-    if (done) break;
-    console.log(value);
-  }
-}
-main2();
+// async function main2() {
+//   const generator = someGenerator([
+//     'tobiahRex'
+//   ]);
+//   while(true) {
+//     const { value, done } = await generator.next();
+//     if (done) break;
+//     console.log(value);
+//   }
+// }
+// main2();
