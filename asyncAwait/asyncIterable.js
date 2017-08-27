@@ -2,25 +2,24 @@ import axios from 'axios';
 
 const fetchGithub = (handle) => axios.get(`https://api.github.com/users/${handle}`);
 
-async function* someGenerator(handles) {
+function* someGenerator(handles) {
   yield handles.map(async (handle) => {
     const result = await fetchGithub(handle);
     return result.data.id;
-  });s
+  });
 }
 
-async function main() {
+function main() {
   const handles = ['TobiahRex', 'aaa', 'bbb'];
-  for await (const x of someGenerator(handles)){
-    console.log('x', x);
-    x.forEach((promise) => {
-      promise
-      .then((result) => {
-        console.log('result: ', result);
-      })
-      .catch(console.log);
+  const x = someGenerator(handles);
+  const { value, done } = x.next();
+
+  value.forEach((promise) => {
+    promise.then((result) => {
+      console.log('result: ', result);
     })
-  }
+    .catch(console.log);
+  })
 }
 main();
 
