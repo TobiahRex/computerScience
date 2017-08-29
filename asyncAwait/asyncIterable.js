@@ -3,7 +3,14 @@ import m from 'moment';
 
 const reports = [];
 
-conts handleErrorAndSendEmail = (error) => {
+const submitOrderReport = (dbReports) => {
+  const message = `
+    UPLOAD REPORT: ${m().format('YYYY/MM/DD')}
+    /-----------------------------------------/
+  `;
+}
+
+const handleErrorAndSendEmail = (error) => {
   console.log('\nThere was an error: ', error);
   console.log('\nSending Email now.');
   setTimeout(() => {
@@ -45,7 +52,7 @@ new Promise((resolve, reject) => {
         message: 'Was unable to fetch Github data.',
       });
       handleErrorAndSendEmail(response.data);
-      sendErrorReport();
+      sendErrorReport(response.data);
     }
   })
   .catch((error) => {
@@ -54,28 +61,43 @@ new Promise((resolve, reject) => {
 });
 
 function batchUpload(argsArray) {
+  const date = m().format('YYYY/MM/DD');
   const savedArray = argsArray;
   const nextBatch = [];
   if (argsArray.length) {
     nextBatch = savedArray.splice(0, 3);
-  }
 
-  nextBatch.map(async (arg) => {
-    return await fetchGithub(arg);
-  })
-  .map((promise) => {
-    promise
-    .then((response) => {
-      const { verified, data, error } = cleanResponse(data);
-      if (verified) {
-
-      } else {
+    nextBatch
+    .map(async (arg) => {
+      return await fetchGithub(arg);
+    })
+    .map((promise) => {
+      promise
+      .then((response) => {
+        const { verified, data, error } = cleanResponse(data);
+        if (verified) {
+          reports.push({
+            date,
+            message: data,
+          });
+        } else {
+          reports.push({
+            date,
+            message: error,
+          });
+          handleErrorAndSendEmail(error);
+          sendErrorReport(error);
+        }
+      })
+      .catch((error) => {
         handleErrorAndSendEmail(error);
         sendErrorReport(error);
-      }
-    })
-    .catch((error) => {
+      })
+    });
 
-    })
-  })
+    if (savedArray.length) batchUpload(savedArray);
+  } else {
+    console.log('No more args.');
+
+  }
 }
