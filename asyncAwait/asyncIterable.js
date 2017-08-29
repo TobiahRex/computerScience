@@ -1,36 +1,42 @@
 import axios from 'axios';
 
-const fetchGithub = (handle) => axios.get(`https://api.github.com/users/${handle}`);
+const reports = [];
 
-function* someGenerator(handles) {
-  yield handles.map(async (handle) => {
-    const result = await fetchGithub(handle);
-    return result.data.id;
-  });
-}
+const fetchGithub = handle =>
+new Promise((resolve, reject) => {
+  axios.get(`https://api.github.com/users/${handle}`)
+  .then((response) => {
+    if (response.status === 200) {
+      console.log('SUCCEEDED: Fetch user data for: ', handle);
+      resolve(response);
+    } else {
+      console.log('FAILED: Fetch user data for: ', handle);
+      handleErrorAndSendEmail(response.data);
+      sendErrorReport();
+    }
+  })
+  .catch((error) => {
+    reject(new Error(error));
+  })
+});
 
-function main() {
-  const handles = ['TobiahRex', 'aaa', 'bbb'];
-  const x = someGenerator(handles);
-  const { value, done } = x.next();
+function batchUpload(argsArray) {
+  const savedArray = argsArray;
+  const nextBatch = [];
+  if (argsArray.length) {
+    nextBatch = savedArray.splice(0, 3);
+  }
 
-  value.forEach((promise) => {
-    promise.then((result) => {
-      console.log('result: ', result);
+  nextBatch.map(async (arg) => {
+    return await fetchGithub(arg);
+  })
+  .map((promise) => {
+    promise
+    .then((response) => {
+      const {  } = cleanResponse(data);
     })
-    .catch(console.log);
+    .catch((error) => {
+
+    })
   })
 }
-main();
-
-// async function main2() {
-//   const generator = someGenerator([
-//     'tobiahRex'
-//   ]);
-//   while(true) {
-//     const { value, done } = await generator.next();
-//     if (done) break;
-//     console.log(value);
-//   }
-// }
-// main2();
