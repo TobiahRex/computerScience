@@ -72,8 +72,7 @@ new Promise((resolve, reject) => {
       date: m().format('YYYY/MM/DD'),
       message: error,
     })
-    handleErrorAndSendEmail(error.message);
-    sendErrorReport(error.message);
+    reject(error);
   })
 });
 
