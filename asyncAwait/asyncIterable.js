@@ -7,6 +7,10 @@ const submitOrderReport = (dbReports) => {
   const message = `
     UPLOAD REPORT: ${m().format('YYYY/MM/DD')}
     /-----------------------------------------/
+    Details:
+    ${repots.reduce((a, n, i) => {
+      return a += ('\n\n' + (i + 1) + ')\n Date: ' + n.date + '\nMessage: ' + n.data + '\n\n');
+    }, '')}
   `;
 }
 
