@@ -8,44 +8,51 @@ const submitOrderReport = (dbReports) => {
     UPLOAD REPORT: ${m().format('YYYY/MM/DD')}
     /-----------------------------------------/
     Details:
-    ${repots.reduce((a, n, i) => {
-      return a += ('\n\n' + (i + 1) + ')\n Date: ' + n.date + '\nMessage: ' + n.data + '\n\n');
+    ${reports.reduce((a, n, i) => {
+      return a += `
+        /------
+        ${i+1})
+        Date: ${n.date}
+        message: ${n.message}
+        /------
+      `;
     }, '')}
   `;
 }
 
 const handleErrorAndSendEmail = (error) => {
-  console.log('\nThere was an error: ', error);
-  console.log('\nSending Email now.');
   setTimeout(() => {
-    console.log('Email has been sent.');
+    sendErrorReport();
   }, 400)
 }
 
-const errorReport = () => {
-  console.log('\nThere was an error: ', error);
-  console.log('\nSending Error report: ', reports.pop());
+const sendErrorReport = () => {
   setTimeout(() => {
     const reportData = reports.pop();
-    const errorReport = `
+    if (reportData) {
+      const errorReport = `
       ERROR REPORT - ${reportData.date}
-      /-----------------------------------------/
-      Details:
+      /------------------- MESSAGE ----------------------/
       ${reportData.message}
-    `;
+      `;
+      console.log(errorReport);
+    } else {
+      console.log('No errors to report.');
+    }
   }, 500);
 }
 
 const cleanResponse = (response) => ({
   verified: true,
   error: false,
-  data: response.data,
+  data: response.data.id,
 });
 
 const fetchGithub = handle =>
 new Promise((resolve, reject) => {
   axios.get(`https://api.github.com/users/${handle}`)
   .then((response) => {
+    console.log('response: ', response);
     if (response.status === 200) {
       console.log('SUCCEEDED: Fetch user data for: ', handle);
       resolve(response);
@@ -59,18 +66,24 @@ new Promise((resolve, reject) => {
       sendErrorReport(response.data);
     }
   })
-  .catch((error) => {
-    reject(new Error(error));
+  .catch((badResponse) => {
+    const error = badResponse.response.data.message;
+    reports.push({
+      date: m().format('YYYY/MM/DD'),
+      message: error,
+    })
+    handleErrorAndSendEmail(error.message);
+    sendErrorReport(error.message);
   })
 });
 
 function batchUpload(argsArray) {
   const date = m().format('YYYY/MM/DD');
   const savedArray = argsArray;
-  const nextBatch = [];
+  let nextBatch = [];
   if (argsArray.length) {
-    nextBatch = savedArray.splice(0, 3);
-
+    nextBatch = [...savedArray.splice(0, 3)];
+    console.log('NEXT BATCH ------ ', nextBatch);
     nextBatch
     .map(async (arg) => {
       return await fetchGithub(arg);
@@ -78,7 +91,7 @@ function batchUpload(argsArray) {
     .map((promise) => {
       promise
       .then((response) => {
-        const { verified, data, error } = cleanResponse(data);
+        const { verified, data, error } = cleanResponse(response);
         if (verified) {
           reports.push({
             date,
@@ -98,10 +111,23 @@ function batchUpload(argsArray) {
         sendErrorReport(error);
       })
     });
-
-    if (savedArray.length) batchUpload(savedArray);
+    console.log('\n\n/------------- CALLING NEXT BATCH -------------/\n\n');
+    console.log('savedArray: ', savedArray);
+    batchUpload(savedArray);
   } else {
-    console.log('No more args.');
-
+     console.log('No more args.');
+     submitOrderReport(reports);
   }
 }
+
+const handles =  [
+  // 'TobiahRex',
+  // 'landoC',
+  // 'bobbaFett',
+  // 'hanSolo',
+  // 'lukeSky',
+  // 'chewie',
+  // 'c3po',
+  'r2d2'
+];
+batchUpload(handles);
