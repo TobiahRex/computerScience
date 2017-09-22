@@ -43,8 +43,8 @@ class Hanoi {
 
     /*
     - this.pegs[target].length is checking to see if we have a length.
-    - this.pegs[source].slice(-1)[0] is the 0 index in the array from which we are taking a disk.
-    - this.pegs[target].slice(-1)[0] is the 0 index in the TARGET array which we will place a peg.
+    - this.pegs[source].slice(-1)[0] is the top disk in the array from which we are taking a disk.
+    - this.pegs[target].slice(-1)[0] is the top disk in the TARGET array which we will place a disk.
     */
     if (this.pegs[target].length &&
       (this.pegs[source].slice(-1)[0] > this.pegs[target].slice(-1)[0])){

@@ -98,9 +98,11 @@ function solution(array, jumpLength) {
           and we haven't reached the maximum required stones yet,
           then we know we need at least one more stone.
         */
-        if (currentPosition < home &&
+        if (
+          currentPosition < home &&
           (currentPosition + jumpLength) < home &&
-          emergedStones.length !== maxRequiredStones) {
+          emergedStones.length !== maxRequiredStones
+        ) {
           console.log('3: current position: ', currentPosition, ' home: ', home, 'not home yet');
           time += 1
         } else { // otherwise you can make it home from your current position so return i.

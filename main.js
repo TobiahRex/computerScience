@@ -444,7 +444,7 @@ function electionWinner(votes) {
         count: memo[name]
       }
     } else if (memo[name] === highestSoFar.count) {
-      if (name > highestSoFar.name) {
+      if (name !== highestSoFar.name) {
         highestSoFar.name = name;
       }
     }

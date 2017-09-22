@@ -65,6 +65,7 @@ class ObjStack {
       return a;
     }, false);
   }
+
   until(value) {
     if (!value) return 'You must provide a valid input.';
     if (this._count < 0) return 'The stack is empty';
