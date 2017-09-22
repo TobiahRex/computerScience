@@ -4,9 +4,11 @@ class ObjStack {
     this._storage = {};
     this._count = -1;
   }
+
   show() {
     return console.log(this._storage);
   }
+
   push(data) {
     if (this._count < this._capacity) {
       this._count += 1;
@@ -15,6 +17,7 @@ class ObjStack {
     }
     return 'Max capacity reached. "Pop" before calling this operation.';
   }
+
   pop() {
     if (this._count >= 0) {
       let result = '';
@@ -34,6 +37,7 @@ class ObjStack {
     }
     return 'The stack is empty.';
   }
+
   popV2() {
     if (this._count < 0) return 'The stack is empty';
     let result = this._storage[this._count];
@@ -41,12 +45,15 @@ class ObjStack {
     this._count -= 1;
     return result;
   }
+
   peek() {
     return this._storage[this._count];
   }
+
   count() {
     return ++this._count;
   }
+
   contains(value) {
     if (!value) return 'You must provide a valid input.';
 
@@ -58,9 +65,26 @@ class ObjStack {
       return a;
     }, false);
   }
+  until(value) {
+    if (!value) return 'You must provide a valid input.';
+    if (this._count < 0) return 'The stack is empty';
+
+    let count = ++this._count;
+    let result = 1;
+
+    while(--count) {
+      if (value === this._storage[count]) return result;
+      result += 1;
+    }
+    return result;
+  }
 }
 const stack = new ObjStack(10);
 stack.push('toby');
+stack.push('barry');
 stack.push('bob');
-stack.show();
-console.log(stack.contains());
+stack.push('bob');
+stack.push('bob');
+stack.push('bob');
+stack.push('chuck');
+console.log(stack.until('toby'));
