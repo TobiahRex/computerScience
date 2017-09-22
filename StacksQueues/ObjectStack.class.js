@@ -29,7 +29,6 @@ class ObjStack {
         result = this._storage[n];
         return a;
       }, {});
-      console.log('this._storage: ', this._storage);
       return result;
     }
     return 'The stack is empty.';
