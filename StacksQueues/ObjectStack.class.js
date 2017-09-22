@@ -41,10 +41,26 @@ class ObjStack {
     this._count -= 1;
     return result;
   }
+  peek() {
+    return this._storage[this._count];
+  }
+  count() {
+    return ++this._count;
+  }
+  contains(value) {
+    if (!value) return 'You must provide a valid input.';
+
+    return Object
+    .keys(this._storage)
+    .reduce((a, n) => {
+      if (this._storage[n] !== value) return a;
+      a = true;
+      return a;
+    }, false);
+  }
 }
 const stack = new ObjStack(10);
 stack.push('toby');
 stack.push('bob');
 stack.show();
-stack.popV2();
-stack.show();
+console.log(stack.contains());
