@@ -1,4 +1,4 @@
-class Stack {
+class StringStack {
   constructor() {
     this.storage = '';
   }
@@ -15,7 +15,7 @@ class Stack {
     return result;
   }
 }
-var tobyStack = new Stack();
+var tobyStack = new StringStack();
 tobyStack.push('hello');
 tobyStack.push('toby')
 tobyStack.show();
