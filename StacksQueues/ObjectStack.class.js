@@ -29,6 +29,16 @@ class ObjStack {
         result = this._storage[n];
         return a;
       }, {});
+      this._count -= 1;
+      return result;
+    }
+    return 'The stack is empty.';
+  }
+  popV2() {
+    if (this._count !== 0) {
+      let result = this._storage[this._count];
+      delete this._storage[this._count];
+      this._count -= 1;
       return result;
     }
     return 'The stack is empty.';
