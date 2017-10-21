@@ -25,9 +25,8 @@ function rota(rooms) {
     return results;
   }
   else {
-    let newRooms = rooms.concat(rooms);
-    while(newRooms.length < 7) newRooms = newRooms.concat(rooms);
-    return rota(newRooms.slice(0, 7));
+    while(rooms.length < 7) rooms = rooms.concat(rooms);
+    return rota(rooms.slice(0, 7));
   };
 }
 
