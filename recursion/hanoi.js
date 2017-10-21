@@ -90,7 +90,7 @@ class Hanoi {
       target === peg 2
     */
     this.move(source, target);
-    /* Finally, move the stock on peg 1 to peg 2.
+    /* Finally, move the stack on peg 1 to peg 2.
 
       source = peg 1
       other = peg 0

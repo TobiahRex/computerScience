@@ -20,6 +20,22 @@ class Hanoi {
     this.pegs[target].push(disk);
     return true;
   }
+
+  solve() {
+    if (this.pegs[0].length !== this.numDisks) return new Error('All disks must be on peg 0 to use solve()');
+
+    this.moveStack(this. 1 numDisks, 0, 1, 2);
+    return true;
+  }
+
+  moveStack(diskToMove, source, other, target) {
+    // base case
+    if (disksToMove === 0) return;
+
+    this.moveStack(diskToMove - 1, source, target, other);
+    this.move(source, target);
+    this.moveStack(disksToMove - 1, other, source, target);
+  }
 }
 const hanoi = new Hanoi(3)
 console.log(hanoi.pegs);
