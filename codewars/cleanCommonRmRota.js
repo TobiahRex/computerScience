@@ -1,5 +1,5 @@
 function rota(rooms) {
-  if (rooms.length >= 7) {
+  if (rooms.length === 7) {
     const results = [];
     let last = '';
 
@@ -24,10 +24,11 @@ function rota(rooms) {
     }
     return results;
   }
-  else {
+  else if (rooms.length < 7) {
     while(rooms.length < 7) rooms = rooms.concat(rooms);
     return rota(rooms.slice(0, 7));
-  };
+  }
+  return rota(rooms.slice(0, 7));
 }
 
 // console.log(rota(['one', 'two', 'three', 'four', 'five', 'six', 'seven']));
