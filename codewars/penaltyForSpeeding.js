@@ -14,11 +14,50 @@
   ['32', '3'] => '323
 */
 /* return str of the smallest value of the combined numbers in a_list */
-const penalty = (list) => {
-  list.sort((a, b) => {
-    a[0] - b[0]
-  })
+const makeHTable = arr => arr
+  .reduce((acc, next) => {
+    const n = Number(next[0]);
+    !Array.isArray(acc[n]) ? acc[n] = Array(next) : acc[n].push(next);
+    return acc;
+  }, {});
+const highToLow = (a, b) => b - a;
+const getLowest = (prev, next) => {
+  const prevNext = Number(prev + next);
+  const nextPrev = Number(next + prev);
+  return (prevNext < nextPrev ? prevNext : nextPrev);
 }
+const getAnswer = hTable => Object
+  .keys(hTable)
+  // .reduce((acc, next) =>
+  // {
+  //   acc += hTable[next]
+  //   .sort(highToLow)
+  //   // .reduce(getLowest, '')
+  //   console.log(acc);
+  //   return acc;
+  // }
+  // , '');
+  .reduce((acc, next) =>
+    acc += hTable[next]
+      .sort(highToLow)
+      .reduce(getLowest, '')
+  , '');
 
-console.log(penalty(['32', '3']));
-// 323
+const penalty = list => [
+    makeHTable,
+    getAnswer,
+  ].reduce((acc, nxtStep) => nxtStep(acc), list);
+
+// console.log(penalty(['45', '30', '50', '1']));
+console.log(penalty(['26', '56', '91', '9', '96', '96']));
+/*
+  RIGHT '26 56 91 96 96 96 9',
+  - The assumption to sort high to low, is incorrect.
+  WRONG: '26 56 91 9 96 96 96'
+*/
+
+/*
+  RIGHT 709 72 77 78 79 94
+  - The assumption to sort high to low, is incorrect.
+  WRONG: 709 72 78 79 77 94
+*/

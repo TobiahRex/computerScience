@@ -12,6 +12,6 @@ const result = [
   double,
   double,
   halve,
-].reduceRight((acc, next) => next(acc), 1);
+].reduceRight((prevValue, nextFunc) => nextFunc(prevValue), 1);
 
 console.log(result);
