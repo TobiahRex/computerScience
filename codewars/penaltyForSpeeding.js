@@ -20,40 +20,31 @@ const makeHTable = arr => arr
     !Array.isArray(acc[n]) ? acc[n] = Array(next) : acc[n].push(next);
     return acc;
   }, {});
-const highToLow = (a, b) => b - a;
-const getLowest = (prev, next) => {
-  const prevNext = Number(prev + next);
-  const nextPrev = Number(next + prev);
-  return (prevNext < nextPrev ? prevNext : nextPrev);
+const getLowest = (n1 = '', n2 = '') => {
+  const n1n2 = Number(n1 + n2);
+  const n2n1 = Number(n2 + n1);
+  return (n1n2 < n2n1 ? String(n1n2) : String(n2n1));
+}
+const getKeyAnswer = (arr) => {
+  if (arr.length === 1) return arr[0];
+
+  const paired = [];
+
 }
 const getAnswer = hTable => Object
   .keys(hTable)
-  // .reduce((acc, next) =>
-  // {
-  //   acc += hTable[next]
-  //   .sort(highToLow)
-  //   // .reduce(getLowest, '')
-  //   console.log(acc);
-  //   return acc;
-  // }
-  // , '');
-  .reduce((acc, next) =>
-    acc += hTable[next]
-      .sort(highToLow)
-      .reduce(getLowest, '')
-  , '');
+  .reduce((acc, next) => (acc += getKeyAnswer(hTable[next].sort())), '');
 
 const penalty = list => [
     makeHTable,
     getAnswer,
   ].reduce((acc, nxtStep) => nxtStep(acc), list);
 
-// console.log(penalty(['45', '30', '50', '1']));
-console.log(penalty(['26', '56', '91', '9', '96', '96']));
+console.log(penalty(['91', '92', '9' ]));
 /*
-  RIGHT '26 56 91 96 96 96 9',
+  RIGHT '13 13 14 19 46 79 82 91 92 9',
   - The assumption to sort high to low, is incorrect.
-  WRONG: '26 56 91 9 96 96 96'
+  WRONG: '13 13 14 19 46 79 82 91 9 92'
 */
 
 /*
