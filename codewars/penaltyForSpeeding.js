@@ -29,11 +29,15 @@ const getKeyAnswer = (arr) => {
   if (arr.length === 1) return arr[0];
 
   const paired = [];
-
+  for (let i = 0, j = 1; i < arr.length; i += 2, j += 2) {
+    paired.push(getLowest(arr[i], arr[j]));
+  }
+  if (paired.length > 1) return getKeyAnswer(paired);
+  return paired[0];
 }
 const getAnswer = hTable => Object
   .keys(hTable)
-  .reduce((acc, next) => (acc += getKeyAnswer(hTable[next].sort())), '');
+  .reduce((acc, next) => (acc += getKeyAnswer(hTable[next].sort((a, b) => b.length - a.length))), '');
 
 const penalty = list => [
     makeHTable,
