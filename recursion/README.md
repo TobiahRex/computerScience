@@ -6,7 +6,13 @@ October 26, 2016
 
 ### Practice Problems
  1. Write a function that loops through the numbers n down to 0. If you haven't done so try using a while loop to do this.
-  ``yo yo ``
+  ``js
+    yo yo
+
+
+
+    asdf
+  ``
  2. Next, try looping just like above except using recursion
 
  3. Write a function 'exponent' that takes two arguments base, and expo, uses a while loop to return the exponenet value of the base.
