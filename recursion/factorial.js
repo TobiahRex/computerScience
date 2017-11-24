@@ -1,17 +1,16 @@
-const factorialLoop = (n) => {
+// FACTORIALS
+const loop = (n) => {
   let result = 1;
-  for (
-    let i = n;
-    i > 0;
-    i -= 1
-  ) result *= i;
-
+  for (let i = n; i > 0; i -= 1 ) result *= i;
   return result;
 }
-// factorialLoop(5) // 120
+// console.log(loop(5)) // 120
 
-const factorialRecursive = (n) => {
+const recursive = (n) => {
   if (n === 1) return 1;
-  return n * factorialRecursive(n - 1);
+  return n * recursive(n - 1);
 }
-console.log(factorialRecursive(5));
+// console.log(recursive(5)) // 120
+
+const recursiveTernary = n => (n === 1) ? 1 : n * recursiveTernary(n - 1);
+// console.log(recursiveTernary(5)) // 120
