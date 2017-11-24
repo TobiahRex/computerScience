@@ -1,6 +1,6 @@
 # Recursion
-  Started: 26Oct2016
-  Updated: 24Nov2017
+  - Started: 26Oct2016
+  - Updated: 24Nov2017
 
 ## FEM Course
  [here](https://frontendmasters.com/courses/data-structures-algorithms/exercise-recursion-interview-questions)
@@ -15,9 +15,27 @@
     }
     console.log(recursiveWhile(5)); // 120
   ```
+
  2. Next, try looping just like above except using recursion
+   ```javascript
+   const recursive = (n) => {
+     if (n === 1) return 1;
+     return n * recursive(n - 1);
+   }
+   console.log(recursive(5)); // 120
+   ```
 
  3. Write a function 'exponent' that takes two arguments base, and expo, uses a while loop to return the exponenet value of the base.
+   ```javascript
+   const exponent = (base, expo) => {
+     let result = base;
+     while (--expo) {
+       result *= base;
+     }
+     return result;
+   }
+   console.log(exponent(2, 3));
+   ```
 
  4. Write a function 'RecursiveExponent' that takes two arguments base, and expo, recursively returns exponent value of the base.
 
