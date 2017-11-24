@@ -34,7 +34,7 @@
      }
      return result;
    }
-   console.log(exponent(2, 3));
+   console.log(exponent(2, 3));  // 3
    ```
 
  4. Write a function 'RecursiveExponent' that takes two arguments base, and expo, recursively returns exponent value of the base.
