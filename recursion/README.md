@@ -43,6 +43,12 @@
    }
    console.log(recursiveExponent(2, 3));  // 8
    ```
+   Ternary
+   ```javascript
+   const recursiveExponent = (base, expo) => (expo === 1) ? base : base * recursiveExponent(base, expo - 1)
+
+   console.log(recursiveExponent(2, 3));  // 8
+   ```
 
  5. Write a function 'recursiveMultiplier' that takes two arguments, 'arr and num', and multiplies each arr value into by num and returns an array of the values.
 
