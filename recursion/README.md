@@ -8,21 +8,21 @@
 ### Practice Problems
  1. Write a function that loops through the numbers n down to 0. If you haven't done so try using a while loop to do this.
   ```javascript
-    const recursiveWhile = (n) => {
+    const whileN = (n) => {
       let result = n;
       while(--n) result *= n;
       return result;
     }
-    console.log(recursiveWhile(5)); // 120
+    console.log(whileN(5)); // 120
   ```
 
  2. Next, try looping just like above except using recursion
    ```javascript
-   const recursive = (n) => {
+   const recursiveN = (n) => {
      if (n === 1) return 1;
-     return n * recursive(n - 1);
+     return n * recursiveN(n - 1);
    }
-   console.log(recursive(5)); // 120
+   console.log(recursiveN(5)); // 120
    ```
 
  3. Write a function 'exponent' that takes two arguments base, and expo, uses a while loop to return the exponenet value of the base.
