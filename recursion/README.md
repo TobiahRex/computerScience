@@ -29,15 +29,20 @@
    ```javascript
    const exponent = (base, expo) => {
      let result = base;
-     while (--expo) {
-       result *= base;
-     }
+     while (--expo) result *= base;
      return result;
    }
    console.log(exponent(2, 3));  // 8
    ```
 
  4. Write a function 'RecursiveExponent' that takes two arguments base, and expo, recursively returns exponent value of the base.
+   ```javascript
+   const recursiveExponent = (base, expo) => {
+     if (expo === 1) return base;
+     return base * recursiveExponent(base, expo - 1);
+   }
+   console.log(recursiveExponent(2, 3));  // 8
+   ```
 
  5. Write a function 'recursiveMultiplier' that takes two arguments, 'arr and num', and multiplies each arr value into by num and returns an array of the values.
 
