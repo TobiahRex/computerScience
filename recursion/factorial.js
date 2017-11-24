@@ -17,6 +17,12 @@ const recursiveTernary = n => (n === 1) ? 1 : n * recursiveTernary(n - 1);
 
 /* PROBLEMS */
 //1. Write a function that loops through the numbers n down to 0. If you haven't done so try using a while loop to do this.
+const recursiveWhile = (n) => {
+  let result = n;
+  while(--n) result *= n;
+  return result;
+}
+console.log(recursiveWhile(5));
 
 //2. Next, try looping just like above except using recursion
 
