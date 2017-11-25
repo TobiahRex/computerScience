@@ -51,5 +51,22 @@
    ```
 
  5. Write a function 'recursiveMultiplier' that takes two arguments, 'arr and num', and multiplies each arr value into by num and returns an array of the values.
+   ```javascript
+   const recursiveMultiplier = (arr, num) => {
+     const current = arr[0] * num;
+
+     if (arr.length === 1) return current;
+
+     return [current].concat(recursiveMultiplier(arr.slice(1), num));
+   }
+   console.log(recursiveMultiplier([1, 2, 3], 2));  // [2, 4, 6]
+   ```
+   Ternary
+   ```javascript
+   const recursiveMultiplierTern = (arr, num) =>
+     (arr.length === 1) ? arr[0] *= num : [arr[0] *= num].concat(recursiveMultiplierTern(arr.slice(1), num));
+
+   console.log(recursiveMultiplierTern([1, 2, 3], 2));  // [2, 4, 6]
+   ```
 
  6. Write a function 'recursiveReverse' that takes an array and uses recursion to return its contents in reverse
