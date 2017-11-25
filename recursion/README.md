@@ -70,3 +70,17 @@
    ```
 
  6. Write a function 'recursiveReverse' that takes an array and uses recursion to return its contents in reverse
+   ```javascript
+   const recursiveReverse = (arr) => {
+     if (arr.length === 1) return arr[0];
+     return [arr.pop()].concat(recursiveReverse(arr));
+   }
+
+   console.log(recursiveReverse(['1', '2', '3', '4'])); // ['4', '3', '2', '1']
+   ```
+   Ternary
+   ```javascript
+   const recursiveReverseTern = (arr) => (arr.length === 1) ? arr[0] : [arr.pop()].concat(recursiveReverseTern(arr));
+
+   console.log(recursiveReverseTern(['1', '2', '3', '4'])); // ['4', '3', '2', '1']
+   ```

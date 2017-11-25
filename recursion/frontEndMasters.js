@@ -29,17 +29,26 @@ const recursiveExponent = (base, expo) => {
 // console.log(recursiveExponent(2, 3));  // 8
 
 //5. Write a function 'recursiveMultiplier' that takes two arguments, 'arr and num', and multiplies each arr value by num and returns an array of the values.
-// const recursiveMultiplier = (arr, num) => {
-//   const current = arr[0] * num;
-//
-//   if (arr.length === 1) return current;
-//
-//   return [current].concat(recursiveMultiplier(arr.slice(1), num));
-// }
+const recursiveMultiplier = (arr, num) => {
+  const current = arr[0] * num;
+
+  if (arr.length === 1) return current;
+
+  return [current].concat(recursiveMultiplier(arr.slice(1), num));
+}
 
 const recursiveMultiplierTern = (arr, num) =>
   (arr.length === 1) ? arr[0] *= num :
     [arr[0] *= num].concat(recursiveMultiplierTern(arr.slice(1), num));
 
-console.log(recursiveMultiplierTern([1, 2, 3], 2));  // [2, 4, 6]
+// console.log(recursiveMultiplierTern([1, 2, 3], 2));  // [2, 4, 6]
 //6. Write a function 'recursiveReverse' that takes an array and uses recursion to return its contents in reverse
+
+const recursiveReverse = (arr) => {
+  if (arr.length === 1) return arr[0];
+  return [arr.pop()].concat(recursiveReverse(arr));
+}
+
+const recursiveReverseTern = (arr) => (arr.length === 1) ? arr[0] : [arr.pop()].concat(recursiveReverseTern(arr))
+
+console.log(recursiveReverseTern(['1', '2', '3', '4']));
