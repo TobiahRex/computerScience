@@ -1,33 +1,36 @@
 /*
-Bubble SORT
+SELECTION SORT
 *** Description
-Iterate over array, comparing adjacent items and swap if in incorrect order. Largest elements bubble to the end of the array
+Iterate over array and grow a sorted array behind current element.
+For each position, find the smallest element in unsorted subarray starting at that position, and swap elements so that smallest element is at the beginning of unsorted subarray.
+example:
+[ 1 2 3|9 5 7 4 ]
+ sorted|unsorted
+smallest element in unsorted subarray is 4
+swap with element at beggining of unsorted subarray
+sorted portion has now grown:
+[ 1 2 3 4|5 7 9 ]
 *** Exercises
-- Implement bubble sort
+- Implement selection sort
 - Identify time complexity
-Optimizations:
-- Make algorithm adaptive (if at any point array is already sorted, exit function early). After doing this, what is time complexity for nearly sorted arrays?
-- For each pass through the array, are you doing any unnecessary checking of elements? Minimize checking and consider the effect on time complexity.
-Variants:
-- Implement cocktail sort (for each pass find both min and max values and sort in both directions). How does this impact performance?
-(https://en.wikipedia.org/wiki/Cocktail_sort)
+Stable Variant
+- Implement as a stable sort - rather than swapping, the minimum value is inserted into the first position and all other items are shifted one to the right. How does this impact performance?
+- Modify function to take comparator function. specify default if not provided (check out native Array.sort comparator function for reference)
+- Use your comparator function to verify that your sort is stable by taking input: [{value: 15}, {value: 10, order: 1}, {value: 10, order: 2}]
+- Implement selection sort for a linked list (you can use your data structure implemention from earlier in the course). How does this impact performance and stability?
 */
-console.time('bubbleSort');
-const bubbleSort = (arr) => {
-  const length = arr.length - 1;
-
-  for (let i = length; i > 0; i--) {
-    for (let j = 0; j < i; j++) {
-      let current = arr[j];
-      let next = arr[j + 1];
-
-      if (current > next) {
-        arr[j] = next;
-        arr[j + 1] = current;
+const selectionSort = (arr) => {
+  for (let i = 0; i < arr.length; i++) {
+    for (let j = i + 1; j < arr.length; j++) {
+      if (arr[i] > arr[j]) {
+        let current = arr[i];
+        arr[i] = arr[j];
+        arr[j] = current;
       }
     }
   }
   return arr;
 }
-console.timeEnd('bubbleSort');
-console.log(bubbleSort([7, 5, 3, 1, 8, 6, 4, 2]));
+console.log(selectionSort([
+  18, 11, 19, 12, 13, 14, 15, 16, 7, 5, 3, 17, 1, 9, 10, 8, 6, 20, 4, 2,
+]));
