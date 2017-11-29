@@ -12,26 +12,22 @@ Variants:
 - Implement cocktail sort (for each pass find both min and max values and sort in both directions). How does this impact performance?
 (https://en.wikipedia.org/wiki/Cocktail_sort)
 */
-
+console.time('bubbleSort');
 const bubbleSort = (arr) => {
   const length = arr.length - 1;
 
   for (let i = length; i > 0; i--) {
     for (let j = 0; j < i; j++) {
-      console.log('arr: ', arr);
       let current = arr[j];
       let next = arr[j + 1];
-      console.log('current', current);
-      console.log('next', arr[j + 1]);
+
       if (current > next) {
         arr[j] = next;
         arr[j + 1] = current;
       }
-      console.log('arr: ', arr);
-      console.log('/------------------------------/');
     }
   }
   return arr;
 }
-
+console.timeEnd('bubbleSort');
 console.log(bubbleSort([7, 5, 3, 1, 8, 6, 4, 2]));
