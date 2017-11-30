@@ -20,34 +20,25 @@ now repeat for next unsorted element
 - Implement shell sort, a generalization of insertion sort
 (https://en.wikipedia.org/wiki/Shellsort)
 */
+
 const insertionSort = (arr) => {
   const sorted = [arr[0]];
+
   for (let i = 1; i < arr.length; i++) {
-    console.log('START sorted: ', sorted);
     const n = arr[i];
-    if (n > sorted[sorted.length - 1]) {
-      sorted.push(n);
-    } else {
+    if (n > sorted[sorted.length - 1]) sorted.push(n);
+    else {
       for (let j = 0; j < sorted.length; j++) {
-        console.log('n: ', n);
-        console.log('sorted[j]: ', sorted[j]);
         if (n < sorted[j]) {
-          console.log('n < sorted[j]');
           sorted.splice(j, 0, n);
           break;
-        }
-        else if ((n > sorted[j]) && (n < sorted[j + 1])) {
-          console.log('n > sorted[j]...');
+        } else if (n > sorted[j] && n < sorted[j + 1]){
           sorted.splice(j + 1, 0, n);
           break;
         }
-        console.log('na');
       }
     }
-    console.log('END sorted: ', sorted);
-    console.log('/-----------------------/');
   }
-
   return sorted;
 }
 console.log(insertionSort([
