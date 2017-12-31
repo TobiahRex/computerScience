@@ -20,18 +20,12 @@ const mergeSort = (array) => {
     resultsArray = [];
 
   while(leftArr[iL] && rightArr[iR]) {
-    const
-      leftN = leftArr[iL],
-      rightN = rightArr[iR];
+    if (leftArr[iL] < rightArr[iR])
+      resultsArray.push(leftArr[iL++]);
 
-    if (leftN < rightN) {
-      resultsArray.push(leftN)
-      iL += 1;
-    } else {
-      resultsArray.push(rightN);
-      iR += 1;
-    }
+    else resultsArray.push(rightArr[iR++]);
   }
+
   return resultsArray
   .concat(leftArr.slice(iL))
   .concat(rightArr.slice(iR));
