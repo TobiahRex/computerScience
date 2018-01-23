@@ -38,12 +38,12 @@ YES
 
 // Step 1 - Gather all the information.
 // Step 2 - Choose a simple Test Case.
-// Step 3 - delcare your variables
+// Step 3 - declare your variables
 // Step 4 - Mentally solve the problem
 // Step 5 - Psuedo Code
 // Step 6 - Code
 // Step 7 - Edge Cases
-// Step 8 - Optimize: Effeciency & Comlex Test Cases
+// Step 8 - Optimize: Effeciency & Complex Test Cases
 
 class Stack {
   constructor() {
