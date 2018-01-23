@@ -24,13 +24,34 @@ class Stack {
     }
     const node = this.createNode(type, direction);
 
-    if (this.top === null) {
-      this.top = node;
-      return this.depth;
-    } else {
-      this.top.next = this.createNode(type, direction);
+    if (this.top === null) (this.top = node);
+    else (this.top.next = node);
+
+    return this.depth;
+  }
+
+  pop() {
+    if (this.top === null) return null;
+    else {
+      const oldNode = this.top;
+      this.top = this.top.next;
+      this.depth -= 1;
+      return oldNode;
     }
   }
+}
+
+const stack = new Stack();
+
+const checkString(str) {
+  let n = str;
+  let checks = [];
+
+  if (
+    !n.length ||
+    /['\}'|'\]'|'\)']/gi.test(str[0])
+  ) return 'NO';
+
 }
 
 

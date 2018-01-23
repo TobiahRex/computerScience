@@ -79,7 +79,7 @@ class Stack {
     }
   }
 }
-const stack = new Stack;
+const stack = new Stack();
 
 function popCheck(t) {
   const { type, direction } = stack.pop();
