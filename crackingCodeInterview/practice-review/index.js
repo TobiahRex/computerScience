@@ -52,6 +52,19 @@ const checkString(str) {
     /['\}'|'\]'|'\)']/gi.test(str[0])
   ) return 'NO';
 
+  for (let i = 0; i < n.length; i++) {
+    switch(n[i]) {
+      case '(': { stack.push('parens', 'right') } break;
+      case '{': { stack.push('curly', 'right') } break;
+      case '[': { stack.push('square', 'right') } break;
+      case ']': { checks.push(popCheck('square'))} break;
+      case '}': { checks.push(popCheck('curly'))} break;
+      case ')': { checks.push(popCheck('parens'))} break;
+      default: checks.push(false); break;
+    }
+  }
+  if (checks.include(false)) return 'NO';
+  return 'YES';
 }
 
 
