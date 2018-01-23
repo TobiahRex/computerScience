@@ -48,12 +48,19 @@
 '''
 class Stack:
     top = null;
+    depth = 0;
 
-    createNode(type, direction):
-        if not type or not direction:
+    def __init__(self):
+        self.top = null;
+        self.depth = 0;
+
+    createNode(kind, direction):
+        if not kind or not direction:
             print('Missing required arguments.');
 
         node = {
-            'type': type,
+            'kind': kind,
             'direction': direction,
+            'next': None
         }
+        return node;
