@@ -47,20 +47,41 @@
     Step 8 - Optimize: Effeciency & Complex Test Cases
 '''
 class Stack:
-    top = null;
+    top = None;
     depth = 0;
 
     def __init__(self):
-        self.top = null;
+        self.top = None;
         self.depth = 0;
 
-    createNode(kind, direction):
+    def createNode(kind, direction):
         if not kind or not direction:
-            print('Missing required arguments.');
+            print('Missing required arguments.')
 
         node = {
-            'kind': kind,
-            'direction': direction,
-            'next': None
-        }
+                'kind': kind,
+                'direction': direction,
+                'next': None
+                }
         return node;
+
+    def push(kind, direction):
+        if not kind or not direction:
+            print('Missing required arguments.')
+
+        newNode = self.createNode(kind, direction)
+
+        if self.top is None:
+            self.top = newNode
+        else self.top.next = newNode
+
+    def pop(kind, direction):
+        if not kind or not direction:
+            print('Missing required arguments.')
+
+        if self.top is None:
+            return None
+        else:
+            oldTop = self.top
+            self.top = self.top.next
+            return oldTop
