@@ -1,17 +1,35 @@
 class Stack {
   constructor() {
     this.top = null;
+    this.depth = 0;
   }
 
   createNode(type, direction) {
     if (!type || !direction) {
       return Error('Missing required arguments for "createNode()"');
+    } else {
+      const newNode = ({
+        type,
+        direction,
+        next: null,
+      });
+      this.depth += 1;
+      return newNode;
     }
-    else return ({
-      type,
-      direction,
-      next: null,
-    });
+  }
+
+  push(type, direction) {
+    if (!type || !direction) {
+      return Error('Missing required arguments for "createNode()"');
+    }
+    const node = this.createNode(type, direction);
+
+    if (this.top === null) {
+      this.top = node;
+      return this.depth;
+    } else {
+      this.top.next = this.createNode(type, direction);
+    }
   }
 }
 
