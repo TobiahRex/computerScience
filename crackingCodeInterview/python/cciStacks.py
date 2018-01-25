@@ -56,9 +56,10 @@ class Stack:
         self.top = None;
         self.depth = 0;
 
-    def createNode(kind, direction):
+    def createNode(self, kind, direction):
         if not kind or not direction:
             print('Missing required arguments.')
+            return None
 
         node = {
                 'kind': kind,
@@ -67,17 +68,21 @@ class Stack:
                 }
         return node;
 
-    def push(kind, direction):
+    def push(self, kind, direction):
         if not kind or not direction:
             print('Missing required arguments.')
+            return None
 
         newNode = self.createNode(kind, direction)
+        print('newNode: ', newNode)
 
         if self.top is None:
             self.top = newNode
-        else self.top.next = newNode
+        else:
+            print('self.top: ', self.top)
+            self.top.next = newNode
 
-    def pop(kind, direction):
+    def pop(self, kind, direction):
         if not kind or not direction:
             print('Missing required arguments.')
 
@@ -104,7 +109,7 @@ def checkString(n):
 
     if re.search(r"['\}'|'\]'|'\)']", string[0]) or len(string) <= 0:
         checks.append(False)
-
+    print(stack.push)
     switcher = {
         '{': stack.push('curly', 'right'),
         '[': stack.push('square', 'right'),
@@ -115,7 +120,12 @@ def checkString(n):
     }
 
     for n in string:
-        switcher.get(n,  checks.append(False))
+        switcher.get(n, checks.append(False))
 
-    if False in checks return 'NO'
-    else return 'YES'
+    if False in checks:
+        return 'NO'
+    else:
+        return 'YES'
+
+result = checkString('{[(])}')
+print(result)
