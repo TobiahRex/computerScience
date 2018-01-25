@@ -74,34 +74,36 @@ class Stack:
             return None
 
         newNode = self.createNode(kind, direction)
-        print('newNode: ', newNode)
 
         if self.top is None:
             self.top = newNode
         else:
-            print('self.top: ', self.top)
-            self.top.next = newNode
+            newNode['next'] = self.top
+            self.top = newNode
 
-    def pop(self, kind, direction):
-        if not kind or not direction:
-            print('Missing required arguments.')
-
+    def pop(self):
         if self.top is None:
             return None
         else:
             oldTop = self.top
-            self.top = self.top.next
+            self.top = self.top['next']
             return oldTop
 
 stack = Stack()
 
 def popCheck(t):
+    print('stack.top: ', stack.top)
     top = stack.pop()
+    print('t: ', t)
 
-    if top.kind != t or top.direction != 'right':
-        return False
+    if top:
+        print('top[\'kind\']: ', top['kind'])
+        if top['kind'] != t or top['direction'] != 'right':
+            return False
+        else:
+            return True
     else:
-        return True
+        return False
 
 def checkString(n):
     string = n
@@ -110,22 +112,26 @@ def checkString(n):
     if re.search(r"['\}'|'\]'|'\)']", string[0]) or len(string) <= 0:
         checks.append(False)
     print(stack.push)
+
     switcher = {
-        '{': stack.push('curly', 'right'),
-        '[': stack.push('square', 'right'),
-        '(': stack.push('parens', 'right'),
-        ')': checks.append(popCheck('parens')),
-        ']': checks.append(popCheck('square')),
-        '}': checks.append(popCheck('curly')),
+        '{': lambda : stack.push('curly', 'right'),
+        '[': lambda : stack.push('square', 'right'),
+        '(': lambda : stack.push('parens', 'right'),
+        ')': lambda : checks.append(popCheck('parens')),
+        ']': lambda : checks.append(popCheck('square')),
+        '}': lambda : checks.append(popCheck('curly')),
     }
 
-    for n in string:
-        switcher.get(n, checks.append(False))
+    for s in string:
+        func = switcher.get(s)
+        func()
 
+    print(checks)
     if False in checks:
         return 'NO'
     else:
         return 'YES'
 
-result = checkString('{[(])}')
+# result = checkString('{[(])}') #NO
+result = checkString('{[()]}') # Yes
 print(result)

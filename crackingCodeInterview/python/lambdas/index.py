@@ -1,11 +1,6 @@
-def printX(x):
-    print(x);
-
 dictionary = {
-        'a': printX('a'),
-        'b': print('b')
-    }
+    'name': 'Toby',
+    'age': 29,
+}
 
-listA = ['a', 'b']
-for x in listA:
-    dictionary.get(x);
+print(dictionary['name'] != 'Toby')
