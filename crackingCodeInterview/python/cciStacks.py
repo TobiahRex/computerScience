@@ -46,6 +46,8 @@
     Step 7 - Edge Cases
     Step 8 - Optimize: Effeciency & Complex Test Cases
 '''
+import re
+
 class Stack:
     top = None;
     depth = 0;
@@ -85,3 +87,35 @@ class Stack:
             oldTop = self.top
             self.top = self.top.next
             return oldTop
+
+stack = Stack()
+
+def popCheck(t):
+    top = stack.pop()
+
+    if top.kind != t or top.direction != 'right':
+        return False
+    else:
+        return True
+
+def checkString(n):
+    string = n
+    checks = []
+
+    if re.search(r"['\}'|'\]'|'\)']", string[0]) or len(string) <= 0:
+        checks.append(False)
+
+    switcher = {
+        '{': stack.push('curly', 'right'),
+        '[': stack.push('square', 'right'),
+        '(': stack.push('parens', 'right'),
+        ')': checks.append(popCheck('parens')),
+        ']': checks.append(popCheck('square')),
+        '}': checks.append(popCheck('curly')),
+    }
+
+    for n in string:
+        switcher.get(n,  checks.append(False))
+
+    if False in checks return 'NO'
+    else return 'YES'
