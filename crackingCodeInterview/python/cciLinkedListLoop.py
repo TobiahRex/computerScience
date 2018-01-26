@@ -19,7 +19,7 @@ head = linkedList
 head['next']['next']['next']['next'] = head['next']['next']
 
 def hasCycle(node):
-    if no node or no node['next']:
+    if not node or not node['next']:
         return False;
 
     slow = node
