@@ -16,17 +16,18 @@ linkedList = {
 }
 
 head = linkedList
-# head['next']['next']['next']['next'] = head['next']['next']
+head['next']['next']['next']['next'] = head['next']['next']
+head = 0
 
 def hasCycle(node):
-    if not node or not node['next']:
+    if not node or node['next'] is None:
         return False;
 
     slow = node
     fast = node
     result = False
 
-    while fast and fast['next']:
+    while fast is not None and fast['next'] is not None:
         if fast['next']['next']:
             fast = fast['next']['next']
         else:
