@@ -15,7 +15,7 @@ Then print the updated array as a single line of space-separated integers.
 // d = number of left shifts.
 
 // Step 2 - Create a test case (small)
-let array = [1,2,3,4,5]
+let array = [1, 2, 3, 4, 5]
 
 // Step 3 - Create a brute Force psuedo code solution.
 
@@ -40,10 +40,9 @@ IDEA 1
   push on index 0.
 */
 
-function shiftArray(size, shifts, arr){
-  let f = arr.splice(0, shifts); // 'f' = 'front'
-  arr.push(...f);
-  arr.join(' ');
-  return arr;
-}
-console.log(shiftArray(5, 1, array))
+const shiftArray = (size, shifts, arr) =>
+  arr
+    .concat(arr.splice(0, shifts))
+    .join(' ');
+
+console.log(shiftArray(5, 3, array))
