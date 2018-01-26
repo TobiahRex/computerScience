@@ -16,7 +16,7 @@ linkedList = {
 }
 
 head = linkedList
-head['next']['next']['next']['next'] = head['next']['next']
+# head['next']['next']['next']['next'] = head['next']['next']
 
 def hasCycle(node):
     if not node or not node['next']:
@@ -24,9 +24,9 @@ def hasCycle(node):
 
     slow = node
     fast = node
-    result = false
+    result = False
 
-    while is fast and fast['next']:
+    while fast and fast['next']:
         if fast['next']['next']:
             fast = fast['next']['next']
         else:
@@ -43,4 +43,4 @@ def hasCycle(node):
 
     return result
 
-hasCycle(head);
+print(hasCycle(head));
