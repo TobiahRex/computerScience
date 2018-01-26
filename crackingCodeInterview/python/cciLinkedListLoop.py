@@ -24,5 +24,23 @@ def hasCycle(node):
 
     slow = node
     fast = node
+    result = false
+
+    while is fast and fast['next']:
+        if fast['next']['next']:
+            fast = fast['next']['next']
+        else:
+            fast = None
+
+        if slow['next']:
+            slow = slow['next']
+        else:
+            slow = None
+
+        if fast == slow:
+            result = True
+            break
+
+    return result
 
 hasCycle(head);
