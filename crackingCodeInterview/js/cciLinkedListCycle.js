@@ -37,52 +37,23 @@ let linkedList = {
 let head = linkedList
 head.next.next.next.next.next = head.next.next;  // create a cycle.
 
-function hasCycle(node) {
-  if (!node || !node.next ) return null || false;  // edge case
-
-  let current = node;
-  let current2 = node;
-  let result = false;
-
-  // check if loop exists.
-  while (current2.next.next) {
-    current = current.next;        // moves one node at a time.
-    current2 = current2.next.next; // moves two nodes at a time.
-
-    if (current2 === current) {    // if the faster node laps the slower node.
-      result = true;
-      break;
-    }
-  }
-  return result;
-  // // loop beginning detection
-  // if (result) {
-  //   current = head;
-  //   while (current !== current2) {
-  //     current = current.next;
-  //     current2 = current2.next;
-  //   }
-  //   return current;
-  // } else {
-  //   return;
-  // }
-};
 console.time('cycleCheck');
-hasCycle(head);
+console.log(hasCycle(head));
 console.timeEnd('cycleCheck');
 
-function hasCycle(node) {
-  if (!node || !node.next) return null || false;
+const hasCycle = (node) => {
+  if (!node || !node.next) return false;
 
-  let current = node;
-  let current2 = node;
-  let result = false;
+  let
+    slow = node,
+    fast = node,
+    result = false;
 
-  while (current.next) {
-    current = current.next;
-    curent2 = current.next.next;
+  while (fast && fast.hasOwnProperty('next')) {
+    fast = !!fast.next.next ? fast.next.next : null;
+    slow = !!slow.next ? slow.next : null;
 
-    if (current2 === current) {
+    if (fast === slow) {
       result = true;
       break;
     }
