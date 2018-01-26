@@ -14,3 +14,15 @@ linkedList = {
         }
     }
 }
+
+head = linkedList
+head['next']['next']['next']['next'] = head['next']['next']
+
+def hasCycle(node):
+    if no node or no node['next']:
+        return False;
+
+    slow = node
+    fast = node
+
+hasCycle(head);
