@@ -1,6 +1,9 @@
 array = [1, 2, 3, 4, 5]
 
 def shiftArray(size, shifts, arr):
-    print(arr[0:shifts])
+    f = arr[0 : shifts]
+    del arr[0 : shifts]
+    arr.append(f)
+    
 
-shiftArray()
+shiftArray(5, 3, array)
