@@ -45,7 +45,7 @@ function findSections({ p, input }) {
   });
 }
 
-function divideInput({ pattern, sections, input }) { // sections = 4 input = 'redbluebluered'
+function divideInput({ pattern, sections, input }) {
   const totalLength = input.length, // 14
         inputWords = [],
         dividend = totalLength / sections;
@@ -101,13 +101,7 @@ function verifyPattern({ pattern, inputWords }) {
   }, 0);
 }
 
-// console.log('answer: ', main(
-//   'abba',
-//   'redbluebluered',
-// ));
 console.log('answer: ', main(
   'aaa',
   'redredred',
 ));
-// console.log(findSections('abba'));
-// console.log(verifyPattern({ pattern: { 'a': [0, 3], 'b': [1, 2] } }, ['red', 'blue', 'blue', 'red']));
