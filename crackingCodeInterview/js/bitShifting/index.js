@@ -25,3 +25,15 @@ Bit Masks
 - AND | OR | XOR
 - Review: XOR => Exactly only 1 is true.
 */
+
+// Get the mth bit of n (from low to high)
+// (n >> (m-1)) & 1;
+
+// Set the mth bit of n to 0 (from low to high)
+// n & ~(1 << (m-1));
+
+// n = 7 => 0000 0111
+
+// console.log(7 & (1 << 5) !== 0)
+const mask = 1110 << 0;
+console.log(7 | mask);

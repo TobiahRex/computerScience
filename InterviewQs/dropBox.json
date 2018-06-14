@@ -1,0 +1,63 @@
+{
+  "t": {
+    "location": [
+      0,
+      0
+    ],
+    "counts": 2
+  },
+  "o": {
+    "location": [
+      1,
+      1
+    ],
+    "counts": 2
+  },
+  "b": {
+    "location": [
+      2,
+      2
+    ],
+    "counts": 2
+  },
+  "y": {
+    "location": [
+      3,
+      3
+    ],
+    "counts": 2
+  },
+  "r": {
+    "location": [
+      4,
+      4
+    ],
+    "counts": 2
+  },
+  "e": {
+    "location": [
+      5,
+      5
+    ],
+    "counts": 2
+  },
+  "x": {
+    "location": [
+      6,
+      6
+    ],
+    "counts": 2
+  },
+  "h": {
+    "location": [
+      14
+    ],
+    "counts": 1
+  },
+  "i": {
+    "location": [
+      15
+    ],
+    "counts": 1
+  }
+}
