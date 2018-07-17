@@ -6,9 +6,9 @@ Each containing an arbitrary field of DATA.
 let node = {
 data: stuff,
 next: {
-data: stuff,
-next: null
-}
+  data: stuff,
+  next: null
+  }
 }
 
 Linked lists (Singly or Doubly) permit INSERTION and DELETION of nodes
@@ -122,12 +122,12 @@ LinkedList.prototype.update = (index, data) => {
 LinkedList.prototype.size = () => this._length;
 
 LinkedList.prototype.show = () => {
-  let head = this._head;
+  let current = this._head;
   let count = 0;
-  while(head !== null) {
+  while(current !== null) {
     count += 1;
-    console.log('node: ', count, '\n data: ', head.data);
-    head = head.next;
+    console.log('node: ', count, '\n data: ', current.data);
+    current = current.next;
   }
 }
 
