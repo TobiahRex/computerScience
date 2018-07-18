@@ -1,7 +1,9 @@
 class LinkedList {
-  constructor() {
+  constructor(data = null) {
     this._head = null;
     this._length = 0;
+
+    if (data === null) this._head = "This linked list is empty";
   }
 
   boundsCheck = (index) => {
@@ -12,10 +14,13 @@ class LinkedList {
   search = (index) => {
     let current = this._head;
     let i = 0;
-    if (index == 0) return current.data;
-    else if (this.boundsCheck(index)) {
+    if (this.boundsCheck(index)) {
       while(i++ < index) {
-        current = current.next;
+        if (current.next) {
+          current = current.next;
+        } else {
+          break;
+        }
       }
       return current.data;
     } else {
@@ -24,38 +29,58 @@ class LinkedList {
   }
 
   createNew = (data) => {
-    const newNode = {
+    return {
       data,
       next: null,
     };
-
-    if (!this._head) {
-      this._head = newNode;
-    }
-    return data;
   }
 
   insert = (data) => {
+    const newNode = this.createNew(data);
+
+    if (!this._length) {
+      this._head = newNode;
+      this._length++;
+      return;
+    }
+
     let current = this._head;
     let i = 0;
-    while(i++ < this._length) current = current.next;
-    this._length++;
 
-    const newNode = this.createNode(data);
+    while(i++ < this._length) {
+      current = current.next;
+      // if (current.next) {
+      // } else {
+      //   break;
+      // }
+    }
     current.next = newNode;
-
-    return current.data;
+    this._length++;
+    console.log('added new node: ', current);
   }
 
   peek = () => {
     let i = 0,
-      current = this.head;
+      current = this._head;
 
-    while (i++ < this._length) current = current.next;
+    while (i++ < this._length) {
+      if (current.next) {
+        current = current.next;
+      } else break;
+    }
     return current.data;
   }
 }
 
 const sll = new LinkedList();
-sll.createNew("toby");
-console.log(sll.search(0));
+sll.insert("toby");
+sll.insert("i am the second node.");
+console.log(
+  sll.search(1)
+);
+console.log(
+  sll.peek()
+);
+console.log(
+  sll._length
+);
