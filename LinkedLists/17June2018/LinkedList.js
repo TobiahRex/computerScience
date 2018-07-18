@@ -11,7 +11,8 @@ LinkedList.prototype.boundsCheck = (index) => {
 LinkedList.prototype.search = (index) => {
   let current = this._head;
   let i = 0;
-  if (LinkedList.boundsCheck(index)) {
+  if (index == 0) return current.data;
+  else if (LinkedList.prototype.boundsCheck(index)) {
     while(i++ < index) {
       current = current.next;
     }
@@ -19,6 +20,10 @@ LinkedList.prototype.search = (index) => {
   } else {
     return null;
   }
+}
+
+LinkedList.prototype.insert = (data) => {
+  
 }
 
 LinkedList.prototype.createNew = (data) => {
@@ -32,3 +37,7 @@ LinkedList.prototype.createNew = (data) => {
   }
   return data;
 }
+
+LinkedList()
+LinkedList.prototype.createNew("toby");
+console.log(LinkedList.prototype.search(0));
