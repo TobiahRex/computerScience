@@ -9,7 +9,7 @@ class LinkedList {
     return false;
   }
 
-  search = () => {
+  search = (index) => {
     let current = this._head;
     let i = 0;
     if (index == 0) return current.data;
@@ -33,6 +33,26 @@ class LinkedList {
       this._head = newNode;
     }
     return data;
+  }
+
+  insert = (data) => {
+    let current = this._head;
+    let i = 0;
+    while(i++ < this._length) current = current.next;
+    this._length++;
+
+    const newNode = this.createNode(data);
+    current.next = newNode;
+
+    return current.data;
+  }
+
+  peek = () => {
+    let i = 0,
+      current = this.head;
+
+    while (i++ < this._length) current = current.next;
+    return current.data;
   }
 }
 
