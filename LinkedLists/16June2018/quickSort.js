@@ -1,18 +1,20 @@
-int main() {
+const main = () => {
   const nums = [3,5,6,7,8,4,2,9,1,0];
   quickSort(nums);
   console.log(nums);
 }
 
+main();
+
 function swap(arr, i, j) {
-  int temp = arr[i];
+  let temp = arr[i];
   arr[i] = arr[j];
   arr[j] = temp;
 }
 
 function partition(arr, lo, hi) {
-  let iPartition = lo,
-    iNext = hi;
+  let iPartition = hi,
+    iNext = lo;
 
   while(true) {
     if (arr[iNext] > arr[iPartition]) {
@@ -25,7 +27,7 @@ function partition(arr, lo, hi) {
   return iPartition;
 }
 
-function quickSort(arr, lo = 0, hi = arr.size() - 1) {
+function quickSort(arr, lo = 0, hi = arr.length - 1) {
   if (lo > hi || lo == hi) return;
 
   const p = partition(arr, lo, hi);
