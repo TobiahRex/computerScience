@@ -1,9 +1,9 @@
-const main = () => {
+(function (){
   const nums = [3,6,5,4,9,8,7,0,1];
   quickSort(nums);
 
-  console.log(quickSort);
-}
+  console.log(nums);
+})();
 
 function quickSort(arr, lo = 0, hi = (arr.length - 1)) {
   if (lo === hi || lo > hi) return;
@@ -19,8 +19,8 @@ function partition(arr, lo, hi) {
 
   while(true) {
     if (arr[iNext] > arr[iPartition]) {
-      swap(arr[iNext], arr[iPartition - 1]);
-      swap(arr[iPartition - 1], arr[iPartition]);
+      swap(arr, iNext, iPartition - 1);
+      swap(arr, iPartition - 1, iPartition);
       iPartition--;
     } else if (iPartition == iNext) break;
     else iNext++;
@@ -30,7 +30,7 @@ function partition(arr, lo, hi) {
 }
 
 function swap(arr, i1, i2) {
-  temp = arr[i1];
+  const temp = arr[i1];
   arr[i1] = arr[i2];
   arr[i2] = temp;
 }
