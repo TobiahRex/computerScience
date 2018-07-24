@@ -19,6 +19,7 @@ function createGraph() {
           case '0': this.addNode(node_list[1], node_list[2]); break;
           case '1': this.deleteNode(node_list[1]); break;
           case '2': this.findParent(node_list[1], node_list[2]); break;
+          default: throw new Error('Problem handling queries.'); break;
         }
       });
     }
@@ -30,8 +31,29 @@ function createGraph() {
       });
     }
 
-    findParent = (n, kParent) => {
+    findParent = (child, kParent) => {
+      if (kParent === 0) {
+        console.log(child.value);
+        return;
+      }
 
+      const childNode = this._vertices[child];
+      if (!childNode || kParent > this._root.depth) {
+        console.log(0);
+        return;
+      }
+      const parentNode = null;
+
+      childNode.neighbors.forEach((neighbor) => {
+        const neighborNode = this._vertices[neighbor];
+        if(neighborNode.depth < childNode.depth) parentNode = neighborNode;
+      });
+
+      if (parentNode) findParent(parentNode, --kParent);
+      else {
+        console.log(0);
+        return;
+      }
     }
 
     deleteNode = (node) => {
@@ -47,19 +69,12 @@ function createGraph() {
         const parentNode = this._createNode(child);
         this._root = parentNode;
         return;
-      } else {
-        const parentNode = this._createNode(parent);
-        const childNode = this._createNode(child);
       }
+      const parentNode = this._vertices[parent];
+      const depth = parentNode.depth + 1;
+      const childNode = this._createNode(child, depth);
+      this._vertices[child] = childNode;
 
-      if (!this._vertices[parent]) {
-        this._vertices[parent] = parentNode;
-        // this._vertices[parent].depth += 1;
-      }
-
-      if (!this._vertices[child]) {
-        this._vertices[child] = childNode;
-      }
       this._addEdge(parentNode, childNode);
     }
 
@@ -68,10 +83,10 @@ function createGraph() {
       this._vertices[v2].neighbors.push(v1);
     }
 
-    _createNode = (value) => {
+    _createNode = (value, depth = 0) => {
       return ({
+        depth,
         data: value,
-        depth: 0,
         neighbors: Array(1),
       });
     }
