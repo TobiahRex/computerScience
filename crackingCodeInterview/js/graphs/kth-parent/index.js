@@ -9,15 +9,16 @@ function createGraph() {
   class Graph {
     constructor(){
       this._vertices = {};
+      this._root = null;
     }
 
     handleQueries = (queries) => {
       queries.forEach((nodeStr) => {
         const nodeList = nodeStr.split(' ');
         switch(nodeList[0]) {
-          case '0': this.query_add(node_list[1], node_list[2]); break;
-          case '1': this.query_delete(node_list[1]); break;
-          case '2': this.query_print(node_list[1], node_list[2]); break;
+          case '0': this.addNode(node_list[1], node_list[2]); break;
+          case '1': this.deleteNode(node_list[1]); break;
+          case '2': this.findParent(node_list[1], node_list[2]); break;
         }
       });
     }
@@ -29,12 +30,31 @@ function createGraph() {
       });
     }
 
-    addNode = (parent, child) => {
-      const parentNode = this._createNode(parent);
-      const childNode = this._createNode(child);
+    findParent = (n, kParent) => {
+
+    }
+
+    deleteNode = (node) => {
+      this._vertices[node].neighbors.forEach((adjacent) => {
+        this._vertices[adjacent].neighbors.filter((value) => value !== node);
+      });
+
+      delete this._vertices[node];
+    }
+
+    addNode = (child, parent) => {
+      if (parent === '0') {
+        const parentNode = this._createNode(child);
+        this._root = parentNode;
+        return;
+      } else {
+        const parentNode = this._createNode(parent);
+        const childNode = this._createNode(child);
+      }
 
       if (!this._vertices[parent]) {
         this._vertices[parent] = parentNode;
+        // this._vertices[parent].depth += 1;
       }
 
       if (!this._vertices[child]) {
@@ -51,6 +71,7 @@ function createGraph() {
     _createNode = (value) => {
       return ({
         data: value,
+        depth: 0,
         neighbors: Array(1),
       });
     }
