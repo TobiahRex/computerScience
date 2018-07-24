@@ -1,8 +1,12 @@
 const kthAncestor = (input) => {
-  const graph = createGraph();
-  const inputs = graph.parseInputs(input);
-  graph.handleNodes(inputs.nodes);
-  graph.handleQueries(inputs.handleQueries);
+  const { testCases, nodes, queries } = parseInputs(input);
+
+  for (let i = 0; i < testCases; i++) {
+    const graph = createGraph();
+    graph.handleNodes(nodes[i]);
+    // console.log('verts: ', graph._vertices);
+    graph.handleQueries(queries[i]);
+  }
 }
 
 function createGraph() {
@@ -13,12 +17,12 @@ function createGraph() {
     }
 
     handleQueries = (queries) => {
-      queries.forEach((nodeStr) => {
-        const nodeList = nodeStr.split(' ');
+      queries.forEach((queryStr) => {
+        const nodeList = queryStr.split(' ');
         switch(nodeList[0]) {
-          case '0': this.addNode(node_list[1], node_list[2]); break;
-          case '1': this.deleteNode(node_list[1]); break;
-          case '2': this.findParent(node_list[1], node_list[2]); break;
+          case '0': this.addNode(nodeList[2], nodeList[1]); break;
+          case '1': this.deleteNode(nodeList[1]); break;
+          case '2': this.findParent(nodeList[1], Number(nodeList[2])); break;
           default: throw new Error('Problem handling queries.'); break;
         }
       });
@@ -33,23 +37,25 @@ function createGraph() {
 
     findParent = (child, kParent) => {
       if (kParent === 0) {
-        console.log(child.value);
+        console.log(child);
         return;
       }
 
       const childNode = this._vertices[child];
-      if (!childNode || kParent > this._root.depth) {
+      if (!childNode) {
         console.log(0);
         return;
       }
-      const parentNode = null;
+      let parentNode = null;
 
       childNode.neighbors.forEach((neighbor) => {
+        // console.log('neighbor: ', neighbor);
         const neighborNode = this._vertices[neighbor];
+        // console.log('neighborNode: ', neighborNode);
         if(neighborNode.depth < childNode.depth) parentNode = neighborNode;
       });
-
-      if (parentNode) findParent(parentNode, --kParent);
+      // console.log('parentNode: ', parentNode);
+      if (parentNode) this.findParent(parentNode.data, --kParent);
       else {
         console.log(0);
         return;
@@ -57,8 +63,12 @@ function createGraph() {
     }
 
     deleteNode = (node) => {
-      this._vertices[node].neighbors.forEach((adjacent) => {
-        this._vertices[adjacent].neighbors.filter((value) => value !== node);
+      const to_delete = this._vertices[node];
+
+      to_delete.neighbors.forEach((adjacent) => {
+        const current = this._vertices[adjacent];
+
+        current.neighbors = current.neighbors.filter((value) => value !== node);
       });
 
       delete this._vertices[node];
@@ -66,16 +76,25 @@ function createGraph() {
 
     addNode = (child, parent) => {
       if (parent === '0') {
-        const parentNode = this._createNode(child);
-        this._root = parentNode;
+        this._root = this._createNode(child);
+        this._vertices[child] = this._root;
         return;
       }
-      const parentNode = this._vertices[parent];
+      let parentNode = null;
+      if (parent === this._root.data) {
+        parentNode = this._root;
+      } else {
+        parentNode = this._vertices[parent];
+        if (!parentNode) {
+          parentNode = this._createNode(parent, 1);
+          this._vertices[parent] = parentNode;
+        };
+      }
       const depth = parentNode.depth + 1;
       const childNode = this._createNode(child, depth);
       this._vertices[child] = childNode;
 
-      this._addEdge(parentNode, childNode);
+      this._addEdge(parentNode.data, childNode.data);
     }
 
     _addEdge = (v1, v2) => {
@@ -83,51 +102,52 @@ function createGraph() {
       this._vertices[v2].neighbors.push(v1);
     }
 
-    _createNode = (value, depth = 0) => {
+    _createNode = (data, depth = 0) => {
       return ({
+        data,
         depth,
-        data: value,
-        neighbors: Array(1),
-      });
-    }
-
-    parseInputs = (input) => {
-      const inputs = input.split('\n');
-      const testCases = Number(inputs[0]);
-      const nodes = [];
-      const queries = [];
-
-      let history = 1;
-      for (let i = 0; i < testCases; i++) {
-        let newNodesLength = Number(inputs[history]);
-        let newNodes = [];
-        for (let j = 0; j < newNodesLength; j++) {
-          history += 1;
-
-          newNodes.push(inputs[history]);
-        }
-        nodes.push(newNodes);
-        history += 1;
-
-        let newQueriesLength = Number(inputs[history]);
-        let newQueries = [];
-        for (let k = 0; k < newQueriesLength; k++) {
-          history += 1;
-
-          newQueries.push(inputs[history]);
-        }
-        queries.push(newQueries);
-        history += 1;
-      }
-
-      return ({
-        nodes,
-        queries,
+        neighbors: [],
       });
     }
   }
 
   return new Graph();
+}
+
+function parseInputs(input) {
+  const inputs = input.split('\n');
+  const testCases = Number(inputs[0]);
+  const nodes = [];
+  const queries = [];
+
+  let history = 1;
+  for (let i = 0; i < testCases; i++) {
+    let newNodesLength = Number(inputs[history]);
+    let newNodes = [];
+    for (let j = 0; j < newNodesLength; j++) {
+      history += 1;
+
+      newNodes.push(inputs[history]);
+    }
+    nodes.push(newNodes);
+    history += 1;
+
+    let newQueriesLength = Number(inputs[history]);
+    let newQueries = [];
+    for (let k = 0; k < newQueriesLength; k++) {
+      history += 1;
+
+      newQueries.push(inputs[history]);
+    }
+    queries.push(newQueries);
+    history += 1;
+  }
+
+  return ({
+    testCases,
+    nodes,
+    queries,
+  });
 }
 
 kthAncestor(
