@@ -14,7 +14,7 @@ function selectionSort (items) {
     // set minimum to this position
     min = i
 
-    // check the rest of the array to see if anything is smaller
+    // find the smallest value in the array.
     for (j = i + 1; j < len; j++) {
       if (items[j] < items[min]) {
         min = j

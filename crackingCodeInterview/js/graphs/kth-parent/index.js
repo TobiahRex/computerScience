@@ -4,7 +4,6 @@ const kthAncestor = (input) => {
   for (let i = 0; i < testCases; i++) {
     const graph = createGraph();
     graph.handleNodes(nodes[i]);
-    // console.log('verts: ', graph._vertices);
     graph.handleQueries(queries[i]);
   }
 }
