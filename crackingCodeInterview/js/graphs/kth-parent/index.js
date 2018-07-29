@@ -48,12 +48,10 @@ function createGraph() {
       let parentNode = null;
 
       childNode.neighbors.forEach((neighbor) => {
-        // console.log('neighbor: ', neighbor);
         const neighborNode = this._vertices[neighbor];
-        // console.log('neighborNode: ', neighborNode);
         if(neighborNode.depth < childNode.depth) parentNode = neighborNode;
       });
-      // console.log('parentNode: ', parentNode);
+
       if (parentNode) this.findParent(parentNode.data, --kParent);
       else {
         console.log(0);
@@ -74,12 +72,25 @@ function createGraph() {
     }
 
     addNode = (child, parent) => {
-      if (parent === '0') {
-        this._root = this._createNode(child);
-        this._vertices[child] = this._root;
-        return;
+      /*
+        During the FIRST fn call, create a root node.
+        add the root node data as the childs info due to the input hueristics.
+        break out of the function.
+      */
+      if (parent === '0') {                   // if this is the first invocation: parent === root.
+        this._root = this._createNode(child); // add child to root node.
+        this._vertices[child] = this._root;   // add child to _vertices && assign the root node as a neighbor.
+        return;                               // creating root node is finished.
       }
+
       let parentNode = null;
+
+      /*
+        Assign parent node as root if data matches the root.
+        otherwise, assign parentNode as cached node.
+        if there is no cache, create a new node.
+        add the new node to the cache.
+      */
       if (parent === this._root.data) {
         parentNode = this._root;
       } else {
@@ -89,10 +100,16 @@ function createGraph() {
           this._vertices[parent] = parentNode;
         };
       }
+
+      /*
+        In preparation to create a child node attached to the parentNode...
+        assign the default new depth as 1 + the parent Node's depth.
+        add the child node to the cache with the parent's depth + 1.
+        Create an edge between the parent and child nodes.
+      */
       const depth = parentNode.depth + 1;
       const childNode = this._createNode(child, depth);
       this._vertices[child] = childNode;
-
       this._addEdge(parentNode.data, childNode.data);
     }
 
