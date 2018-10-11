@@ -1,21 +1,18 @@
 const sockPairs = (pairs, arr) => {
-  let answer = 0;
-
-  const memo = arr.reduce((acc, n) => {
+  return Object
+  .values(
+    arr.reduce((acc, n) => {
     if (!(n in acc)) acc[n] = 1;
     else acc[n] += 1;
-  }, {});
-
-  Object.keys(memo).forEach((key) => {
-    let currentPairs = 0;
-    while(memo[key] > 1) {
-      memo[key] -= 2;
-      currentPairs += 1;
+    return acc;
+  }, {})
+).reduce((answer, pairs) => {
+    while(pairs > 1) {
+      pairs -= 2;
+      answer += 1;
     }
-    answer += currentPairs;
-  });
-
-  return answer;
+    return answer;
+  }, 0);
 }
 
 console.log(sockPairs(9, [10,20,20,10,10,30,50,10,20]));
