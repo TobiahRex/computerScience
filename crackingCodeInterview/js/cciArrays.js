@@ -15,13 +15,12 @@ Then print the updated array as a single line of space-separated integers.
 // d = number of left shifts.
 
 // Step 2 - Create a test case (small)
-let array = [1, 2, 3, 4, 5]
+let array = [1, 2, 3, 4, 5];
 
 // Step 3 - Create a brute Force psuedo code solution.
 
 // iterate through all digits
 //
-
 
 /*
 IDEA 1
@@ -35,14 +34,11 @@ IDEA 1
 /*
   IDEA 2
   create a while loop.
-  iterate for as length of d.
+  iterate for length d.
   splice off index 0.
   push on index 0.
 */
 
-const shiftArray = (size, shifts, arr) =>
-  arr
-    .concat(arr.splice(0, shifts))
-    .join(' ');
+const shiftArray = (shifts, arr) => arr.concat(arr.splice(0, shifts)).join(" ");
 
-console.log(shiftArray(5, 3, array))
+console.log(shiftArray(5, 3, array));
