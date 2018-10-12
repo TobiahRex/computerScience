@@ -135,15 +135,15 @@ console.log('global.x: ', global.x);
 /* Hoisting Expirement
   // ------------ CODE ------------
   function varExp() {
-    var x = 'hi'
+  var x = 'hi'
 
-    console.log(x)
-    for(var x = 0; x < 2; x++){
+  console.log(x)
+  for(var x = 0; x < 2; x++){
 
-      console.log(x)
-    }
-  }
-  varExp()
+  console.log(x)
+}
+}
+varExp()
 */
 
 /* JSON parse exp 1

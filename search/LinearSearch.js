@@ -1,6 +1,6 @@
 /*
  Linear Search
- O(1)
+ O(n)
 */
 let targetValue = 8
 function linearSearch (arr) {
