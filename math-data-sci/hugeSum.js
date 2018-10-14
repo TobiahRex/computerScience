@@ -1,3 +1,12 @@
+/*
+  JavaScript limits a numeric variable to (2^53 - 1);  Therefore, attempting to
+  add any two values that exceed this value as a result will throw an error.
+  Therefore, this algorithm adds two numbers who sum would exceed this limitation,
+  by adding "manually" just as someone would add two giant numbers on pen &
+  paper (carrying the result continuously until a final solution is found).
+*/
+
+// My Answer - Peer answer below (Cade's answer).
 function hugeSum(a, b) {
   let top = a.split('').reverse();
   let bottom = b.split('').reverse();
@@ -22,7 +31,7 @@ function hugeSum(a, b) {
 }
 
 /*
-  Cades Answer
+  Cades (fellow developer) Answer
 */
 function hugeSum(a, b) {
   let result = [];
