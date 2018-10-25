@@ -51,18 +51,18 @@
 // }
 //
 // // RECURSIVE (Michael)
-// function fib(n) {
-//   if (n < 1) return 0;
-//   if (n === 1) return 1;
-//   return fib(n - 1) + fib(n - 2);
-// }
-
 function fib(n) {
-  if (n > 1) {
-    return fib(n - 1) + fib(n - 2);
-  }
-  return n
+  if (n < 1) return 0;
+  if (n === 1) return 1;
+  return fib(n - 1) + fib(n - 2);
 }
+
+// function fib(n) {
+//   if (n > 1) {
+//     return fib(n - 1) + fib(n - 2);
+//   }
+//   return n
+// }
 
 console.log('>>> ANSWER: ', fib(6)); // 21st = 10946
 // [0,0,1,2,3,6,11,20] | n > 1

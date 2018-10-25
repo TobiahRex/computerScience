@@ -44,7 +44,7 @@ def hasCycle(node):
 
     slow = node
     fast = node
-    result = False
+    result
 
     while fast is not None and fast['next'] is not None:
         if fast['next']['next']:

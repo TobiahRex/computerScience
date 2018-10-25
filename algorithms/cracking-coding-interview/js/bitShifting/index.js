@@ -16,7 +16,7 @@ Logical Shifting & Arithmetic Shifting
 - The intuition for Logical and Arithmetic shifting is most obvious when talking about negative binary numbers.
 
 If the negative binary number "-23" => "11101 001" is...
-  - Logically right shifted, then the rsult is "0111 0100" => 116 (base 10)
+  - Logically right shifted, then the result is "0111 0100" => 116 (base 10)
   - Arithmetically right shifted, then the result  is "1011 11 00" => -12 (base 10)
 */
 

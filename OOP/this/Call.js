@@ -66,7 +66,7 @@ Make a quick copy and save the results in a real array:​
 First parameter sets the "this" value​
 Second parameter sets the required parameter for the slice method: the starting index.
 */
-var newArray = Array.prototype.slice.call (anArrayLikeObj, 0);
+var newArray = Array.prototype.slice.call(anArrayLikeObj, 0);
 console.log (newArray); // ["Martin", 78, 67, Array[3]]​
 ​
 /*
@@ -74,7 +74,7 @@ Search for "Martin" in the array-like object​
 First param, set's the this value.
 Second, sets the required parameter for the indexOf method returning -1 if nothing is found.
 */
-console.log (Array.prototype.indexOf.call (anArrayLikeObj, "Martin") === -1 ? false : true); // true​
+console.log (Array.prototype.indexOf.call(anArrayLikeObj, "Martin") === -1 ? false : true); // true​
 ​
 // Try using an Array method without the call () or apply ()​
 console.log (anArrayLikeObj.indexOf ("Martin") === -1 ? false : true);

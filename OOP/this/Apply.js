@@ -21,4 +21,4 @@ function getUserInput (firstName, lastName, callback, callbackObj) {
 // The clientData object will be used by the Apply method to set the "this" value​
 getUserInput ("Barack", "Obama", clientData.setUserName, clientData);
 // the fullName property on the clientData was correctly set​
-console.log (clientData.fullName); // Barack Obama​
+console.log(clientData.fullName); // Barack Obama​
