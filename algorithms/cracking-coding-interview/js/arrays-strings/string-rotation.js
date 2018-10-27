@@ -1,5 +1,5 @@
 /*
-String Rotation:Assumeyou have a method isSubstring which
+String Rotation: Assume you have a method isSubstring which
 checks if one word is a substring of another.
 Given two strings, sl and s2,
 write code to check if s2 is a rotation of sl
@@ -48,3 +48,68 @@ Should also check for substring NOT being the entire string.
 - Such as verifying the lengths are equal. or that all characters,
 have been looked at.
 */
+class LinkedList {
+  constructor(data) {
+    this.head = null;
+    this.data = data;
+    this.tail = null;
+  }
+
+  createNode = (data) => {
+    return {
+      data,
+      next: null,
+    };
+  }
+
+  insert = (data) => {
+    const newNode = this.createNode(data);
+    let current = this.head;
+
+    if (this.head === null) {
+      this.head = newNode;
+      this.tail = newNode
+      this.data = data;
+    } else {
+      while(current.next) {
+        current = current.next;
+      }
+      current.next = newNode;
+      this.tail = newNode;
+    }
+  }
+
+  lookup = (subString) => {
+    let currentNode = this.head;
+    while(currentNode.data !== subString[0]) {
+      currentNode = currentNode.next;
+    }
+    for (let i = 0; i < subString.length; i++) {
+      if (subString[i] === currentNode.data) {
+        currentNode = currentNode.next;
+      } else {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  makeCycle = () => {
+    this.tail.next = this.head;
+  }
+}
+const stringRotation = (s1, s2) => {
+  const linkedList = new LinkedList();
+
+  for (let i = 0; i < s1.length; i++) {
+    linkedList.insert(s1[i]);
+  }
+  linkedList.makeCycle();
+  return linkedList.lookup(s2);
+}
+
+console.log(
+  stringRotation(
+  'waterbottle',
+  'erbottlewat',
+));
