@@ -21,30 +21,16 @@ const englishInt = (n) => { // 135
   };
   let i = 10, results = [];
 
-  while(n != 0) {  // n % 10
-    let current = n % i; // current = 5
-    let multiplier = current.toString()[0];
+  while(n != 0) {
+    let current = n % i;
+    let multiplier = values[current.toString()[0]];
+    console.log('multiplier: ', multiplier);
 
     results.unshift(current);  // [5]
     n -= current; // n = 130
     i *= 10;
   }
-  console.log('results: ', results);
-  let nextSegment = [];
-  // while(results.length > 3) {
-  //   nextSegment = results.splice(x.length - 3);
-  //   parseInputs(nextSegment);
-  // }
-  // parseInputs(results);
+
  }
 
  englishInt(19323);
-
-function parseSegments(seq) {
-  const values = {}
-  seq.forEach((s) => {
-    // [ 10000, 9000, 300, 20, 3 ]
-    // Three Hundred Twenty Three
-    let answer = '';
-  })
-}
