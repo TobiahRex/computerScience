@@ -12,11 +12,11 @@ const englishInt = (n) => { // 135
   }
   console.log('results: ', results);
   let nextSegment = [];
-  while(results.length > 3) {
-    nextSegment = results.splice(x.length - 3);
-    parseInputs(nextSegment);
-  }
-  parseInputs(results);
+  // while(results.length > 3) {
+  //   nextSegment = results.splice(x.length - 3);
+  //   parseInputs(nextSegment);
+  // }
+  // parseInputs(results);
  }
 
  englishInt(19323);
@@ -36,8 +36,17 @@ function parseSegments(seq) {
     7: 'Seven',
     8: 'Eight',
     9: 'Nine',
+    10: 'Ten',
+    20: 'Twenty',
+    30: 'Thirty',
+    40: 'Fourty',
+    50: 'Fifty',
+    60: 'Sixty',
+    70: 'Seventy',
+    80: 'Eighty',
+    90: 'Ninety',
   }
   seq.forEach((s) => {
-
+    let answer = '';
   })
 }
