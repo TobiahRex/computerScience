@@ -1,6 +1,7 @@
+// Array is given sorted.
 const countUnique = (array) => {
   let result = 0;
-  for (let i = 1, j = 0; j < array.length; i++) {
+  for (let i = 1, j = 0; i <= array.length; i++) {
     if (array[j] !== array[i]) {
       result += 1;
       j = i;
