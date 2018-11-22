@@ -19,7 +19,8 @@ const sumZero = (nums) => partition(nums, 0, nums.length - 1);
 // console.log("Sum Zero I: ",
 console.time('sumZero');
   sumZero(
-    [-3, -2, -1, 0, 1, 2]
+    // [-3, -2, -1, 0, 1, 2]
+    [4, -4, 0, -1, 2, 3, -3, -2, 1]
   )
 console.timeEnd('sumZero');
 // )
