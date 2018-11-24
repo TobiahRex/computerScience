@@ -6,21 +6,42 @@ function longestSubsequence(arr) {
       longest.push(arr[i]);
     }
   }
+  return longest;
 };
 
 console.log(
   longestSubsequence(
-    [15, 27, 14, 38, 26, 55, 46, 65, 85]
+    [15, 27, 14, 38, 26, 95, 55, 46, 65, 85]
   )
 );
 
 /*
-15
-15, 27,
-15, 27, 38
-15, 27, 38, 55
+n = 85
 
-                      i
-[15, 27, 14, 38, 26, 55, 46, 65, 85]
-                      k
+added = 0
+[15, 27, 38, 95]
+ j
+length = 4
+
+27 : 1 trashed | 1 added
+38 : 1 trashed | 1 added
+95 : 4 trashed | 0 added
+
+trashed = 4
+[14, 26, 55, 46, 65, 85]
+          k
+length = 6
+
+
+15
+  27
+14
+    38
+  26
+                    95
+        55
+      46
+          65
+                85
+                              k
 */
