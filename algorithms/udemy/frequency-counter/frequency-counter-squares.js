@@ -30,7 +30,7 @@ function same(arr1, arr2) {
 
 console.log(
   same(
-    3589712,
-    7832402
+    [1,2, 2,3],
+    [4,1,9]
   )
 )
