@@ -7,7 +7,7 @@ function same(arr1, arr2) {
   // if found, delete decrement its frequency.
   // if its frequency is zero, then delete the item.
   // if its not found in the dictionary, then increase the result flag.
-  // if the result flag is 
+  // if the result flag is
 
 
   const result = 0, dictionary = {};
@@ -30,7 +30,7 @@ function same(arr1, arr2) {
 
 console.log(
   same(
-    [1,2, 2,3],
-    [4,1,9]
+    3589712,
+    7832402
   )
 )
