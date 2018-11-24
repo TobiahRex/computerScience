@@ -7,4 +7,8 @@ function countDuplicateArgs() {
   });
   return areDuplicates;
 }
-countDuplicateArgs(1, 2, 3);
+console.log(
+  countDuplicateArgs(
+    'a', 'b', 'c', 'c'
+  )
+);
