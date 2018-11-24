@@ -1,10 +1,10 @@
 function countDuplicateArgs() {
   const memo = {};
-  let areDuplicates = true;
+  let areDuplicates = false;
   Object.values(arguments).forEach((n) => {
     if (!(n in memo)) memo[n] = 1;
-    else
-    memo[n] = ++memo[n] || 1;
+    else areDuplicates = true;
   });
+  return areDuplicates;
 }
-countDuplicateArgs(1, 2, 3)
+countDuplicateArgs(1, 2, 3);
