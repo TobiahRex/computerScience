@@ -73,7 +73,10 @@ Explanation:
     then 2 and so on,
     themselves being in increasing order 2, 21, 23.
 
-PSUEDO CODE:
+************************************************************************************
+*********************************** PSUEDO CODE: ***********************************
+************************************************************************************
+
  - 1 through 10 is automatically printed.
  - Is there a divide and conquer implementation?
   * What would the subproblem be?
