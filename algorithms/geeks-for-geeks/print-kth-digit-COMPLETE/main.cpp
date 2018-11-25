@@ -8,7 +8,6 @@ vector<string> split(string, string);
 void printKth(string);
 
 int main() {
-  // int a{0}, b{0}, k{0};
   vector<string> inputs;
   inputs = split("3\n2 8 1\n5 2 2\n2 12 4", "\n");
   for (int i = 0; i < (int)inputs.size(); i++) {
