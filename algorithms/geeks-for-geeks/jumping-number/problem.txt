@@ -92,8 +92,14 @@ PSUEDO CODE:
 
 
     [0, 0, 0] // Pre-populate the digits list with the maximum needed place holders.
-    [0, 0, 9] // increment the first
+    [0, 0, 9] // increment small-num by 1
     [0, 0, 10]// digit is length-2. Increase left by 1, decrease right to 0.
+              // if small-num is 10,
+              // recursively call this function...
+              // decrease small-num to 0
+              // add 1 total.
+              // evaluate for jumps.
+
     [0, 1, 0] // yes, increase right by 2
     [0, 1, 2] // yes, right is bigger than left, increase left, decrease right
     [0, 2, 1] // yes, increase right by 2
@@ -108,7 +114,7 @@ PSUEDO CODE:
     [0, 9, 10] // digit is length-2. Increase left by 1, decrease right to 0.
     [0, 10, 0] // digit is length-2, increase left by 1, decrease right to 0.
     [1, 0, 0] // no, increase right by 1
-    [1, 0, 1] // yes, 
+    [1, 0, 1] // yes,
 
 
 
