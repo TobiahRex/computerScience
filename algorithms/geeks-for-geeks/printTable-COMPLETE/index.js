@@ -11,12 +11,11 @@ function printTable(arr) {
 
 function main() {
   let testCases = [
-    [6, 9],
-    [2, 3],
-    [2, 5],
-    [2, 2]
+    [1, 68],
+    // [2, 3],
+    // [2, 5],
+    // [2, 2]
   ];
-  // let testCases = [[2, 8], [2, 3], [2, 5], [2, 2]];
   testCases.forEach((n) => {
     console.log(printTable(n));
   });
