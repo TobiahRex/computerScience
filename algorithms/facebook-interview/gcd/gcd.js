@@ -1,7 +1,14 @@
-const gcd = (n1, n2) => {
-  if (n2 === 0) return n1;
-  // console.log('n1: ', n1, ' n2: ', n2, ' n1 % n2: ', n1 % n2);
-  return gcd(n2, n1 % n2);
+const gcd = (a, b) => {
+  if (b === 0) return a;
+  return gcd(b, a % b);
 }
 
-console.log(gcd(9, 6));
+(() => {
+  let a = 98, b = 56;
+  console.log(
+    'GCD of', a,
+    'and', b,
+    'is', gcd(a, b)
+  )
+})();
+// GCD of 98 and 56 is 14
