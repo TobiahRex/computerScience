@@ -36,15 +36,24 @@ Example:
 
     0 1 2 3 4 5 6 7 8 9 10
 
-    0 1 2 3 4 5 6 7 8 9 10 12 21 23 32 34 43 45 54 56 65 67 76 78 87 89 98
-      101 121 123
-        210 212 232 234
-          321 323 343 345
-            432 434 454 456
-              543 545 565 567
-                654 656 676 678
-                  765 767 787 789
-                    876 878 898
+    0 1 2 3 4 5 6 7 8 9
+    10 12
+      21 23
+        32 34
+          43 45
+            54 56
+              65 67
+                76 78
+                  87 89
+                    98
+                      101 121 123           base = 1  multiple = base (+/- 0)
+                        210 212 232 234       base = 2  multiple = base (+/-  1)
+                          321 323 343 345       base = 3  multiple = base (+/-  1)
+                            432 434 454 456       base = 4  multiple = base (+/-  1)
+                              543 545 565 567
+                                654 656 676 678
+                                  765 767 787 789
+                                    876 878 898
 
     0 1 2 3 4 5 6 7 8 9 10
     12 21 23 32 34 43 45 54 56 65 67 76 78 87 89 98
@@ -71,7 +80,68 @@ PSUEDO CODE:
   * Divide the number into chunks of 10^k.
     e.g: 40-49, 50-59
 
-    partition(start, finish)  // 40 50 - 1
-    partition(start, finish)  // 50 60 - 1
-    partition(start, finish)  // 90 100 - 1
-    partition(start, finish)  // 100, 110
+
+    partition(start, finish, multiple)  // 10 20 - 1, 1 = 11 (10, 12)
+    partition(start, finish, multiple)  // 40 50 - 1, 4 = 44 (43, 45)
+    partition(start, finish, multiple)  // 50 60 - 1, 5 = 55 (54, 56)
+    partition(start, finish, multiple)  // 90 100 - 1, 9  = 99 (98, 100)
+    partition(start, finish, multiple)  // 100, 110 - 1, 10 = 110 (109, 111) // 109
+    partition(start, finish, multiple)  // 110, 120 - 1, 11 = 121 (120, 122) // 121
+    partition(start, finish, multiple)  // 200, 220 - 1, 20 = 210 (209, 211) // 210
+    partition(start, finish, multiple)  // 221, 130 - 1, 21 = 132 (109, 111) //
+
+
+    [0, 0, 0] // Pre-populate the digits list with the maximum needed place holders.
+    [0, 0, 9] // increment the first
+    [0, 0, 10]// digit is length-2. Increase left by 1, decrease right to 0.
+    [0, 1, 0] // yes, increase right by 2
+    [0, 1, 2] // yes, right is bigger than left, increase left, decrease right
+    [0, 2, 1] // yes, increase right by 2
+    [0, 2, 3] // yes, right is bigger than left, increase left, decrease right
+    [0, 3, 2] // yes, increase right by 2
+    [0, 3, 4] // yes, right is bigger than left, increase left, decrease right.
+    [0, 4, 3] // yes, increase right by 2
+    [0, 4, 5] // yes, right is bigger than left, increase left, decrease right.
+    [0, 5, 4] // yes, increase right by 2
+    [0, 5, 6] // yes, right is bigger than left, increase left, decrease right.
+    [0, 9, 8] // yes, increase right by 2
+    [0, 9, 10] // digit is length-2. Increase left by 1, decrease right to 0.
+    [0, 10, 0] // digit is length-2, increase left by 1, decrease right to 0.
+    [1, 0, 0] // no, increase right by 1
+    [1, 0, 1] // yes, 
+
+
+
+    1 0 // yes increase smallest digits
+    1 1 // no, beacuse both digits are the same.
+        // increase smallest digit again.
+    1 2 // yes, increase smallest digit again.
+    1 3 // no, because right digit is bigger than left and both digits have a difference of 2.
+    2 1 // left digits starts one digits larger than before & right digit starts one less than left.
+        // yes, increase smallest digit again.
+    2 2 // no, because both digits are the same.
+        // increase smallest digit again
+    2 3 // yes, increase smallest digit again
+    2 4 // no because digit is bigger than left and both digits have a difference of 2.
+    3 2 // left digits starts one digits larger than before & right digit starts one less than left.
+        // yes, increase smallest digit again.
+    3 3 // no, beacuse both digits are the same.
+        // increase smallest digit again.
+    3 4 // yes, increase smallest digit again.
+    8 9 // increase left digit
+    9 8 // yes
+    9 10 // right digit increased the total length
+         // meaning the left digit must change & the right digit must be as many zero's to maintain the same length.
+  1 0 0 // + 1 zero, to keep new length of 3 digits.
+         // no, increase right digit
+  1 0 1 // yes
+  1 0 2 // no, increase left digit.
+  1 1 0 // no, incrase right digit (1)
+  1 1 1 // no, increase right digit (2)
+  1 1 2 // no, increase left digit
+  1 2 0 // no, increase right digit (1)
+  1 2 1 // yes, increase right digit (2)
+  1 2 2 // no, increase left digit
+  1 3 0 // no, incrase right digit (1)
+        // right digits has an individual difference of 2, meaning increase the left-most digit.
+  2 0 0 //
