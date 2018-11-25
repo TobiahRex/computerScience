@@ -68,9 +68,10 @@ function verifyNewNum(numsArr) {
 }
 
 processData(
-`4
+`5
 10
 50
 950
-250`
+250
+89384`
 );
