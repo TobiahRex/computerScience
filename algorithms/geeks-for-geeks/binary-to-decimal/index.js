@@ -7,7 +7,7 @@ function main(binaryStr) {
   for (let i = binaryStr.length - 1, j = 0; i >= 0; i--, j++) {
     if (binaryStr[i] === '1') sum += Math.pow(2, j);
   }
-  console.log('sum: ', sum);
+  console.log(sum);
 }
 
 processData(
