@@ -31,10 +31,10 @@ string isPalindrome(int sum) {
   string numStr = to_string(sum);
   string answer("YES");
 
-  if (numStr.length() === 1) return answer;
+  if (numStr.length() == 1) return answer;
 
-  for (int i = 0; j = numStr.length() - 1; i < j; i++, j--) {
-    if (numStr[i] !== numStr[j]) {
+  for (int i = 0, j = numStr.length() - 1; i < j; i++, j--) {
+    if (numStr[i] != numStr[j]) {
       answer = "NO";
       break;
     }
