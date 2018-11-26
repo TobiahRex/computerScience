@@ -29,7 +29,7 @@ function jumpingNumber(numberStr) {
   }
   console.log('input: ', numberStr, ' | answer: ');
   while(answerSequence.length) {
-    console.log(answerSequence.splice(0, 10));
+    console.log(answerSequence.splice(0, 7));
   }
   return;
 }
@@ -68,10 +68,12 @@ function verifyNewNum(numsArr) {
 }
 
 processData(
-`5
-10
-50
-950
-250
-89384`
+`1
+1018467`
+// `5
+// 10
+// 50
+// 950
+// 250
+// 89384`
 );
