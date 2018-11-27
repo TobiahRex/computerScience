@@ -81,7 +81,7 @@ function batchUpload(argsArray) {
   const date = m().format('YYYY/MM/DD');
   const savedArray = argsArray;
   let nextBatch = [];
-  if (argsArray.length) {
+  if (savedArray.length) {
     nextBatch = [...savedArray.splice(0, 3)];
     console.log('NEXT BATCH ------ ', nextBatch);
     nextBatch
@@ -121,13 +121,13 @@ function batchUpload(argsArray) {
 }
 
 const handles =  [
-  // 'TobiahRex',
-  // 'landoC',
-  // 'bobbaFett',
-  // 'hanSolo',
-  // 'lukeSky',
-  // 'chewie',
-  // 'c3po',
+  'TobiahRex',
+  'landoC',
+  'bobbaFett',
+  'hanSolo',
+  'lukeSky',
+  'chewie',
+  'c3po',
   'r2d2'
 ];
 batchUpload(handles);

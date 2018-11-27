@@ -1,15 +1,12 @@
 {
-  "name": "tobiahrex-computer-science",
+  "name": "computer-science",
   "version": "1.0.0",
   "description": "Computer Science sandbox authored by Me.",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "babel lib -d dist",
-    "serve": "node dist/app.js",
-    "start": "babel-node lib/app.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Tobiah Rex",
   "license": "ISC",
   "engines": {
     "node": "10.2.1"
@@ -29,7 +26,9 @@
     "eslint-plugin-react": "^7.8.2"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "bluebird": "^3.5.1",
+    "moment": "^2.22.2",
     "mongoose": "^5.1.3"
   }
 }

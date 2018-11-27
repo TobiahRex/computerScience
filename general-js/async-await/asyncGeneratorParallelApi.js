@@ -17,11 +17,11 @@ function main() {
     resolve(value);
   });
 }
+
 main()
 .then((value) => {
   value.map((promise) => {
-    promise
-    .then(result => {
+    promise.then(result => {
       console.log({ success: true, result })
     })
     .catch(error => ({ success: false, result: { ...error }}));
