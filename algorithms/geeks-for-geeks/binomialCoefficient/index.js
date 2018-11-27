@@ -8,8 +8,21 @@ function binomialCoefficient(input) {
     return acc;
   }, {});
 
-  let grid = new Array(n).fill(new Array(k).fill(0));
-  console.log(grid);
+  let memo = {};
+  // find a way to dynamically add values to array.
+
+  for (let i = 0; i <= n; i++) {
+    memo[i] = [];
+    for (let j = 0; j <= Math.min(i, k); j++) {
+      if (j === 0 || j === i) memo[i][j] = 1;
+      else {
+        memo[i][j] = memo[i - 1][j - 1] + memo[i - 1][j];
+      }
+    }
+
+  }
+  console.log(memo);
+  return memo[n][k];
 }
 
 processData(
