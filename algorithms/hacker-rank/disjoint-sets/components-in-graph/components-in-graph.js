@@ -26,6 +26,16 @@ function disjointSet(acc, input) {
   let [g, b] = input.split(' ');
   let setActions = universalSet(),
   { gSet, bSet } = setActions.getSet(g);
+  if (gSet) {
+    if (bSet) {
+      if (gSet !== bSet) setActions.union(gSet, bSet);
+      else // do nothing, its a repeat (probably will never happen.)
+    } else {
+      // add B to universal set.
+      setActions.addToSet(bSet, aSet);
+      // add B to G set.
+    }
+  }
 }
 
 // look to see if g and b are already in a set.
