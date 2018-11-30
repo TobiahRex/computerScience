@@ -14,12 +14,7 @@ function addFractions(inputStr) {
   let newN1 = inputs[0] * (commDenom / inputs[1]),
       newN2 = inputs[2] * (commDenom / inputs[3]),
       nx = newN1 + newN2;
-
   return `${nx}/${commDenom}`;
-}
-
-function lcm(a, b) {
-  return (a * b) / gcd(a, b);
 }
 
 function gcd(a, b) {
