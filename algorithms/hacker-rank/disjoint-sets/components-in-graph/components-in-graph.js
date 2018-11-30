@@ -4,7 +4,7 @@ const processData = (input) => {
     largest: {},
     smallest: {},
   });
-  return result;
+  console.log(result.smallest, result.largest);
 };
 
 function createSet() {
@@ -38,17 +38,17 @@ function createSet() {
         oldB = sets[bSet],
         newSet = {};
 
-      sets.filter((n, i) => {
+      sets = sets.filter((n, i) => {
         if (i === gSet || i === bSet) return false;
         return true;
       });
 
-      newSet = { ...oldG, oldB };
+      newSet = { ...oldG, ...oldB };
       sets.push(newSet);
     },
     updateAnswer() {
       return sets.reduce((acc, n) => {
-        let length = Object.keys.length;
+        let length = Object.entries(n).length;
         if (length > acc.largest) {
           acc.largest = length;
         }
@@ -65,9 +65,9 @@ function disjointSet(acc, input, i) {
   [g, b] = input.split(' ');
   let { gSet, bSet } = acc.setActions.getSets(g, b);
 
-  if (gSet) {
+  if (gSet > -1) {
     // both g & b are already assigned to a set
-    if (bSet) {
+    if (bSet > -1) {
       // if their sets are not the same, perform union.
       if (gSet !== bSet) acc.setActions.union(gSet, bSet);
       // else // do nothing, its a repeat (probably will never happen.)
@@ -77,11 +77,11 @@ function disjointSet(acc, input, i) {
       // add B to G (the parent of B).
       acc.setActions.addToSet(bSet, gSet);
     }
-  } else {
+  } else if (gSet === -1) {
     // g is not in the universal set.
     acc.setActions.addToSet(g, null);
     // g does not already have a set.
-    if (!bSet) {
+    if (bSet === -1) {
       // b is not in the universal set.
       acc.setActions.addToSet(b, null);
       // create a new set with g & b.
@@ -92,7 +92,8 @@ function disjointSet(acc, input, i) {
       acc.setActions.addToSet(g, b);
     }
   }
-  acc.setActions.updateAnswer();
+  let result = acc.setActions.updateAnswer();
+  acc = { ...acc, ...result };
   return acc;
 }
 
