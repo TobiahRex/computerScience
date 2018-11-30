@@ -1,10 +1,12 @@
+const fs = require('fs');
 const processData = (input) => {
-  let result = input.split('\n').slice(1).reduce(disjointSet, {
+  let result = input.reduce(disjointSet, {
     setActions: createSet(),
     largest: {},
     smallest: {},
   });
-  console.log(result.smallest, result.largest);
+  // console.log(result.smallest, result.largest);
+  return `${result.smallest} ${result.largest}`;
 };
 
 function createSet() {
@@ -19,18 +21,21 @@ function createSet() {
     addToSet(child, parent) {
       if (parent === null) {
         u[child] = true;
-      } else if (parent) {
+      } else if (parent > -1) {
         // locate parent set in sets | "parent" = index of the set.
-        sets[parent][child] = true;
+        sets[parent] = { ...sets[parent], [child]: true };
       }
     },
     getSets(g, b){
       let gSet = -1, bSet = -1;
-
+      // console.log("sets: ", sets)
       sets.forEach((set, i) => {
-        if (g in set) gSet = i
-        if (b in set) bSet = i
+        // set
+        if (g in set) gSet = i;
+        if (b in set) bSet = i;
       });
+      // gSet
+      // bSet
       return { gSet, bSet };
     },
     union(gSet, bSet) {
@@ -42,9 +47,9 @@ function createSet() {
         if (i === gSet || i === bSet) return false;
         return true;
       });
-
       newSet = { ...oldG, ...oldB };
       sets.push(newSet);
+
     },
     updateAnswer() {
       return sets.reduce((acc, n) => {
@@ -63,8 +68,11 @@ function createSet() {
 
 function disjointSet(acc, input, i) {
   [g, b] = input.split(' ');
+  // g
+  // b
   let { gSet, bSet } = acc.setActions.getSets(g, b);
-
+  // gSet
+  // bSet
   if (gSet > -1) {
     // both g & b are already assigned to a set
     if (bSet > -1) {
@@ -73,9 +81,9 @@ function disjointSet(acc, input, i) {
       // else // do nothing, its a repeat (probably will never happen.)
     } else {
       // add B to universal set.
-      acc.setActions.addToSet(bSet, null);
+      acc.setActions.addToSet(b, null);
       // add B to G (the parent of B).
-      acc.setActions.addToSet(bSet, gSet);
+      acc.setActions.addToSet(b, gSet);
     }
   } else if (gSet === -1) {
     // g is not in the universal set.
@@ -87,9 +95,10 @@ function disjointSet(acc, input, i) {
       // create a new set with g & b.
       acc.setActions.createSet(g, b);
     } else {
+      acc.setActions.addToSet(g, null);
       // g is not in the u set, but be is.
       // so add g to b.
-      acc.setActions.addToSet(g, b);
+      acc.setActions.addToSet(g, bSet);
     }
   }
   let result = acc.setActions.updateAnswer();
@@ -99,10 +108,10 @@ function disjointSet(acc, input, i) {
 
 // look to see if g and b are already in a set.
 
-processData(
-`5
-1 6
-2 7
-3 8
-4 9
-2 6`);
+fs.readFile(
+  '/Users/BICKLEY/code/computerScience/algorithms/hacker-rank/disjoint-sets/components-in-graph/inputs_1000.txt',
+  'utf8', (err, data) => {
+  data = data.split('\n');
+  let answer = processData(data.slice(1));
+  answer
+});
