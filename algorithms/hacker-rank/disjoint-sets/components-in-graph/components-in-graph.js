@@ -1,5 +1,10 @@
 const processData = (input) => {
-  input.split('\n').slice(1).reduce(disjointSet, { setActions: createSet() });
+  let result = input.split('\n').slice(1).reduce(disjointSet, {
+    setActions: createSet(),
+    largest: {},
+    smallest: {},
+  });
+  return result;
 };
 
 function createSet() {
@@ -8,11 +13,13 @@ function createSet() {
 
   return ({
     createSet(a, b) {
-      sets.push({ [a]: true, [b]: true });
+      let newSet = { [a]: true, [b]: true };
+      sets.push(newSet);
     },
     addToSet(child, parent) {
-      if (parent === null) u[child] = true;
-      else {
+      if (parent === null) {
+        u[child] = true;
+      } else if (parent) {
         // locate parent set in sets | "parent" = index of the set.
         sets[parent][child] = true;
       }
@@ -26,6 +33,19 @@ function createSet() {
       });
       return { gSet, bSet };
     },
+    union(gSet, bSet) {
+      let oldG = sets[gSet],
+        oldB = sets[bSet],
+        newSet = {};
+
+      sets.filter((n, i) => {
+        if (i === gSet || i === bSet) return false;
+        return true;
+      });
+
+      newSet = { ...oldG, oldB };
+      sets.push(newSet);
+    },
   });
 }
 
@@ -37,30 +57,31 @@ function disjointSet(acc, input, i) {
     // both g & b are already assigned to a set
     if (bSet) {
       // if their sets are not the same, perform union.
-      if (gSet !== bSet) setActions.union(gSet, bSet);
+      if (gSet !== bSet) acc.setActions.union(gSet, bSet);
       // else // do nothing, its a repeat (probably will never happen.)
     } else {
       // add B to universal set.
-      setActions.addToSet(bSet, null);
+      acc.setActions.addToSet(bSet, null);
       // add B to G (the parent of B).
-      setActions.addToSet(bSet, gSet);
+      acc.setActions.addToSet(bSet, gSet);
     }
   } else {
     // g is not in the universal set.
-    setActions.addToSet(g, null);
+    acc.setActions.addToSet(g, null);
     // g does not already have a set.
     if (!bSet) {
-      // b also does not already have a set.
-
-      // a & b are not in the universal set already so add them.
-      setActions.addToSet(b, null);
-      setActions.createSet(g, b);
+      // b is not in the universal set.
+      acc.setActions.addToSet(b, null);
+      // create a new set with g & b.
+      acc.setActions.createSet(g, b);
     } else {
       // g is not in the u set, but be is.
       // so add g to b.
-      setActions.addToSet(g, b);
+      acc.setActions.addToSet(g, b);
     }
   }
+  acc.setActions.updateAnswer();
+  return acc;
 }
 
 // look to see if g and b are already in a set.
