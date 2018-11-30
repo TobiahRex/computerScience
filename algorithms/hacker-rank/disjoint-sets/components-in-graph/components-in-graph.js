@@ -46,6 +46,18 @@ function createSet() {
       newSet = { ...oldG, oldB };
       sets.push(newSet);
     },
+    updateAnswer() {
+      return sets.reduce((acc, n) => {
+        let length = Object.keys.length;
+        if (length > acc.largest) {
+          acc.largest = length;
+        }
+        if (length < acc.smallest) {
+          acc.smallest = length;
+        };
+        return acc;
+      }, { largest: 0, smallest: Infinity });
+    }
   });
 }
 
