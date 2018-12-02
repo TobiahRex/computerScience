@@ -5,7 +5,7 @@
 })();
 
 function quickSort(arr, lo = 0, hi = arr.length - 1) {
-  if (lo > hi || lo === hi) return;
+  if (lo >= hi) return;
 
   let p = partition(arr, lo, hi);
   quickSort(arr, lo, p - 1);

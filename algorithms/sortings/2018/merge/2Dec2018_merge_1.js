@@ -12,20 +12,15 @@ function mergeSort(arr, lo = 0, hi = arr.length - 1) {
 
   let leftArray = arr.slice(0, mid);
   let rightArray = arr.slice(mid);
-  leftArray
-  rightArray
 
   let leftSorted = mergeSort(leftArray, lo, mid);
   let rightSorted = mergeSort(rightArray, mid + 1, hi);
-  rightSorted
 
   return merge(leftSorted, rightSorted);
 }
 
 
 function merge(arr1, arr2) {
-  arr1
-  arr2
   let result = [];
 
   let i = 0, j = 0, k = 0;
@@ -38,6 +33,5 @@ function merge(arr1, arr2) {
   }
   for (; i < arr1.length; i++) result[k++] = arr1[i];
   for (; j < arr2.length; j++) result[k++] = arr2[j];
-  console.log(result)
   return result;
 }
