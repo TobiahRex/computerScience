@@ -13,4 +13,19 @@ function mergeSort(arr, lo, hi) {
 
   let leftSorted = mergeSort(leftArray, lo, mid),
     rightSorted = mergeSort(rightArray, mid + 1, hi);
+
+  return merge(leftSorted, rightSorted);
+}
+
+function merge(left, right) {
+  let result = [],
+    i = 0,
+    j = 0,
+    k = 0;
+
+  while(i < left.length && j < right.length) {
+    if (left[i] < right[j]) result[k++] = left[i++];
+    else result[k++] = right[j++];
+  }
+  for(; i < left.length; i++) result[k++] = left[i];
 }
