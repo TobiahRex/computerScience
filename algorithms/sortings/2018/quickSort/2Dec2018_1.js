@@ -9,21 +9,19 @@ function quickSort(arr, lo = 0, hi = arr.length - 1) {
 
   let p = partition(arr, lo, hi);
   quickSort(arr, lo, p - 1);
-  quickSort(arr, p, hi);
+  quickSort(arr, p + 1, hi);
 }
 
 function partition(arr, lo, hi) {
   let iNext = lo,
-    iPartition = hi,
-    sort = true;
+    iPartition = hi;
 
-  while(sort) {
+  while(iNext < iPartition) {
     if (arr[iNext] > arr[iPartition]) {
       swap(arr, iNext, iPartition - 1);
       swap(arr, iPartition - 1, iPartition);
       iPartition--;
-    } else if (iNext === iPartition) sort = false;
-    else iNext++
+    } else iNext++
   }
   return iPartition;
 }
