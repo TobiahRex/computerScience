@@ -1,4 +1,13 @@
-import DisjointSetItem from './disjointSetItem';
+class DisjointSetItem {
+  constructor(value, keyCallback) {
+    keyCallback = keyCallback;
+    value = value;
+    parent = null;
+    child = {};
+  }
+
+  
+}
 
 class DisjointSet {
   constructor(keyCallback) {

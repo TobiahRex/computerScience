@@ -12,5 +12,5 @@ const maxSubArraySum = (arr = [1, 2, 5, 2, 8, 1, 5], length = 4) => {
   return sum;
 }
 
-// console.log(maxSubArraySum());
-console.log(maxSubArraySum([2, 3, 4, 3, 0], 2));
+console.log(maxSubArraySum());
+// console.log(maxSubArraySum([2, 3, 4, 3, 0], 2));

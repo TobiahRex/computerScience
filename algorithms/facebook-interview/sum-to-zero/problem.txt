@@ -1,0 +1,87 @@
+Question: Determine if any 3 integers in an array sum to 0.
+
+Note: The following solutions assumes that repetitions
+(i.e. choosing the same array element more than once)
+are *allowed*, so the array [-5,1,10] contains a zero sum
+(-5-5+10) and so does [0] (0+0+0).
+
+[4, 2, -1, 1, -5, 6, -4] = True
+
+---------------- PSUEDO CODE ----------------
+any 3 implies N choose 3 problem.
+but, with repetitions allowed, this means,
+we have to check for combinations as well.
+combinations is actually pretty simple, since a number, times 3, will never be 0,
+unless that number is 0 itself.
+
+therefore, we just use a standard partition problem.
+for each n, look for the combination in memory first.
+
+if not found, then sequence through  tree of combinations.
+
+
+1) 4 0 0
+2) 4 4 0
+3) 4 4 4 // no so it will become zero
+
+1) 4 + 2 2
+2) 4 4 + 2
+3) 2 2 2 // no so it will become zero
+
+
+
+
+
+j = 0
+4 |
+
+j = 1
+6 | 4 + 2
+2 | 2
+
+j = 2   // j has finished a complete loop.
+5 | 4 + 2 + -1  // sums[j] ===  0 ? YES - Stop program : Set to 0 and continue.
+1 | 2 - 1
+-1| -1
+
+j = 0
+1 | + 1
+0 | 2 - 1 + 1
+0 | -1 + 1
+
+
+
+5  | 4 + 2 - 1   // once it reaches 3 digits, remove it from options.
+1  | 2 - 1
+-1 | -1
+
+add (1)
+0  | 2 - 1 + 1   // save ANSWER (return true);
+-1 | -1 + 1
+1  | 1
+
+add (-5)
+-5  | -1 + 1 - 5  // pop off the array
+4   | 1 - 5
+5   | -5
+
+add (6)
+4   | 1 - 5 + 6  // 10, pop off the array.
+5   | -5 + 6
+6   | 6 // 0th value is over-written
+
+add (-4)
+1   | -5 + 6 - 4
+2   | 6 - 4
+-4  | -4
+
+STEPS:
+create two counters.
+1 counter (i) to track each element in N.
+iterates the an array of 3 values.
+for the j'th value, check to see if it's 0. if not, erase it.
+
+Add n[i] to each of 3 values.
+- check to see if the value with 3 elements added to it is 0
+  YES | finished.
+  NO  | Reset that value to 0.
