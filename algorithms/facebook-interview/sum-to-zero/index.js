@@ -26,8 +26,10 @@ const main = (seq) => {
           answer = true;
           break;
         }
-        memo[left] = true;
-        memo[right] = true;
+        memo[(left * -1)] = true;
+        memo[(left * 2) * -1] = true;
+        memo[(right * -1)] = true;
+        memo[(right * 2) * -1] = true;
         if (sum < 0) left += 1;
         if (sum > 0) right -= 1;
       }
