@@ -1,31 +1,43 @@
 (() => {
-  let arr = [3,5,8,1,9,7,6,0,2,4];
-  mergeSort(arr);
+  let arr = [3,5,8,1];
+  // let arr = [3,5,8,1,9,7,6,0,2,4];
+  arr = mergeSort(arr);
   console.log(arr);
 })();
 
+function mergeSort(arr, lo = 0, hi = arr.length - 1) {
+  if (arr.length <= 1) return arr;
 
-function mergeSort(arr, lo, hi) {
+  let mid = Math.floor(arr.length / 2);
 
+  let leftArray = arr.slice(0, mid);
+  let rightArray = arr.slice(mid);
+  leftArray
+  rightArray
+
+  let leftSorted = mergeSort(leftArray, lo, mid);
+  let rightSorted = mergeSort(rightArray, mid + 1, hi);
+  rightSorted
+
+  return merge(leftSorted, rightSorted);
 }
 
 
-function merge(arr, lo, mid, hi) {
-  let arr1 = arr.slice(0, mid + 1);
-  let arr2 = arr.slice(mid);
+function merge(arr1, arr2) {
+  arr1
+  arr2
   let result = [];
 
   let i = 0, j = 0, k = 0;
-  while(arr1[i] && arr[j]) {
-    if (arr[i] < arr[j]) {
-      result[k] = arr[i];
-      i += 1;
+  while((i < arr1.length) && (j < arr2.length)) {
+    if (arr1[i] < arr2[j]) {
+      result[k++] = arr1[i++];
     } else {
-      result[k] = arr[j];
-      j += 1;
+      result[k++] = arr2[j++];
     }
-    k += 1;
   }
-  for (; i < arr1.length; i++) result[i] = arr1[i];
-  for (; j < arr1.length; j++) result[j] = arr1[j];
+  for (; i < arr1.length; i++) result[k++] = arr1[i];
+  for (; j < arr2.length; j++) result[k++] = arr2[j];
+  console.log(result)
+  return result;
 }
