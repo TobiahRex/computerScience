@@ -8,8 +8,8 @@ function quickSort(arr, lo = 0, hi = arr.length - 1) {
   if (lo > hi || lo === hi) return;
 
   let p = partition(arr, lo, hi);
-  quickSort(arr, lo, p);
-  quickSort(arr, p + 1, hi);
+  quickSort(arr, lo, p - 1);
+  quickSort(arr, p, hi);
 }
 
 function partition(arr, lo, hi) {
@@ -19,8 +19,8 @@ function partition(arr, lo, hi) {
 
   while(sort) {
     if (arr[iNext] > arr[iPartition]) {
-      swap(arr, iNext, iPartition);
-      swap(arr, iPartition, iPartition + 1);
+      swap(arr, iNext, iPartition - 1);
+      swap(arr, iPartition - 1, iPartition);
       iPartition--;
     } else if (iNext === iPartition) sort = false;
     else iNext++
