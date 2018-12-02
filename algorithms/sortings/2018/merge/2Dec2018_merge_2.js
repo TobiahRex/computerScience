@@ -28,4 +28,6 @@ function merge(left, right) {
     else result[k++] = right[j++];
   }
   for(; i < left.length; i++) result[k++] = left[i];
+  for(; j < right.length; j++) result[k++] = right[j];
+  return result;
 }
