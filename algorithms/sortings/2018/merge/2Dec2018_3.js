@@ -1,3 +1,4 @@
+let BigOh = 0;
 (() => {
   let arr = [20,14,18,15,11,17,16,12,13,19,3,5,8,1,9,7,6,0,2,4];
   arr = mergeSort(arr);
@@ -5,6 +6,7 @@
 })();
 
 function mergeSort(arr, lo, hi) {
+  BigOh += 1;
   if (arr.length <= 1) return arr;
 
   let mid = Math.floor(arr.length / 2),
@@ -31,3 +33,4 @@ function merge(left, right) {
   for(; j < right.length; j++) result[k++] = right[j];
   return result;
 }
+BigOh
