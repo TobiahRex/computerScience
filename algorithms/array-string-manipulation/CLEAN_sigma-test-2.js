@@ -19,6 +19,8 @@ console.log(' '.charCodeAt(0));
 
 (() => {
   let arr = [
+    '(+90.0, -147.45)',
+    // '(75, 180)',
     // '(90, 180)',
     // '(+90, +180)',
     // '(+90.00, 180)',
@@ -41,18 +43,12 @@ console.log(' '.charCodeAt(0));
 function parse(coordinates) {
   let results = [];
   coordinates.forEach((str) => {
-    let x = str.split('*');
-
-
     let rule1 = str.split(''),
-    rule3 = str.split(', '), // There is no space between the comma and the last character of X.
-    rule4 = str.split(',');  // There is one space between the comma and the first character of Y.
-    rule3
-    x = str.slice(1, str.indexOf(','));
-    // verify x is clean of any other characters but + and .
-    x
+    rule2 = str.split(', '),
+    rule3 = str.split(','),
+    x = str.slice(1, str.indexOf(',')),
     y = str.slice(str.indexOf(',') + 2, str.length - 1);
-    y
+
     let checkCleanNum = (answer, char) => {
       char
       let ascii = char.charCodeAt(0);
@@ -62,14 +58,10 @@ function parse(coordinates) {
       if (ascii > 57) answer = false;
 
       return answer;
-    };
-    let cleanX = x.split('').reduce(checkCleanNum, true);
-    let cleanY = y.split('').reduce(checkCleanNum, true);
-    // cleanX
-    // cleanY
-    // Parses
-      // parses  only valid X and Y characters.
-    let verifiedNums = rule3.map((numChunk) => {
+    },
+    cleanX = x.split('').reduce(checkCleanNum, true),
+    cleanY = y.split('').reduce(checkCleanNum, true),
+    verifiedNums = rule2.map((numChunk) => {
       let num = '';
       for(let i = 0; i < numChunk.length; i++) {
         if (57 >= numChunk.charCodeAt(i) && numChunk.charCodeAt(i) >= 48) num += numChunk[i];
@@ -77,9 +69,6 @@ function parse(coordinates) {
       }
       return num;
     })
-    // Verifies
-      // 1) range of X & Y numbers is correct.
-      // 2) decimals in numbers is correct if existent.
     .reduce((acc, num, i) => {
       num
       if (Number(num[0]) === 0) acc = false;
@@ -95,30 +84,30 @@ function parse(coordinates) {
 
       if (num.includes('.')) {
         let decimal = num.split('.');
-        if(!(decimal[1].length >= 2)) acc = false;
+        if(!(decimal[1].length >= 1)) acc = false;
       }
       return acc;
     }, true);
 
     if (
-      rule1.length > 1 &&
-      rule1[0] === '(' &&      // rule 1.1
-      rule1[str.length - 1] === ')' && // rule 1.3
-      rule1[str.length - 2] !== ' ' && // rule 5
-      str[1] !== ' ' &&     // rule 2
-      rule3.length > 1 &&
-      Number(rule3[0][rule3[0].length - 1]) < Infinity &&
-      rule4.length > 1 &&
-      rule4[1][0] === ' ' &&
-      verifiedNums &&
       cleanX &&
-      cleanY
+      cleanY &&
+      verifiedNums &&
+      str[1] !== ' ' &&
+      rule1[0] === '(' &&
+      rule2.length > 1 &&
+      rule3.length > 1 &&
+      rule1.length > 1 &&
+      rule3[1][0] === ' ' &&
+      rule1[str.length - 1] === ')' &&
+      rule1[str.length - 2] !== ' ' &&
+      Number(rule2[0][rule2[0].length - 1]) < Infinity
     ) {
       results.push('Valid');
     } else {
       results.push('Invalid');
     }
-    results;
   });
+  console.log(results.join('\n'));
   return results;
 }
