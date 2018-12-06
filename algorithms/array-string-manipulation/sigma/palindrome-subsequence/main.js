@@ -1,5 +1,8 @@
 (() => {
-  let string = 'bobybob';
+  let string =
+    'tobybobtoby'
+    // 'axbawbaseksqke'
+    // 'acdapmpomp'
   console.log(getScore(string));
 })();
 
@@ -10,11 +13,9 @@ function getScore(str) {
     matrix[i] = new Array(len).fill(0);
     matrix[i][i] = 1;
   }
-  matrix
   // create a sliding-window
   // dynamically grow the size of the window
   for (let sWindow = 2; sWindow <= len; sWindow++) {
-    sWindow
     // for each sWindow,
     // compare the left and right-bound values of the sWindow
     for (let i = 0, j = 0; i < (len - sWindow + 1); i++) {  // +1 due to the right-bound of the sWindow
@@ -29,5 +30,27 @@ function getScore(str) {
       }
     }
   }
-  return matrix[0][len - 1]; // return the right-most matrix value since it is the largest count.
+  // return (matrix[0][len - 1] * matrix[0][len - 2]);
+  let finalProduct = 0;
+  for (let i = 0; i < str.length - 1; i++) {
+    let currentProduct = matrix[0][i] * matrix[i + 1][str.length - 1];
+    currentProduct
+    if (currentProduct > finalProduct) {
+      finalProduct = currentProduct;
+    }
+  }
+  return finalProduct;
+}
+
+function answer(str) {
+  let finalProduct = -1;
+  let matrix = palindromicSubsequence(str);
+  console.log(matrix);
+  for (let i = 0; i < str.length - 1; i++) {
+    let currentProduct = matrix[0][i] * matrix[i + 1][str.length - 1];
+    if (currentProduct > finalProduct) {
+      finalProduct = currentProduct;
+    }
+  }
+  return finalProduct;
 }
