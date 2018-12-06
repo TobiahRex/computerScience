@@ -18,11 +18,26 @@
   },
 }
 
-[3];
+let maxStack = [];
 
 function equalizeArray(arr) {
-  let stack = [];
+  let memo = {};
   for (let i = 0; i < arr.length; i++) {
-
+    if (arr[i] in memo) {
+      memo[arr[i]].count += 1;
+      memo[arr[i]].index.push(i);
+      if (memo[arr[i]].count >= maxStack) {
+        maxStack.push(arr[i]);
+      }
+    } else {
+      memo[arra[i]] = {
+        count: 1,
+        index: [i]
+      };
+    }
   }
+  let saveLength = 0;
+  maxStack.forEach((val) => {
+    saveLength += memo[]
+  })
 }
