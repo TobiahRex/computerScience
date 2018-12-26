@@ -38,24 +38,24 @@ function queensAttack(input) {
   // calculate diagonal squares.
     // if the board is EVEN, then the middle is a edge-point.
   let totalDiagonal = 0,
+    finalDiagonal = 0,
     riseChange = 0,
-    mid = 0;
+    mid = 0,
+    trueDistranceFromCenter = 0;
 
   if (board % 2 === 0) {
     totalDiagonal = ((board * 2) - 2) - 1;
-
-
+    mid = (board / 2);
   } else {
     mid = Math.ceil(board / 2);
     totalDiagonal += ((board * 2) - 1) - 1;
-    riseChange = Math.abs(mid - queen[0]);
-
-    while(riseChange > 0) {
-      totalDiagonal -= 2;
-      riseChange -= 1;
-    }
   }
 
+  trueDistranceFromCenter = Math.max(Math.abs(mid - queen[0]), Math.abs(mid - queen[2]));
+  while(trueDistranceFromCenter > 0) {
+    totalDiagonal -= 2;
+    trueDistranceFromCenter -= 1;
+  }
   answer += totalDiagonal;
 
   obstructions.forEach((obs) => {
