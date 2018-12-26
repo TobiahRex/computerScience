@@ -1,0 +1,92 @@
+// Problem location : https://www.hackerrank.com/challenges/queens-attack-2/problem
+(() => {
+  let input = [
+    '5 3',
+    '4 3',
+    '5 5',
+    '4 2',
+    '2 3'
+  ];
+
+  let result = queensAttack(input);
+  console.log(result); // Expected = 10
+})();
+
+function queensAttack(input) {
+  let answer = 0;
+  let board = input[0][0];
+  let queen = input[1];
+  let obstructions = input.slice(2);
+
+  // NOTE Edge cases?
+
+
+  // NOTE Control Flow:
+  // calculate vertical and horizontal squares.
+  // vertical is board size, minus 1.
+    let verticalSpaces = board - 1;
+    // horizontal is board size, minus 1.
+    let horizontalSpaces = board - 1;
+    answer += verticalSpaces;
+    answer += horizontalSpaces;
+
+  // calculate diagonal squares.
+    // if the board is EVEN, then the middle is a edge-point.
+  if (board % 2 === 0) {
+    answer += ((board * 2) - 2) - 1;
+  } else {
+    answer += ((board * 2) - 1) - 1;
+  }
+
+  obstructions.forEach((obs) => {
+    if (obs[0] === queen[0]) {
+      if (obs[2] > queen[2]) {
+        answer -= ((board - obs[2]) - 1);
+      } else {
+        answer -= ((queen[2]) - obs[2]);
+      }
+    } else if (obs[2] === queen[2]) {
+      if (obs[0] > queen[0]) {
+        answer -= ((board - obs[0]) - 1);
+      } else {
+        answer -= ((queen[0] - obs[0]));
+      }
+    }
+  });
+    // if the board is ODD, then the middle is an actual sqare.
+      // e.g. 3 x 3
+
+}
+
+/*
+  * * *
+  * * *
+  * * *   diagonal = 4 total.
+
+  * * q  diagonal = 4 - 2 (1 shift up)
+  * * *
+  * * *
+
+  * * * * 5
+  * * * 7 *
+  * * 9 * *
+  * * * * *
+  * * * * *
+
+
+  EVEN = total diagonal - 2.
+  ODD = total diagonal - 1;
+
+  * * * 4  diagonal = 8 total
+  * * 6 *  from anywhere in the inner-most square, there's 6 total diagonal squares - not including the queens square
+  * * * *
+  * * * *
+
+  * * * * * 6
+  * * * * 8 *
+  * * * 10 * *
+  * * * * * *
+  * * * * * *
+  * * * * * *
+
+*/
