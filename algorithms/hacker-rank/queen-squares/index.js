@@ -1,8 +1,8 @@
 // Problem location : https://www.hackerrank.com/challenges/queens-attack-2/problem
 (() => {
   let input = [
-    '8 3',
-    '6 7',
+    '5 3',
+    '4 3',
     '5 5',
     '4 2',
     '2 3'
@@ -46,22 +46,22 @@ function queensAttack(input) {
   if (board % 2 === 0) {
     totalDiagonal = ((board * 2) - 2) - 1;
     mid = (board / 2);
+    trueDistanceFromCenter = Math.max(Math.abs(mid - queen[0]), Math.abs(mid - queen[2])) - 1;
   } else {
     mid = Math.ceil(board / 2);
     totalDiagonal += ((board * 2) - 1) - 1;
+    trueDistanceFromCenter = Math.max(Math.abs(mid - queen[0]), Math.abs(mid - queen[2]));
   }
-  totalDiagonal
+  // totalDiagonal
 
-  trueDistanceFromCenter = Math.max(Math.abs(mid - queen[0]), Math.abs(mid - queen[2])) - 1;
-
+  trueDistanceFromCenter
   while(trueDistanceFromCenter > 0) {
     totalDiagonal -= 2;
-    totalDiagonal
     trueDistanceFromCenter -= 1;
   }
 
   answer += totalDiagonal;
-
+  // answer
   obstructions.forEach((obs) => {
     if (obs[0] === queen[0]) {
       if (obs[2] > queen[2]) {
