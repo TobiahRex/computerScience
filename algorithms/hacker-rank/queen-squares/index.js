@@ -16,8 +16,11 @@ function queensAttack(input) {
   let answer = 0;
   let board = input[0][0];
   let queen = input[1];
-  let obstructions = input.slice(2);
 
+  let obstructions = input.slice(2);
+  board
+  queen
+  obstructions
   // NOTE Edge cases?
 
 
@@ -30,13 +33,30 @@ function queensAttack(input) {
     answer += verticalSpaces;
     answer += horizontalSpaces;
 
+                                                                // EXPECTED:  board = 4, answer = 8
+
   // calculate diagonal squares.
     // if the board is EVEN, then the middle is a edge-point.
+  let totalDiagonal = 0,
+    riseChange = 0,
+    mid = 0;
+
   if (board % 2 === 0) {
-    answer += ((board * 2) - 2) - 1;
+    totalDiagonal = ((board * 2) - 2) - 1;
+
+
   } else {
-    answer += ((board * 2) - 1) - 1;
+    mid = Math.ceil(board / 2);
+    totalDiagonal += ((board * 2) - 1) - 1;
+    riseChange = Math.abs(mid - queen[0]);
+
+    while(riseChange > 0) {
+      totalDiagonal -= 2;
+      riseChange -= 1;
+    }
   }
+
+  answer += totalDiagonal;
 
   obstructions.forEach((obs) => {
     if (obs[0] === queen[0]) {
@@ -53,6 +73,7 @@ function queensAttack(input) {
       }
     }
   });
+  return answer;
     // if the board is ODD, then the middle is an actual sqare.
       // e.g. 3 x 3
 
