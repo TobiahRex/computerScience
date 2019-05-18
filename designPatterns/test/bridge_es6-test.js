@@ -21,3 +21,7 @@ describe('bridge es6 tests', () => {
     expect(result).to.equal("Printer: HP, Ink: acrylic-based");
   });
 });
+
+/*
+https://sourcemaking.com/design_patterns/bridge
+*/

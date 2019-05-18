@@ -1,3 +1,7 @@
+# More Info:
+- [Definitions](https://sourcemaking.com/design_patterns)
+- [MinMap](https://www.mindmeister.com/1268963101)
+
 ## Design Patterns JS [![Coverage Status](https://coveralls.io/repos/github/FelipeBB/Design-Patterns-JS/badge.svg?branch=master)](https://coveralls.io/github/FelipeBB/Design-Patterns-JS?branch=master)
 
 Here you will find the 23 (GoF) design patterns implemented in JavaScript using both prototype and ES6 classes. You can use the [**docs.md**](docs.md) to quicky overview the examples.
