@@ -4,7 +4,10 @@
 })();
 
 function maxProfit(p) {
-  let profits = [], currentMin = Infinity, currentProfit = 0;
+  let profits = [],
+    currentMin = Infinity,
+    currentProfit = 0;
+
   for (let i = 0; i < p.length; i++) {
     if (p[i] < currentMin) {
       currentMin = p[i];

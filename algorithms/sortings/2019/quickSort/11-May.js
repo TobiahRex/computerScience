@@ -16,7 +16,7 @@ function partition(arr, lo, hi) {
   let iNext = lo, iPartition = hi;
 
   while(iNext < iPartition) {
-    if(arr[iNext] > arr[iPartition]) {
+    if(arr[iNext] < arr[iPartition]) {
       swap(arr, iNext, iPartition - 1);
       swap(arr, iPartition - 1, iPartition);
       iPartition--;
