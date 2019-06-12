@@ -35,7 +35,7 @@ function getAnswer({ str, pattern }) {
     // keep the window the size of the pattern.
     if (str[end] in map) { // if the next additional character is part of the pattern...
       map[str[end]] -= 1; // decrease the number of characters we need to match.
-      match += 1; // increase the number of character we have match.
+      if (map[str[end]] === 0) match += 1; // increase the number of character we have match.
     }
 
     if (end - start + 1 === pattern.length) {
@@ -43,15 +43,15 @@ function getAnswer({ str, pattern }) {
         // the current letter is not in the pattern, which means that we're about to add a character to our window,
         // but this also means that our window will be too large to be the exact size of the pattern.
         // so we shrink the window
-       if (match === pattern.length) { // if the match is exactly equal to the pattern length, we know we have a match
+       if (match === Object.keys(map).length) { // if the match is exactly equal to the pattern length, we know we have a match
          answer = true;
          shouldBreak = true
        }
 
        const leftChar = str[start++];
        if (leftChar in map) {
+         if (map[leftChar] === 0) match -= 1;
          map[leftChar] += 1;
-         match -= 1;
        }
     }
     if (shouldBreak) break;
