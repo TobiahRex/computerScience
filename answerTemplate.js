@@ -7,7 +7,7 @@
   console.log('answers: ', answers);
 })();
 
-function getAnwswer(input) {
+function getAnswer(input) {
   // TODO
   return -1;
 }

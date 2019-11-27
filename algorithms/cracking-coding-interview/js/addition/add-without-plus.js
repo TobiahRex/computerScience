@@ -1,5 +1,3 @@
-
-
 const binaryAddition = (a, b) => {
   if (b === 0) return a;
   let sum = a ^ b,                    // 2, 8, 12

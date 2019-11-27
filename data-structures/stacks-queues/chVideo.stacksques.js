@@ -87,9 +87,9 @@ class DoublyLinkedList{
     // we check for 3 valid nodes, because we need to create two runners.
     let slowRunner = this.head;
     let fastRunner = this.head.next.next;
-    
+
     while (slowRunner !== fastRunner) {
-      if (!hare.next || !hare.next.next) return false; // end of list
+      if (!slowRunner.next || !fastRunner.next.next) return false; // end of list
 
       slowRunner = slowerRunner.next;
       fastRunner = fastRunner.next.next;

@@ -31,7 +31,7 @@ LinkedList.prototype.insert = (data) => {
   this._length += 1;
 }
 
-LinkeList.prototype.search = (index) => {
+LinkedList.prototype.search = (index) => {
   /*
     1. Check to make sure that the index value that is being searched,
     is within the bounds of the current list.

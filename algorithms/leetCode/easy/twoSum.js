@@ -33,7 +33,6 @@ function twoSum({ _nums, target }) {
       right = nums.length - 1,
       sum = nums[left] + nums[right];
 
-  nums
   while(sum !== target) {
     if (sum < target) left += 1;
     else if (sum > target) right -= 1;
@@ -44,11 +43,6 @@ function twoSum({ _nums, target }) {
   let idx1 = _nums.indexOf(nums[left]);
   _nums[idx1] = Infinity;
   let idx2 = _nums.indexOf(nums[right]);
-
-  nums[left] /*?*/
-  nums[right] /*?*/
-
-  nums
 
   return (idx1 > idx2 ? [idx2, idx1] : [idx1, idx2]);
 };
