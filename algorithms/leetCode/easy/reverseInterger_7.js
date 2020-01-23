@@ -40,33 +40,44 @@
 (() => {
   const answers = [
     {
-      input: 123,
+      x: 123,
       expect: 321,
     },
-    // {
-    //   input: -123,
-    //   expect: -321,
-    // },
-    // {
-    //   input: 120,
-    //   expect: 21,
-    // }
+    {
+      x: -123,
+      expect: -321,
+    },
+    {
+      x: 120,
+      expect: 21,
+    }
   ].map(getAnswer)
   console.log('answers: ', answers);
 })();
 
-function getAnswer(input) {
-  const num = 423
-  const results = []
-  const singles = Math.floor((num % 10) / 1)
-  results.unshift(singles)
-  const tens = Math.floor((num % 100) / 10)
-  results.unshift(tens)
-  const hundreds = Math.floor((num) % 1000 / 100)
-  results.unshift(hundreds)
-  return results.reduce((acc, next, i) => {
-    const multiplier = Math.pow(10, i);
-    const nextNum = next * multiplier;
-    return acc + nextNum;
-  }, 0);
+function getAnswer({ x }) {
+  const isNegative = x < 0;
+  const target = Math.abs(x);
+  const upperBound = Math.pow(2, 31);
+  const lowerBound = Math.pow(2, 31) - 1;
+
+  let sum = 0;
+  let mod = 10;
+  let divisor = 1;
+  for (let i = Math.ceil(Math.log10(target + 1)) - 1; i >= 0; i--) {
+    const digit = Math.floor(((target) % mod) / divisor);             // extract ith digit
+    const multiplier = Math.pow(10, i);                               // calc base 10 multipler for extracted digit
+    sum += digit * multiplier;                                        // scale digit by muliplier and add to total
+
+    if (isNegative && sum > upperBound || !isNegative && sum > lowerBound) {
+        sum = 0;
+        break;
+    }
+
+    // increment respective operators.
+    mod *= 10;
+    divisor *= 10;
+  }
+
+  return isNegative ? sum * -1 : sum; // return output
 }
