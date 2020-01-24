@@ -1,3 +1,9 @@
+/*
+  Problem Description:
+
+*/
+
+
 (() => {
   const answers = [
     {
@@ -11,8 +17,3 @@ function getAnswer(input) {
   // TODO
   return -1;
 }
-
-/*
-  Problem Description:
-
-*/
