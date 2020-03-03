@@ -16,8 +16,6 @@
 
   Accepted 472,651 |  Submissions 1,400,415
 */
-
-
 (() => {
   const answers = [
     {

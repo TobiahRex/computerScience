@@ -90,9 +90,3 @@ function pathSumII(tree, target, path = [], sums = []) {
   Accepted 274,656
   Submissions 634,927
 */
-
-
-/**
-  `Someone's Leet Code Solution:`
-
-*/
