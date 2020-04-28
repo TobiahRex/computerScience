@@ -1,4 +1,5 @@
 """
+189
 Given an array, rotate the array to the right by k steps, where k is non-negative.
 
 Example 1:
@@ -13,7 +14,7 @@ Example 2:
 
 Input: [-1,-100,3,99] and k = 2
 Output: [3,99,-1,-100]
-Explanation: 
+Explanation:
 rotate 1 steps to the right: [99,-1,-100,3]
 rotate 2 steps to the right: [3,99,-1,-100]
 Note:
@@ -23,10 +24,11 @@ Could you do it in-place with O(1) extra space?
 """
 
 class Solution:
-    def rotate(self, nums, k):
-        last_k = nums[-k:]
-        front_k = nums[0:len(nums) - k]
-        return last_k + front_k
+    def rotate(self, nums: list, k):
+        while(k > 0):
+            k -= 1
+            nums.insert(0, nums.pop())
+        print(nums)
 
 if __name__ == '__main__':
     cases = [

@@ -17,4 +17,4 @@ function printDupes(string) {
   .map((key) => dictionary[key] > 1 ? key : '')
   .join('');
 }
-console.log(printDupes('mississippi'));
+console.log("printDupes: ", printDupes('mississippi'));

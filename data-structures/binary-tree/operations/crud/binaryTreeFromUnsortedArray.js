@@ -19,12 +19,14 @@ function generateTree(array) {
   return newNode;
 }
 
-// const nodes = [7, 8, 9, 10, 11, 12, 13].sort((a, b) => a - b);
-const nodes = [8, 4, 2, 9, 6, 1, 3, 7, 0, 5].sort((a, b) => a - b);
-console.log(
-  JSON.stringify(
-    generateTree(nodes),
-    null,
-    2,
-  ),
-);
+// // const nodes = [7, 8, 9, 10, 11, 12, 13].sort((a, b) => a - b);
+// const nodes = [8, 4, 2, 9, 6, 1, 3, 7, 0, 5].sort((a, b) => a - b);
+// console.log(
+//   JSON.stringify(
+//     generateTree(nodes),
+//     null,
+//     2,
+//   ),
+// );
+
+module.exports = generateTree;
