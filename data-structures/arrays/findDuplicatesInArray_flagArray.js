@@ -1,5 +1,5 @@
 /**
-  @function findDuplicatesInArray_flagArr
+  @function findDuplicatesInArray_withMap
 
 */
 
