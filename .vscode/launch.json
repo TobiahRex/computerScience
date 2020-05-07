@@ -17,6 +17,22 @@
             "request": "launch",
             "program": "${file}",
             "console": "integratedTerminal"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Jest [JS]",
+            "program": "${workspaceFolder}/node_modules/.bin/jest",
+            "args": [
+                "${workspaceFolder}/**/${fileBasenameNoExtension}.js",
+                
+            ],
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "disableOptimisticBPs": true,
+            "windows": {
+                "program": "${workspaceFolder}/node_modules/jest/bin/jest",
+            }
         }
     ]
 }

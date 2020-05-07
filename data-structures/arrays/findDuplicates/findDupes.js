@@ -10,12 +10,12 @@
     {
       A: [3,6,8,8,10,12,15,15,15,20],
     }
-  ].map(getAnswer);
+  ].map(findDupes);
   console.timeEnd('answer');
   console.log('answers: ', answers.join('\n'));
 })();
 
-function getAnswer({ A }) {
+function findDupes({ A }) {
   let dupes = [];
   let i = 1;
   while(i < A.length) {
@@ -28,3 +28,5 @@ function getAnswer({ A }) {
   }
   return dupes;
 }
+
+export default findDupes;
