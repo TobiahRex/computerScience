@@ -178,17 +178,17 @@ class SLL extends LL_Utils {
   }
 
   hasCycle() {
-    let [n, r] = [this.head, this.head.next];
-    while ([r, n].every(Boolean)) {
+    let [n, fast] = [this.head, this.head];
+    while(n && fast) {
       n = n.next;
-      if (r.next && r.next.next) {
-        r = r.next.next;
+      if (fast.next && fast.next.next) {
+        fast = fast.next.next;
       } else {
-        r = null;
+        fast = null;
       }
-      if (n === r) break;
+      if (n === fast) break;
     }
-    return n === r;
+    return n === fast;
   }
 
   isSorted() {
