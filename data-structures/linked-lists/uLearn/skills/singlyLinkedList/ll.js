@@ -100,18 +100,19 @@ class SLL extends LL_Utils {
     return found ? ix : -1;
   }
 
-  moveToHeadSearch_v2(node, data) {
-    let q = [this.head];
-    while(node !== null) {
-      if (node.data === data) {
-        q.next = p.next;
-        p.next = this.head;
-        this.head = p;
-        break;
+  moveToHeadSearch_v2(data) {
+    let [p, n] = [this.head];
+    while(n !== null) {
+      if (n.data === data) {
+        p.next = n.next;
+        n.next = this.head;
+        this.head = n;
+        return true;
       }
-      q = p;
-      p = p.next;
+      p = n;
+      n = n.next;
     }
+    return false;
   }
 
   insertIntoSorted(data) {
