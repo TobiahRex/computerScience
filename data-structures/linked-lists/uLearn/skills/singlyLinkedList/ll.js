@@ -75,6 +75,28 @@ class SLL extends LL_Utils {
     return found ? i : -1;
   }
 
+  transpositionSearchV3(target) {
+    if (target.data === this.head.data) return true;
+    if (target.data === this.head.next.data) {
+      let t = this.head.next.next;
+      this.head.next.next = this.head;
+      this.head.next = t;
+      return true;
+    }
+    let [pp, p, n] = [this.head, this.head.next, this.head.next.next];
+    while(n !== null && n.data !== target) {
+      pp = p;
+      p = n;
+      n = n.next;
+    }
+    if (!n) return false;
+    let t = n.next;
+    n.next = p;
+    pp.next = n;
+    p.next = t;
+    return true;
+  }
+
   moveToHeadSearch_v1(target) {
     let [p, n, ix, found] = [this.head, this.head, -1, true];
     while (n !== null) {
