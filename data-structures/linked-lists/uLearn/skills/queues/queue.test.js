@@ -1,6 +1,7 @@
 import Q from './queue.array';
 import Q_circular from './queue.array.circular';
 import Q_ll from './queue.ll';
+import DQ from './DEqueue.array';
 
 describe('[class: Q] as double pointer array', () => {
   test('should create Q with fixed & non-defined sizes', () => {
@@ -82,4 +83,42 @@ describe('[class: Q_ll', () => {
     expect(q.dequeue()).toEqual(4);
     expect(q.dequeue()).toEqual(-1);
   })
+});
+
+describe('[class: DQ]', () => {
+  test('should enqueue some data: DQ', () => {
+    let dq = new DQ();
+    dq.enqueue(1);
+    dq.enqueue(2);
+    dq.enqueue(3);
+    expect(dq.print()).toEqual('1,2,3');
+  });
+  test('should dequeue some data: DQ', () => {
+    let dq = new DQ();
+    dq.enqueue(1);
+    dq.enqueue(2);
+    dq.enqueue(3);
+    expect(dq.dequeue()).toBe(1);
+    expect(dq.dequeue()).toBe(2);
+    expect(dq.dequeue()).toBe(3);
+  });
+  test('should demonstrate DE-Queue', () => {
+    let dq = new DQ();
+    expect(dq.insertFront(1)).toBe(-1);
+
+    dq.insertRear(1);
+    dq.insertRear(2);
+    dq.insertRear(3);
+    expect(dq.print()).toEqual('1,2,3');
+    expect(dq.deleteFront()).toEqual(1);
+    expect(dq.print()).toEqual(',2,3');
+
+    dq.insertFront('4');
+    expect(dq.print()).toEqual('4,2,3');
+
+    dq.deleteFront();
+    dq.deleteFront();
+    dq.deleteRear();
+    expect(dq.front).toEqual(dq.rear);
+  });
 });
