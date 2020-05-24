@@ -31,7 +31,12 @@ function isOperand(n) {
   const code = n.charCodeAt(0);
   return 97 <= code && code <= 122;
 }
-
+/**
+ * @function oP
+ * gives priority for items out of the stack (lower priority)
+ * @param {string} operator
+ * @return {number}
+ */
 function oP(n) {
   if (['+', '-'].includes(n)) return 1
   if (['*', '/'].includes(n)) return 3
@@ -39,7 +44,12 @@ function oP(n) {
   if (n === '(') return 7;
   return 0
 }
-
+/**
+ * @function iP
+ * gives priority for items inside the stack (larger priority)
+ * @param {string} operator
+ * @return {number}
+ */
  function iP(n) {
   if (['+', '-'].includes(n)) return 2
   if (['*', '/'].includes(n)) return 4
