@@ -2,6 +2,7 @@ import Q from './queue.array';
 import Q_circular from './queue.array.circular';
 import Q_ll from './queue.ll';
 import DQ from './DEqueue.array';
+import Q_stacks from './queue.2-stacks';
 
 describe('[class: Q] as double pointer array', () => {
   test('should create Q with fixed & non-defined sizes', () => {
@@ -121,4 +122,22 @@ describe('[class: DQ]', () => {
     dq.deleteRear();
     expect(dq.front).toEqual(dq.rear);
   });
+});
+
+describe('[class: Queue using stacks]', () => {
+  test('should enqueue some data: Q-stacks', () => {
+    let q = new Q_stacks();
+    q.enqueue(1);
+    q.enqueue(2);
+    q.enqueue(3);
+    expect(q.dequeue()).toEqual(1);
+    expect(q.dequeue()).toEqual(2);
+    q.enqueue(4);
+    expect(q.dequeue()).toEqual(3);
+    q.enqueue(5);
+    expect(q.dequeue()).toEqual(4);
+    expect(q.dequeue()).toEqual(5);
+    expect(q.dequeue()).toEqual(-1);
+    expect(q.isEmpty()).toBe(true);
+  })
 });

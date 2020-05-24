@@ -27,7 +27,7 @@ class DAG_v2 extends DAG_v1  {
     return { times, parents };
   }
 
-  generateSolution(startId, endId, parents) {
+  genearteMultipleSolutions(startId, endId, parents) {
     let solutions = [];
     let solutionsToFind = 1;
 
@@ -83,7 +83,7 @@ class DAG_v2 extends DAG_v1  {
       });
     }
 
-    return this.generateSolution(startId, endId, parents);
+    return this.genearteMultipleSolutions(startId, endId, parents);
   }
 }
 
@@ -101,23 +101,23 @@ inside a matrix of numbers.
         [4,1,3],
       ]
     }
-  ].map(getAnswer)
+  ].map(buildTree)
   console.log('answers: ', answers);
 })();
 
-function getAnswer({ matrix }) {
+function buildTree({ matrix }) {
   const graph = new DAG_v2();
 
   const directions = [-1, 0, 1];
   for (let i = 0; i < directions.length; i++) {
     for (let j = 0; j < directions.length; j++) {
 
-      if (directions[i] === 1 && directions[j] === 0) { // rightward
+      if (directions[i] === 1 && directions[j] === 0) { // moving right
         let rows = 0;
-        while(rows < matrix.length) {
+        while(rows < matrix.length) { // iterate 3 times
           let columns = 0;
 
-          while(columns < matrix.length - 1) {
+          while(columns < matrix.length - 1) {  // only 2 columns because we're looking at the column to the left
             const currentValue = matrix[rows][columns];
             const rightValue = matrix[rows][columns + 1];
 
@@ -135,7 +135,7 @@ function getAnswer({ matrix }) {
       }
 
 
-      if (directions[i] === 0 && directions[j] === -1) { // downward
+      if (directions[i] === 0 && directions[j] === -1) { // moving down
         let rows = 0;
         while(rows < matrix.length - 1) {
           let columns = 0;

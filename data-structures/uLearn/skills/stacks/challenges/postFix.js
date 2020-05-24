@@ -1,5 +1,12 @@
 import Stack from '../stack.ll';
 
+/**
+ * @function postFix
+ * creates PostFix string in `O(n)` time, denoting the order of operations
+ * that should be conducted (in order) given a regualr math expression.
+ * @param {string} str
+ * @return {string} postFix definition of a mathematical equation.
+ */
 export default function postFix(str) {
   let [s, i, j, results] = [new Stack([]), 0, 0, []];
   while (i !== str.length) {
